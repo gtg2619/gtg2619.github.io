@@ -304,26 +304,26 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <p>I am learning blockchain security recently, I found this competition to try out on my own over the weekend. These questions were very educational (not hard) and I also learned something. But due to other local ctfs and a few things I didn&apos;t quite get into it.</p>
+                                <p>Because I am learning blockchain security recently, I found this competition to try out on my own over the weekend. These questions were very educational (not hard) and I also learned something. But due to other local ctfs and a few things I didn&apos;t quite get into it.</p>
 <h2 id="venue">Venue</h2>
-<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.13</span>;
 
 contract Venue{
     string private flag;
     string private message;
 
-    constructor(string memory initialFlag, string memory initialMessage){
+    <span class="hljs-keyword">constructor</span>(string memory initialFlag, string memory initialMessage){
         flag = initialFlag;
         message = initialMessage;
     }
 
-    function enterVenue() public view returns(string memory){
-        return flag;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">enterVenue</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span>(<span class="hljs-params">string memory</span>)</span>{
+        <span class="hljs-keyword">return</span> flag;
     }
 
-    function goBack() public view returns(string memory){
-        return message;
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">goBack</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span>(<span class="hljs-params">string memory</span>)</span>{
+        <span class="hljs-keyword">return</span> message;
     }
 }
 </code></pre>
@@ -434,10 +434,10 @@ Answer:
 </li>
 <li><p>If the free bytes in the previous slot are not enough to fill the current data, a new slot will be opened.</p>
 </li>
-<li>Each element of the array occupies a slot. </li>
+<li>Each element of the array occupies a independent slot. </li>
 <li>Variables declared with immutable are not stored in memory as constants. </li>
 </ul>
-<p>There are still some types and details not covered. But enough to address this challenge.</p>
+<p>There are still some types and details not covered. But enough to solve this challenge.</p>
 <pre><code class="lang-py"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
 <span class="hljs-keyword">import</span> re
 
@@ -544,7 +544,7 @@ Answer:
 
 <span class="hljs-comment"># TCP1P{W00t_w00t_t0_th3_p4rty_47JHbddc}</span>
 </code></pre>
-<p>I saw that the solutions in discord are all simulations. I&apos;m glad I learned more in it.</p>
+<p>I saw that the most solutions in discord are using use compiler to simulate. Glad I learned more in it.</p>
 <p><del>And maybe I should polish this script a little more so it can be used elsewhere</del></p>
 <h2 id="vip">VIP</h2>
 <pre><code class="lang-bash">Welcome to TCP1P Blockchain Challenge
@@ -643,7 +643,7 @@ transactionIndex        14
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"TCP1P CTF 2023 blockchain","level":"1.2","depth":1,"next":{"title":"Ethernaut","level":"1.3","depth":1,"anchor":"#231012","path":"Ethernaut.md","ref":"Ethernaut.md#231012","articles":[]},"previous":{"title":"About This Site","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"TCP1P CTF 2023 blockchain.md","mtime":"2023-10-16T16:36:23.480Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-16T16:41:18.143Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"TCP1P CTF 2023 blockchain","level":"1.2","depth":1,"next":{"title":"Ethernaut","level":"1.3","depth":1,"anchor":"#231012","path":"Ethernaut.md","ref":"Ethernaut.md#231012","articles":[]},"previous":{"title":"About This Site","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"TCP1P CTF 2023 blockchain.md","mtime":"2023-10-16T16:46:05.573Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-16T16:46:28.726Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
