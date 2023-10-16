@@ -1,0 +1,680 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>TCP1P CTF 2023 blockchain · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Ethernaut.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            <br />
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About This Site
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="TCP1P CTF 2023 blockchain.html">
+            
+                <a href="TCP1P CTF 2023 blockchain.html#231016">
+            
+                    
+                    TCP1P CTF 2023 blockchain
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="Ethernaut.html">
+            
+                <a href="Ethernaut.html#231012">
+            
+                    
+                    Ethernaut
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="羊城杯 2023 web writeup.html">
+            
+                <a href="羊城杯 2023 web writeup.html#20230903">
+            
+                    
+                    羊城杯 2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="webacademy XSS.html">
+            
+                <a href="webacademy XSS.html#20230829">
+            
+                    
+                    webacademy XSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="WMCTF 2023 web writeup.html">
+            
+                <a href="WMCTF 2023 web writeup.html#20230824">
+            
+                    
+                    WMCTF2023 web writeup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Racing and Smashing the state machine.html">
+            
+                <a href="Racing and Smashing the state machine.html#20230817">
+            
+                    
+                    Racing and Smashing the state machine
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="ioredis源码阅读.html">
+            
+                <a href="ioredis源码阅读.html#20230718">
+            
+                    
+                    ioredis源码阅读
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="Gandalf AI challenge.html">
+            
+                <a href="Gandalf AI challenge.html#20230707">
+            
+                    
+                    Gandalf AI challenge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="NSSCTF challenges.html">
+            
+                <a href="NSSCTF challenges.html#20230605">
+            
+                    
+                    NSSCTF challenges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="JS 的一些特性：原型链，作用域，闭包.html">
+            
+                <a href="JS 的一些特性：原型链，作用域，闭包.html#20230117">
+            
+                    
+                    JS 的一些特性：原型链，作用域，闭包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="CBCTF-0RAYS协会招新.html">
+            
+                <a href="CBCTF-0RAYS协会招新.html#20221212">
+            
+                    
+                    CBCTF-0RAYS协会招新
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="utils&memo.html">
+            
+                <a href="utils&memo.html#20230423">
+            
+                    
+                    utils&memo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="#" target="blank" class="gitbook-link">
+            <!-- Published with GitBook -->Powered By Gitbook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >TCP1P CTF 2023 blockchain</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p>I am learning blockchain security recently, I found this competition to try out on my own over the weekend. These questions were very educational (not hard) and I also learned something. But due to other local ctfs and a few things I didn&apos;t quite get into it.</p>
+<h2 id="venue">Venue</h2>
+<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract Venue{
+    string private flag;
+    string private message;
+
+    constructor(string memory initialFlag, string memory initialMessage){
+        flag = initialFlag;
+        message = initialMessage;
+    }
+
+    function enterVenue() public view returns(string memory){
+        return flag;
+    }
+
+    function goBack() public view returns(string memory){
+        return message;
+    }
+}
+</code></pre>
+<p>Very concise code. This can be solved by simply calling enterVenue.</p>
+<p>The following solving used the <code>web3.py</code> and ABI compiled by Remix.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> web3 <span class="hljs-keyword">import</span> Web3
+
+<span class="hljs-comment"># Instantiate the web3 object and specify the HTTP provider</span>
+w3 = Web3(Web3.HTTPProvider(<span class="hljs-string">&apos;https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8&apos;</span>))
+
+<span class="hljs-comment"># print(w3.eth.get_block(&apos;latest&apos;))</span>
+
+<span class="hljs-comment"># compiled in remix</span>
+abi = [
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;initialFlag&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            },
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;initialMessage&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;nonpayable&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;constructor&quot;</span>
+    },
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [],
+        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;enterVenue&quot;</span>,
+        <span class="hljs-string">&quot;outputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;view&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;function&quot;</span>
+    },
+    {
+        <span class="hljs-string">&quot;inputs&quot;</span>: [],
+        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;goBack&quot;</span>,
+        <span class="hljs-string">&quot;outputs&quot;</span>: [
+            {
+                <span class="hljs-string">&quot;internalType&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+            }
+        ],
+        <span class="hljs-string">&quot;stateMutability&quot;</span>: <span class="hljs-string">&quot;view&quot;</span>,
+        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;function&quot;</span>
+    }
+]
+
+<span class="hljs-comment"># contract address</span>
+address = <span class="hljs-string">&apos;0x1AC90AFd478F30f2D617b3Cb76ee00Dd73A9E4d3&apos;</span>
+
+contract_instance = w3.eth.contract(address=address, abi=abi)
+
+func = getattr(contract_instance.functions, <span class="hljs-string">&apos;enterVenue&apos;</span>)()
+flag = func.call()
+print(f<span class="hljs-string">&quot;flag: {flag}&quot;</span>)
+
+<span class="hljs-comment"># TCP1P{d0_3nj0y_th3_p4rty_bu7_4r3_y0u_4_VIP?}</span>
+</code></pre>
+<h2 id="location">Location</h2>
+<pre><code class="lang-bash">====Going to The Party====
+
+To Find the party location
+You need to solve a simple riddle regarding a SLOT
+Answer everything correctly, and find the exact location!
+
+Question: In <span class="hljs-built_in">which</span> Slot is Password Stored?
+
+You<span class="hljs-string">&apos;ll answer with and ONLY WITH [numbers]
+ex: 
+0,1,2,3,4.....99
+
+Note: 
+    -   Slot start from 0
+    -   If it doesn&apos;</span>t stored on SLOT, answer 0
+
+Identification Required <span class="hljs-keyword">for</span> Guest
+
+Question:
+
+contract StorageChallenge7 {
+    bytes32 private key;
+    bytes4 private key_1;
+    bytes16 private key_2;
+    address private owner;
+    uint256 private Token;
+    address private immutable Investor;
+    address private Courier;
+    bytes32 private immuatble password;
+}
+
+Answer:
+</code></pre>
+<p>Apparently a question about EVM. The requirement is to find the index of the memory slot where the password is located.There are many articles or documents on the Internet that can be used to understand the memory allocation mechanism.</p>
+<p>Simply put:</p>
+<ul>
+<li><p>The bytes type occupies the number of bytes it declares. Uint occupies the declared number of bits divided by 8. The bool type occupies 1 byte, and the address type occupies 20 bytes.</p>
+</li>
+<li><p>If the free bytes in the previous slot are not enough to fill the current data, a new slot will be opened.</p>
+</li>
+<li>Each element of the array occupies a slot. </li>
+<li>Variables declared with immutable are not stored in memory as constants. </li>
+</ul>
+<p>There are still some types and details not covered. But enough to address this challenge.</p>
+<pre><code class="lang-py"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> re
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_contract_content</span><span class="hljs-params">(stream: bytes)</span>:</span>
+    pattern = <span class="hljs-string">r&quot;\{([^}]+)\}&quot;</span>
+    match = re.search(pattern, stream.decode())
+    <span class="hljs-keyword">if</span> match:
+        <span class="hljs-keyword">return</span> match.group(<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">raise</span> Exception(stream.decode())
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">None</span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_type_array_till_pwd</span><span class="hljs-params">(content: string)</span>:</span>
+    line_array = content.split(<span class="hljs-string">&apos;\n&apos;</span>)
+    type_array = []
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(line_array)):
+        <span class="hljs-keyword">if</span> line_array[i] <span class="hljs-keyword">and</span> <span class="hljs-string">&apos;immutable&apos;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> line_array[i]:
+            type_array.append(line_array[i][<span class="hljs-number">4</span>:].split(<span class="hljs-string">&apos; &apos;</span>)[<span class="hljs-number">0</span>])
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;immutable password&apos;</span> <span class="hljs-keyword">in</span> line_array[i]:
+            <span class="hljs-keyword">return</span> [<span class="hljs-string">&apos;bool&apos;</span>]
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos; password;&apos;</span> <span class="hljs-keyword">in</span> line_array[i]:
+            <span class="hljs-keyword">return</span> type_array
+    <span class="hljs-keyword">raise</span> Exception(content)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">None</span>
+
+
+<span class="hljs-comment"># References to https://www.8btc.com/article/6693684 (Chinese)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_slot_number_by_type_array</span><span class="hljs-params">(type_array: list)</span>:</span>
+
+    slot_number = <span class="hljs-number">0</span>
+    current_slot_height = <span class="hljs-number">0</span>
+
+
+    <span class="hljs-keyword">for</span> type <span class="hljs-keyword">in</span> type_array:
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&apos;[&apos;</span> <span class="hljs-keyword">in</span> type:
+            <span class="hljs-keyword">if</span> current_slot_height &gt; <span class="hljs-number">0</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">0</span>
+            slot_number += int(re.search(<span class="hljs-string">r&quot;\[([^[\]]+)\]&quot;</span>, type).group(<span class="hljs-number">1</span>))
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes32&apos;</span>, <span class="hljs-string">&apos;uint256&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &gt; <span class="hljs-number">0</span>:
+                slot_number += <span class="hljs-number">2</span>
+                current_slot_height = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">0</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;address&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">12</span>:
+                current_slot_height += <span class="hljs-number">20</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">20</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes16&apos;</span>, <span class="hljs-string">&apos;uint128&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">16</span>:
+                current_slot_height += <span class="hljs-number">16</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">16</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes8&apos;</span>, <span class="hljs-string">&apos;uint64&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">24</span>:
+                current_slot_height += <span class="hljs-number">8</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">8</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bytes4&apos;</span>, <span class="hljs-string">&apos;uint32&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">28</span>:
+                current_slot_height += <span class="hljs-number">4</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">4</span>
+
+        <span class="hljs-keyword">if</span> type <span class="hljs-keyword">in</span> [<span class="hljs-string">&apos;bool&apos;</span>]:
+            <span class="hljs-keyword">if</span> current_slot_height &lt;= <span class="hljs-number">31</span>:
+                current_slot_height += <span class="hljs-number">1</span>
+            <span class="hljs-keyword">else</span>:
+                slot_number += <span class="hljs-number">1</span>
+                current_slot_height = <span class="hljs-number">1</span>
+
+    <span class="hljs-keyword">if</span> current_slot_height == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> slot_number - <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> slot_number
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&apos;__main__&apos;</span>:
+    conn = remote(<span class="hljs-string">&apos;ctf.tcp1p.com&apos;</span>, <span class="hljs-string">&apos;20005&apos;</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">11</span>):
+        recvd = conn.recvuntil(<span class="hljs-string">b&apos;Answer: &apos;</span>, drop=<span class="hljs-keyword">False</span>)
+        print(get_contract_content(recvd))
+        print(get_type_array_till_pwd(get_contract_content(recvd)))
+        answer = get_slot_number_by_type_array(get_type_array_till_pwd(get_contract_content(recvd)))
+        print(answer)
+        conn.sendline(str(answer).encode())
+        print(<span class="hljs-string">&apos;-------------------------------------------------------------------\n&apos;</span>)
+
+    output = conn.recvall()
+    print(output.decode())
+
+<span class="hljs-comment"># TCP1P{W00t_w00t_t0_th3_p4rty_47JHbddc}</span>
+</code></pre>
+<p>I saw that the solutions in discord are all simulations. I&apos;m glad I learned more in it.</p>
+<p><del>And maybe I should polish this script a little more so it can be used elsewhere</del></p>
+<h2 id="vip">VIP</h2>
+<pre><code class="lang-bash">Welcome to TCP1P Blockchain Challenge
+
+1. How to 101?
+2. get Contract
+&gt;&gt; 2
+Contract Addess: 0xFC5C0e4845ebb6fedcB57c17A09BFC77BE4e1478
+RPC URL        : https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8
+To start       : Simply call the <span class="hljs-built_in">help</span>() <span class="hljs-keyword">function</span>, everything is written there
+
+Note: Due it<span class="hljs-string">&apos;s deployed on Sepolia network, please use your own Private key to do the transaction
+      If you need funds, you can either DM the probset or get it on https://sepoliafaucet.com/
+^C
+
+
+$ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD &quot;help()&quot; -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 | cut -c3- | xxd -r -p | (cat &amp;&amp; printf &quot;\x0A&quot;)
+ &#xFFFD;come to TCP1P Private Club!
+
+Enjoy the CTF Party of your life here!
+But first... Please give me your id, normal people have at least member role
+Of Course, there are also many VIPs over here. B-)
+
+Functions:
+
+Entrance(role) -&gt; verify your role here, are you a member or VIP Class
+   &gt; role  --&gt; input your role as string
+stealVIPCode() -&gt; someone might&apos;</span>ve just steal a vip code and want to give it to you
+getFlag()      -&gt; Once you show your role, you can try your luck! ONLY VIP Can get the Flag!
+
+
+$ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD <span class="hljs-string">&quot;stealVIPCode()&quot;</span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 | cut -c3- | xxd -r -p | (cat &amp;&amp; <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;\x0A&quot;</span>)
+ &#xFFFD; I may or may not get you a ticket, but I don<span class="hljs-string">&apos;t understand much about how to decode this.
+It&apos;</span>s some sort of their abiCoder policy. 
+VIP-Ticket: 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002f5443503150317374436c61737353656174202d2069732074686520564950205469636b6574207468657920736169640000000000000000000000000000000000
+
+
+$ <span class="hljs-built_in">echo</span> 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002f5443503150317374436c61737353656174202d2069732074686520564950205469636b6574207468657920736169640000000000000000000000000000000000 | cut -c3- | xxd -r -p | (cat &amp;&amp; <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;\x0A&quot;</span>)
+ /TCP1P1stClassSeat - is the VIP Ticket they said
+
+
+$ cast send 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD <span class="hljs-string">&quot;Entrance(string)&quot;</span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 --private-key &lt;64byteskey&gt; -- <span class="hljs-string">&quot;TCP1P1stClassSeat&quot;</span>
+
+blockHash               0xc3303ccb93235e2af82754e9eacff270869233faf59bec2a0c6116bd29fed9e8
+blockNumber             4501630
+contractAddress         
+cumulativeGasUsed       2823120
+effectiveGasPrice       28176596118
+gasUsed                 58988
+logs                    []
+logsBloom               0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+root                    
+status                  1
+transactionHash         0x1b244773c5abd43f3efc91b23f07b538a7d6dd927db594619557678c038bbbb1
+transactionIndex        14
+<span class="hljs-built_in">type</span>                    2
+
+
+$ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD <span class="hljs-string">&quot;getFlag()&quot;</span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 --private-key &lt;64byteskey&gt;  | cut -c3- | xxd -r -p | (cat &amp;&amp; <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;\x0A&quot;</span>)
+ 8TCP1P{4_b1t_of_f0undry_s3nd_4nd_abiCoder_w0n7_hur7_y34h}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <!-- <a href="./" class="navigation navigation-prev " aria-label="Previous page: About This Site">
+                    <i class="fa fa-angle-left"></i>
+                </a> -->
+                
+                
+                <!-- <a href="Ethernaut.html#231012" class="navigation navigation-next " aria-label="Next page: Ethernaut">
+                    <i class="fa fa-angle-right"></i>
+                </a> -->
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"TCP1P CTF 2023 blockchain","level":"1.2","depth":1,"next":{"title":"Ethernaut","level":"1.3","depth":1,"anchor":"#231012","path":"Ethernaut.md","ref":"Ethernaut.md#231012","articles":[]},"previous":{"title":"About This Site","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"TCP1P CTF 2023 blockchain.md","mtime":"2023-10-16T16:32:08.574Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-10-16T16:32:51.940Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
