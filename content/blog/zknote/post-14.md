@@ -49,7 +49,7 @@ $$
 
 thus our proving formula would be optimized:
 $$
-$pairing([A]_1, [B]_2) = \\
+pairing([A]_1, [B]_2) = \\
 pairing([\alpha]_1,[\beta]_2)\\
 + pairing(\sum_{i=0}^{\vartheta}a_i\left(\beta u_i(x)+\alpha v_i(x)+w_i(x)\right),G_2) + \sum_{i=\vartheta+1}^ma_i\left[\beta u_i(x)+\alpha v_i(x)+w_i(x)\right]_1+[h(x)t(x)]_1
 $$

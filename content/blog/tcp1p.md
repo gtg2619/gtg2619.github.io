@@ -279,7 +279,7 @@ Note: Due it's deployed on Sepolia network, please use your own Private key to d
 
 ```bash
 $ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD "help()" -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 | cut -c3- | xxd -r -p | (cat && printf "\x0A")
- �come to TCP1P Private Club!
+Welcome to TCP1P Private Club!
 
 Enjoy the CTF Party of your life here!
 But first... Please give me your id, normal people have at least member role
@@ -295,7 +295,7 @@ getFlag()      -> Once you show your role, you can try your luck! ONLY VIP Can g
 
 ```bash
 $ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD "stealVIPCode()" -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 | cut -c3- | xxd -r -p | (cat && printf "\x0A")
- � I may or may not get you a ticket, but I don't understand much about how to decode this.
+I may or may not get you a ticket, but I don't understand much about how to decode this.
 It's some sort of their abiCoder policy. 
 VIP-Ticket: 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002f5443503150317374436c61737353656174202d2069732074686520564950205469636b6574207468657920736169640000000000000000000000000000000000
 ```

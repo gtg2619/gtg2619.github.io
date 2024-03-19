@@ -20,7 +20,7 @@ $$
 and apply it to every single subterm
 
 $$
-[u_i\left(\tau\right)]_1 = \sum_{j=0}^{m-1}u_{i,j}[\tau^jG_1]_1 = \left\langle u_{i,0},\ u_{i,1},\ ...u_{i,n-1}\right\rangle · \left\langle [\tau^0G_1]_1,\ [\tau^1G_1]_1,\ ...,\ [\tau^{n-1}G_1]\right\rangle
+[u_i(\tau)]_1 = \sum_{j=0}^{m-1}u_{i,j}[\tau^jG_1]_1 = \left\langle u_{i,0},\ u_{i,1},\ ...u_{i,n-1}\right\rangle \cdot \left\langle [\tau^0G_1]_1,\ [\tau^1G_1]_1,\ ...,\ [\tau^{n-1}G_1]\right\rangle
 $$
 
 *`·` notated hardmard product*
@@ -48,4 +48,4 @@ $$
 h\left(\tau\right)t\left(\tau\right) = \left\langle h_1, h2, ..., h_n\right\rangle · \left\langle[r^0t\left(\tau\right)G_1]_1,\ [r^1t\left(\tau\right)G_1]_1,...,[r^nt\left(\tau\right)G_1]_1\right\rangle
 $$
 
-We compute three elliptic curve points $[A]_1, [B]_2, [C]_1$ like in the chapter 10, and let prover do $pairing([A]₁,[B]₂) == pairing([C]₁,[G₂]₂)$, and accept if the equality is true.
+We compute three elliptic curve points $[A]_1, [B]_2, [C]_1$ like in the chapter 10, and let prover do $pairing([A]_1,[B]_2) == pairing([C]_1,[G_2]_2)$, and accept if the equality is true.

