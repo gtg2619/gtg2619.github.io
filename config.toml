@@ -68,9 +68,9 @@ url = "mailto:wangzihao@hdu.edu.cn"
 icon = "la la-envelope"
 
 [[extra.social]]
-url = "/blog/isolates/friends"
+url = "/blog/i/friends/"
 icon = "la la-chain"
 
 [[extra.social]]
-url = "/blog/isolates/profile"
+url = "/blog/i/profile/"
 icon = "la la-user"
