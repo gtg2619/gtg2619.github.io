@@ -42,4 +42,3 @@ And $pairing(Os, 1)$ could be $paring\left(O * s * G_1), G_2\right)$ or $paring\
 
 some of our variable could be public (not encrypted on EC), like if we wants to prove $x³ + 5x + 5 = 155$, the $1$ and $out$ in the possible witness vector $[1, out, x, v]$ could be public.
 
-xxxxxxxxxx assert term_1 * term_2 == term_3 + h * t, "division has a remainder"python

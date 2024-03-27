@@ -94,7 +94,7 @@ if eq(evaluate_then_convert_to_ec, evaluate_on_ec):
     print("elliptic curve points are equal")
 ```
 
-### xxxxxxxxxx assert term_1 * term_2 == term_3 + h * t, "division has a remainder"python
+### Schwartz Zippel Lemma and the motivation for encrypted polynomial evaluation
 
 _Pure copying. I think I need to understand it later_
 

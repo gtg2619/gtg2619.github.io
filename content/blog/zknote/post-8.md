@@ -51,11 +51,11 @@ The number of constraints(the number of occurrences of multiplication) is the mi
 
 
 $$
-(1)\space out=x*y\space(1\space constraints)\\
-(2)\space out=x*y*z*u\space(3\space constraints)\\
-(3)\space out=x*y+2\space(1\space constraints)\\
-(4)\space out=2x^2+y\space(1\space constraints)\\
-(5)\space out=3x^2y+5xy-x-2y+3\space(3\space constraints)
+\space out=x * y\space(1\space constraints)\\
+\space out=x * y * z * u\space(3\space constraints)\\
+\space out=x * y+2\space(1\space constraints)\\
+\space out=2x ^ 2+y\space(1\space constraints)\\
+\space out=3x ^ 2y+5xy-x-2y+3\space(3\space constraints)
 $$
 
 
@@ -66,7 +66,7 @@ $$
 out=3x^2y+5xy-x-2y+3\\
 =>\space\begin{equation}  
 \left\{
-             \begin{array}{**lr**}
+             \begin{array}{* * lr * *}
              v_1=3x * x, &\\
              v_2=v_1 * y, &\\
              -v_2 + x + 2y -3 + out = 5xy
@@ -78,31 +78,31 @@ $$
 
 Finally, we should constructed matrix for the constructed system of equations
 
-we let witness be  $w=[1\space out\space x\space y\space v_1\space v_2]$
+we let witness be  $w = \left[1\ out\ x\ y\ v_1\ v_2\right]$
 
 and then construct as following:
 
 
 $$
 A = \begin{bmatrix}
-    0 & 0 & 3 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 1 & 0 \\
-    0 & 0 & 5 & 0 & 0 & 0 
-    \end{bmatrix}\\\\
+    0 & 0 & 3 & 0 & 0 & 0 \newline
+    0 & 0 & 0 & 0 & 1 & 0 \newline
+    0 & 0 & 5 & 0 & 0 & 0 \newline
+    \end{bmatrix}\newline
 B = \begin{bmatrix}
-    0 & 0 & 1 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 1 & 0 & 0 \\
-    0 & 0 & 0 & 1 & 0 & 0 
-    \end{bmatrix}\\\\
+    0 & 0 & 1 & 0 & 0 & 0 \newline
+    0 & 0 & 0 & 1 & 0 & 0 \newline
+    0 & 0 & 0 & 1 & 0 & 0 \newline
+    \end{bmatrix}\newline
 C = \begin{bmatrix}
-    0 & 0 & 0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 1 \\
-    -3 & 1 & 1 & 2 & 0 & -1 
-    \end{bmatrix}\\
+    0 & 0 & 0 & 0 & 1 & 0 \newline
+    0 & 0 & 0 & 0 & 0 & 1 \newline
+    -3 & 1 & 1 & 2 & 0 & -1 \newline
+    \end{bmatrix}
 $$
 
 
-Substituting it into the formula($Cm = Am * Bm\newline$) and perform matrix multiplication could obtain the above system of equations
+Substituting it into the formula( $Cm = Am * Bm$ ) and perform matrix multiplication could obtain the above system of equations
 
 ### Circom implementation
 

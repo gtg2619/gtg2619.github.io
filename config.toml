@@ -44,7 +44,7 @@ google_analytics_measurement_id = ""
 # Refer https://icons8.com/line-awesome for list of icons
 # Both `url` and `icon` should be set for each entry
 [[extra.social]]
-url = "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3ee3da5fe284c00871c4e0149cc827bccf14c4a8"
+url = "/blog/i/key/"
 icon = "la la-key"
 
 [[extra.social]]
