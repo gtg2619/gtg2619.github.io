@@ -1,5 +1,5 @@
 ---
-title: "Geekctf - Geekcon wruteup: lacking zk constraints & 8 bytes eval contract"
+title: "Geekctf - Geekcon writeup: lacking zk constraints & 8 bytes eval contract"
 date: 2024-04-14T22:14:00+08:00
 ---
 
