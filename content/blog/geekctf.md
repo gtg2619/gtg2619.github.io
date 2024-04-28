@@ -3,13 +3,13 @@ title: "Geekctf - Geekcon writeup: lacking zk constraints & 8 bytes eval contrac
 date: 2024-04-14T22:14:00+08:00
 ---
 
-I spent some time this week solving three Geekcon challenges and got 26th place. Interesting challenge thanks to the authors from 0ops@SJTU.
+I spent some time this week solving three Geekctf challenges and got 26th place. Interesting challenge thanks to the authors from 0ops@SJTU.
 
 [zh-CN wp](https://0rays-club.feishu.cn/wiki/Ts1twa8OBijasEk2uHrcGlt4nAc) (draft)
 
 ## ZkMaze
 
-~~There is even a ZK question~~
+~~There is even a ZK chall~~
 
 `public_inputs ` can be found `in./out/chall.sol ` directly
 
