@@ -14,7 +14,7 @@ description: Some of my friends.. If you are interested you can visit their blog
 
 - MiaoTony [https://miaotony.xyz/](https://miaotony.xyz/)
 
-- yolbby [http://yolbby.github.io/](http://yolbby.github.io/)
+- yolbby [https://yolbby.github.io/](https://yolbby.github.io/)
 
 - L0tus [https://l0tus.vip/](https://l0tus.vip/)
 
