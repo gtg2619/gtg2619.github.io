@@ -4,18 +4,20 @@ date: 2024-03-19T20:16:19+08:00
 description: Some of my friends.. If you are interested you can visit their blog
 ---
 
-- [p3ngu1nw](https://p3ngu1nw.top/)
+- p3ngu1nw [https://p3ngu1nw.top/](https://p3ngu1nw.top/)
 
-- [pankas](https://pankas.top/)
+- pankas [https://pankas.top/](https://pankas.top/)
 
-- [JBNRZ](https://jbnrz.com.cn/)
+- JBNRZ [https://jbnrz.com.cn/](https://jbnrz.com.cn/)
 
-- [humb1e](https://mmmmchong.github.io/)
+- humb1e [https://mmmmchong.github.io/](https://mmmmchong.github.io/)
 
-- [MiaoTony](https://miaotony.xyz/)
+- MiaoTony [https://miaotony.xyz/](https://miaotony.xyz/)
 
-- [L0tus](https://l0tus.vip/)
+- yolbby [http://yolbby.github.io/](http://yolbby.github.io/)
 
-- [Feifei](https://www.cnblogs.com/biyifei)
+- L0tus [https://l0tus.vip/](https://l0tus.vip/)
 
-- [ech0](https://ech0her.github.io/)
+- Feifei [https://www.cnblogs.com/biyifei](https://www.cnblogs.com/biyifei)
+
+- ech0 [https://ech0her.github.io/](https://ech0her.github.io/)

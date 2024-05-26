@@ -4,9 +4,9 @@ date: 2024-03-21T14:36:49+08:00
 description: My public key here. Verify identity with it or encrypt secret files. (if needed)
 ---
 
-[download from this site](/armored-keys.asc)
+[Download from this site](/armored-keys.asc)
 
-[download from ubuntu server](https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3ee3da5fe284c00871c4e0149cc827bccf14c4a8)
+[Download from Ubuntu keyserver](https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3ee3da5fe284c00871c4e0149cc827bccf14c4a8)
 
 ```key
 -----BEGIN PGP PUBLIC KEY BLOCK-----
