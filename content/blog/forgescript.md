@@ -33,11 +33,11 @@ date: 2024-07-18T17:40:59+08:00
 
 ### vm.startBroadcast
 
-​	刚开始用foundry forge的时候对`vm.startBroadcast()`印象最深，以为是用intialize 封装了整个broadcast的脚本内容，*然而实际上并没有*。
+​	刚开始用foundry forge的时候对`vm.startBroadcast()`印象最深，以为是用intialize 封装了整个broadcast的脚本内容，*然而实际上并没有*。Script 的每一次external call都是隔离的交易，由于网络因素交易之间可能时间差距会很大，也没有办法保证后面的就正确执行/不会被抢先。
 
 ​	`vm.startBroadcast()`会把交易的发出者更改为命令行传入的`--private-key`参数对应的地址。也可以通过加参数来改为其他。所以如果想要重入的话一般不要把重入函数写在Script的fallback/recevive里，还是得另外再开一个辅助合约。
 
-​	还有一点难以意识到的是即使你指定了`--broadcast`，也只会广播`vm.startBroadcast`和`vm.stopBroadcast`包裹的内容。同理你要是不指定`is Script`或`vm.startBroadcast`，大概率也不会广播。还有就是Script 的每一次external call都是隔离的交易，由于网络因素交易之间可能时间差距会很大，也没有办法保证后面的就正确执行/不会被抢先。
+​	还有一点难以意识到的是即使你指定了`--broadcast`，也只会广播`vm.startBroadcast`和`vm.stopBroadcast`包裹的内容。同理你要是不指定`is Script`或`vm.startBroadcast`，大概率也不会广播。
 
 
 
