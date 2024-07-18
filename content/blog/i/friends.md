@@ -1,5 +1,5 @@
 ---
-title: Friendly link
+title: Friends && link
 date: 2024-03-19T20:16:19+08:00
 description: Some of my friends.. If you are interested you can visit their blog
 ---
@@ -20,4 +20,4 @@ description: Some of my friends.. If you are interested you can visit their blog
 
 - Feifei [https://www.cnblogs.com/biyifei](https://www.cnblogs.com/biyifei)
 
-- ech0 [https://ech0her.github.io/](https://ech0her.github.io/)
+- Ech0 [https://ech0her.github.io/](https://ech0her.github.io/)
