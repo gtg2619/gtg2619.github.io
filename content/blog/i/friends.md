@@ -21,3 +21,5 @@ description: Some of my friends.. If you are interested you can visit their blog
 - Feifei [https://www.cnblogs.com/biyifei](https://www.cnblogs.com/biyifei)
 
 - Ech0 [https://ech0her.github.io/](https://ech0her.github.io/)
+
+- Mak4R1 [http://mak4r1.com/](http://mak4r1.com/)
