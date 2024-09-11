@@ -22,4 +22,4 @@ description: Some of my friends.. If you are interested you can visit their blog
 
 - Ech0 [https://ech0her.github.io/](https://ech0her.github.io/)
 
-- Mak4R1 [http://mak4r1.com/](http://mak4r1.com/)
+- Mak4R1 [https://mak4r1.com/](https://mak4r1.com/)
