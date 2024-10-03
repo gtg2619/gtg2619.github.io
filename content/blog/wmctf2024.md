@@ -19,7 +19,7 @@ Note that the files under the `infra/` directory, except for `challenge.py`, are
 
 The main problem in this challenge is competing with Mevbot. A similar challenge can be referenced from [DiceCTF 2024 Quals misc floordrop](https://github.com/dicegang/dicectf-quals-2024-challenges/tree/main/misc/floordrop)..
 
-Although the actual implementation of transaction sorting in the source code is hard to locate, simple tests show that Anvil's sorting strategy differs from Geth. Geth adjusts `nonce` in descending order, whereas Anvil sorts by fee first and then adjusts `nonce` in ascending order like:
+Although the actual implementation of transaction sorting in the source code is hard to locate, simple tests show that Anvil's sorting strategy differs from Geth. Geth adjusts `nonce` in forward traversal, whereas Anvil sorts by fee first and then adjusts `nonce` in reverse traversal like:
 
 ```solidity
 nonce		1		0		0
