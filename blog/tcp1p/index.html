@@ -1,0 +1,272 @@
+<!doctype html><html class=scroll-smooth lang=en><head><meta charset=utf-8><link href=/css/style.css rel=stylesheet><link href=/line-awesome/css/line-awesome.min.css rel=stylesheet><script defer src=/js/main.js></script><title>Tcp1pctf smartcontract | Random thoughts here</title><body class="bg-white dark:bg-slate-900 transition ease-in-out"><section><div class="sticky top-0 bg-slate-100 dark:bg-slate-800"><div class="container mx-auto flex place-content-between py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900 dark:text-slate-300"><div class=flex><a class="m-0 p-0 text-slate-900 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200" href=/blog/> /blog </a></div><div class="flex gap-4"><div class="hidden cursor-pointer" id=back-to-top><i class="las la-level-up-alt"></i></div><a href=/><i class="las la-home"></i></a><div class=cursor-pointer id=darkmode-toggle><div class="hidden dark:inline"><i class="las la-sun"></i></div><div class="inline dark:hidden"><i class="las la-moon"></i></div></div></div></div></div><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$']]}
+      });
+    </script><div class="container mb-16"><div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">2023-10-16</div><h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">Tcp1pctf smartcontract</h1><div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div><div class=prose-boring><p>Since I am learning blockchain security recently, I found this competition to try out on my own over the weekend. These questions were very educational (not hard) and I also learned something. But due to other local ctfs and a few things I didn’t quite get into it.<h2 id=venue>Venue</h2><pre class=language-js data-lang=js style=color:#d8dee9;background-color:#2e3440><code class=language-js data-lang=js><span style=color:#616e88>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity </span><span style=color:#81a1c1>^</span><span style=color:#b48ead>0.8</span><span style=color:#81a1c1>.</span><span style=color:#b48ead>13</span><span style=color:#eceff4>;
+</span><span>
+</span><span>contract Venue{
+</span><span>    string private flag</span><span style=color:#eceff4>;
+</span><span>    string private message</span><span style=color:#eceff4>;
+</span><span>
+</span><span>    </span><span style=color:#88c0d0>constructor</span><span>(string memory initialFlag</span><span style=color:#eceff4>, </span><span>string memory initialMessage){
+</span><span>        flag </span><span style=color:#81a1c1>= </span><span>initialFlag</span><span style=color:#eceff4>;
+</span><span>        message </span><span style=color:#81a1c1>= </span><span>initialMessage</span><span style=color:#eceff4>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>enterVenue</span><span>() </span><span style=color:#88c0d0>public view returns</span><span>(string memory){
+</span><span>        </span><span style=color:#81a1c1>return </span><span>flag</span><span style=color:#eceff4>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>goBack</span><span>() </span><span style=color:#88c0d0>public view returns</span><span>(string memory){
+</span><span>        </span><span style=color:#81a1c1>return </span><span>message</span><span style=color:#eceff4>;
+</span><span>    }
+</span><span>}
+</span></code></pre><p>Very concise code. This can be solved by simply calling enterVenue.<p>The following solving used the <code>web3.py</code> and ABI compiled by Remix.<pre class=language-python data-lang=python style=color:#d8dee9;background-color:#2e3440><code class=language-python data-lang=python><span style=color:#81a1c1>from </span><span>web3 </span><span style=color:#81a1c1>import </span><span>Web3
+</span><span>
+</span><span style=color:#616e88># Instantiate the web3 object and specify the HTTP provider
+</span><span>w3 </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>Web3</span><span>(Web3</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>HTTPProvider</span><span>(</span><span style=color:#a3be8c>'https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8'</span><span>))
+</span><span>
+</span><span style=color:#616e88># print(w3.eth.get_block('latest'))
+</span><span>
+</span><span style=color:#616e88># compiled in remix
+</span><span>abi </span><span style=color:#81a1c1>= </span><span>[
+</span><span>	{
+</span><span>		</span><span style=color:#a3be8c>"inputs"</span><span style=color:#eceff4>: </span><span>[
+</span><span>			{
+</span><span>				</span><span style=color:#a3be8c>"internalType"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"initialFlag"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"
+</span><span>			}</span><span style=color:#eceff4>,
+</span><span>			{
+</span><span>				</span><span style=color:#a3be8c>"internalType"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"initialMessage"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"
+</span><span>			}
+</span><span>		]</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"stateMutability"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"nonpayable"</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"constructor"
+</span><span>	}</span><span style=color:#eceff4>,
+</span><span>	{
+</span><span>		</span><span style=color:#a3be8c>"inputs"</span><span style=color:#eceff4>: </span><span>[]</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"enterVenue"</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"outputs"</span><span style=color:#eceff4>: </span><span>[
+</span><span>			{
+</span><span>				</span><span style=color:#a3be8c>"internalType"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>""</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"
+</span><span>			}
+</span><span>		]</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"stateMutability"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"view"</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"function"
+</span><span>	}</span><span style=color:#eceff4>,
+</span><span>	{
+</span><span>		</span><span style=color:#a3be8c>"inputs"</span><span style=color:#eceff4>: </span><span>[]</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"goBack"</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"outputs"</span><span style=color:#eceff4>: </span><span>[
+</span><span>			{
+</span><span>				</span><span style=color:#a3be8c>"internalType"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"name"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>""</span><span style=color:#eceff4>,
+</span><span>				</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"string"
+</span><span>			}
+</span><span>		]</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"stateMutability"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"view"</span><span style=color:#eceff4>,
+</span><span>		</span><span style=color:#a3be8c>"type"</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>"function"
+</span><span>	}
+</span><span>]
+</span><span>
+</span><span style=color:#616e88># contract address
+</span><span>address </span><span style=color:#81a1c1>= </span><span style=color:#a3be8c>'0x1AC90AFd478F30f2D617b3Cb76ee00Dd73A9E4d3'
+</span><span>
+</span><span>contract_instance </span><span style=color:#81a1c1>= </span><span>w3</span><span style=color:#81a1c1>.</span><span>eth</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>contract</span><span>(address</span><span style=color:#81a1c1>=</span><span>address</span><span style=color:#eceff4>, </span><span>abi</span><span style=color:#81a1c1>=</span><span>abi)
+</span><span>
+</span><span>func </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0;font-style:italic>getattr</span><span>(contract_instance</span><span style=color:#81a1c1>.</span><span>functions</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'enterVenue'</span><span>)()
+</span><span>flag </span><span style=color:#81a1c1>= </span><span>func</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>call</span><span>()
+</span><span style=color:#88c0d0;font-style:italic>print</span><span>(</span><span style=color:#81a1c1>f</span><span style=color:#a3be8c>"flag: </span><span>{flag}</span><span style=color:#a3be8c>"</span><span>)
+</span><span>
+</span><span style=color:#616e88># TCP1P{d0_3nj0y_th3_p4rty_bu7_4r3_y0u_4_VIP?}
+</span></code></pre><h2 id=location>Location</h2><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#81a1c1>=</span><span style=color:#a3be8c>===Going </span><span style=color:#88c0d0>to</span><span> The Party====
+</span><span>
+</span><span style=color:#88c0d0>To</span><span> Find the party location
+</span><span style=color:#88c0d0>You</span><span> need to solve a simple riddle regarding a SLOT
+</span><span style=color:#88c0d0>Answer</span><span> everything correctly, and find the exact location!
+</span><span>
+</span><span style=color:#88c0d0>Question:</span><span> In which Slot is Password Stored</span><span style=color:#81a1c1>?
+</span><span>
+</span><span style=color:#88c0d0>You</span><span style=color:#a3be8c>'ll answer with and ONLY WITH [numbers]
+</span><span style=color:#a3be8c>ex: 
+</span><span style=color:#a3be8c>0,1,2,3,4.....99
+</span><span style=color:#a3be8c>
+</span><span style=color:#a3be8c>Note: 
+</span><span style=color:#a3be8c>    -   Slot start from 0
+</span><span style=color:#a3be8c>    -   If it doesn'</span><span style=color:#88c0d0>t</span><span> stored on SLOT, answer 0
+</span><span>
+</span><span style=color:#88c0d0>Identification</span><span> Required for Guest
+</span><span>
+</span><span style=color:#88c0d0>Question:
+</span><span>
+</span><span style=color:#88c0d0>contract</span><span> StorageChallenge7 {
+</span><span>    bytes32 private key;
+</span><span>    bytes4 private key_1;
+</span><span>    bytes16 private key_2;
+</span><span>    address private owner;
+</span><span>    uint256 private Token;
+</span><span>    address private immutable Investor;
+</span><span>    address private Courier;
+</span><span>    bytes32 private immuatble password;
+</span><span>}
+</span><span>
+</span><span style=color:#88c0d0>Answer:
+</span></code></pre><p>Apparently a question about EVM. The requirement is to find the index of the memory slot where the password is located.There are many articles or documents on the Internet that can be used to understand the memory allocation mechanism.<p>Simply put:<ul><li><p>The bytes type occupies the number of bytes it declares. Uint occupies the declared number of bits divided by 8. The bool type occupies 1 byte, and the address type occupies 20 bytes.</p><li><p>If the free bytes in the previous slot are not enough to fill the current data, a new slot will be opened.</p><li><p>Each element of the array occupies a independent slot.</p><li><p>Variables declared with immutable are not stored in memory as constants.</p></ul><p>There are still some types and details not covered. But enough to solve this challenge.<pre class=language-py data-lang=py style=color:#d8dee9;background-color:#2e3440><code class=language-py data-lang=py><span style=color:#81a1c1>from </span><span>pwn </span><span style=color:#81a1c1>import *
+</span><span style=color:#81a1c1>import </span><span>re
+</span><span>
+</span><span>
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>get_contract_content</span><span>(stream</span><span style=color:#eceff4>: </span><span style=color:#81a1c1>bytes</span><span>):
+</span><span>    pattern </span><span style=color:#81a1c1>= r</span><span style=color:#a3be8c>"</span><span style=color:#ebcb8b>\{</span><span style=color:#a3be8c>(</span><span>[</span><span style=color:#81a1c1>^</span><span>}]</span><span style=color:#81a1c1>+</span><span style=color:#a3be8c>)</span><span style=color:#ebcb8b>\}</span><span style=color:#a3be8c>"
+</span><span>    match </span><span style=color:#81a1c1>= </span><span>re</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>search</span><span>(pattern</span><span style=color:#eceff4>, </span><span>stream</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>decode</span><span>())
+</span><span>    </span><span style=color:#81a1c1>if </span><span>match:
+</span><span>        </span><span style=color:#81a1c1>return </span><span>match</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>group</span><span>(</span><span style=color:#b48ead>1</span><span>)
+</span><span>    </span><span style=color:#81a1c1>else</span><span>:
+</span><span>        </span><span style=color:#81a1c1>raise </span><span style=color:#8fbcbb>Exception</span><span>(stream</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>decode</span><span>())
+</span><span>        </span><span style=color:#81a1c1>return None
+</span><span>
+</span><span>
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>get_type_array_till_pwd</span><span>(content</span><span style=color:#eceff4>: </span><span>string):
+</span><span>    line_array </span><span style=color:#81a1c1>= </span><span>content</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>split</span><span>(</span><span style=color:#a3be8c>'</span><span style=color:#ebcb8b>\n</span><span style=color:#a3be8c>'</span><span>)
+</span><span>    type_array </span><span style=color:#81a1c1>= </span><span>[]
+</span><span>    </span><span style=color:#81a1c1>for </span><span>i </span><span style=color:#81a1c1>in </span><span style=color:#88c0d0;font-style:italic>range</span><span>(</span><span style=color:#88c0d0;font-style:italic>len</span><span>(line_array)):
+</span><span>        </span><span style=color:#81a1c1>if </span><span>line_array[i] </span><span style=color:#81a1c1>and </span><span style=color:#a3be8c>'immutable' </span><span style=color:#81a1c1>not in </span><span>line_array[i]:
+</span><span>            type_array</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>append</span><span>(line_array[i][</span><span style=color:#b48ead>4</span><span style=color:#eceff4>:</span><span>]</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>split</span><span>(</span><span style=color:#a3be8c>' '</span><span>)[</span><span style=color:#b48ead>0</span><span>])
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#a3be8c>'immutable password' </span><span style=color:#81a1c1>in </span><span>line_array[i]:
+</span><span>            </span><span style=color:#81a1c1>return </span><span>[</span><span style=color:#a3be8c>'bool'</span><span>]
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#a3be8c>' password;' </span><span style=color:#81a1c1>in </span><span>line_array[i]:
+</span><span>            </span><span style=color:#81a1c1>return </span><span>type_array
+</span><span>    </span><span style=color:#81a1c1>raise </span><span style=color:#8fbcbb>Exception</span><span>(content)
+</span><span>    </span><span style=color:#81a1c1>return None
+</span><span>
+</span><span>
+</span><span style=color:#616e88># References to https://www.8btc.com/article/6693684 (Chinese)
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>get_slot_number_by_type_array</span><span>(type_array</span><span style=color:#eceff4>: </span><span style=color:#81a1c1>list</span><span>):
+</span><span>
+</span><span>    slot_number </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0
+</span><span>    current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0
+</span><span>        
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>for </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>type_array:
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#a3be8c>'[' </span><span style=color:#81a1c1>in </span><span style=color:#88c0d0;font-style:italic>type</span><span>:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1>> </span><span style=color:#b48ead>0</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0
+</span><span>            slot_number </span><span style=color:#81a1c1>+= int</span><span>(re</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>search</span><span>(</span><span style=color:#81a1c1>r</span><span style=color:#a3be8c>"</span><span style=color:#ebcb8b>\[</span><span style=color:#a3be8c>(</span><span>[</span><span style=color:#81a1c1>^</span><span>[</span><span style=color:#ebcb8b>\]</span><span>]+)</span><span style=color:#ebcb8b>\]</span><span style=color:#a3be8c>"</span><span style=color:#eceff4>, </span><span style=color:#88c0d0;font-style:italic>type</span><span>)</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>group</span><span>(</span><span style=color:#b48ead>1</span><span>))
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'bytes32'</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'uint256'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1>> </span><span style=color:#b48ead>0</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>2
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'address'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1><= </span><span style=color:#b48ead>12</span><span>:
+</span><span>                current_slot_height </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>20
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>20
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'bytes16'</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'uint128'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1><= </span><span style=color:#b48ead>16</span><span>:
+</span><span>                current_slot_height </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>16
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>16
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'bytes8'</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'uint64'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1><= </span><span style=color:#b48ead>24</span><span>:
+</span><span>                current_slot_height </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>8
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>8
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'bytes4'</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'uint32'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1><= </span><span style=color:#b48ead>28</span><span>:
+</span><span>                current_slot_height </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>4
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>4
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>if </span><span style=color:#88c0d0;font-style:italic>type </span><span style=color:#81a1c1>in </span><span>[</span><span style=color:#a3be8c>'bool'</span><span>]:
+</span><span>            </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1><= </span><span style=color:#b48ead>31</span><span>:
+</span><span>                current_slot_height </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>            </span><span style=color:#81a1c1>else</span><span>:
+</span><span>                slot_number </span><span style=color:#81a1c1>+= </span><span style=color:#b48ead>1
+</span><span>                current_slot_height </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>1
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>if </span><span>current_slot_height </span><span style=color:#81a1c1>== </span><span style=color:#b48ead>0</span><span>:
+</span><span>        </span><span style=color:#81a1c1>return </span><span>slot_number </span><span style=color:#81a1c1>- </span><span style=color:#b48ead>1
+</span><span>    </span><span style=color:#81a1c1>return </span><span>slot_number
+</span><span>
+</span><span>
+</span><span style=color:#81a1c1>if </span><span>__name__ </span><span style=color:#81a1c1>== </span><span style=color:#a3be8c>'__main__'</span><span>:
+</span><span>    conn </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>remote</span><span>(</span><span style=color:#a3be8c>'ctf.tcp1p.com'</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>'20005'</span><span>)
+</span><span>    </span><span style=color:#81a1c1>for </span><span>i </span><span style=color:#81a1c1>in </span><span style=color:#88c0d0;font-style:italic>range</span><span>(</span><span style=color:#b48ead>11</span><span>):
+</span><span>        recvd </span><span style=color:#81a1c1>= </span><span>conn</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>recvuntil</span><span>(</span><span style=color:#81a1c1>b</span><span style=color:#a3be8c>'Answer: '</span><span style=color:#eceff4>, </span><span>drop</span><span style=color:#81a1c1>=False</span><span>)
+</span><span>        </span><span style=color:#88c0d0;font-style:italic>print</span><span>(</span><span style=color:#88c0d0>get_contract_content</span><span>(recvd))
+</span><span>        </span><span style=color:#88c0d0;font-style:italic>print</span><span>(</span><span style=color:#88c0d0>get_type_array_till_pwd</span><span>(</span><span style=color:#88c0d0>get_contract_content</span><span>(recvd)))
+</span><span>        answer </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>get_slot_number_by_type_array</span><span>(</span><span style=color:#88c0d0>get_type_array_till_pwd</span><span>(</span><span style=color:#88c0d0>get_contract_content</span><span>(recvd)))
+</span><span>        </span><span style=color:#88c0d0;font-style:italic>print</span><span>(answer)
+</span><span>        conn</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>sendline</span><span>(</span><span style=color:#81a1c1>str</span><span>(answer)</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>encode</span><span>())
+</span><span>        </span><span style=color:#88c0d0;font-style:italic>print</span><span>(</span><span style=color:#a3be8c>'-------------------------------------------------------------------</span><span style=color:#ebcb8b>\n</span><span style=color:#a3be8c>'</span><span>)
+</span><span>
+</span><span>    output </span><span style=color:#81a1c1>= </span><span>conn</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>recvall</span><span>()
+</span><span>    </span><span style=color:#88c0d0;font-style:italic>print</span><span>(output</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>decode</span><span>())
+</span><span>
+</span><span style=color:#616e88># TCP1P{W00t_w00t_t0_th3_p4rty_47JHbddc}
+</span></code></pre><p>I saw that the most solutions in discord are using use compiler to simulate. Glad I learned more in it.<p><del>And maybe I should polish this script a little more so it can be used elsewhere</del><h2 id=vip>VIP</h2><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>Welcome</span><span> to TCP1P Blockchain Challenge
+</span><span>
+</span><span style=color:#88c0d0>1.</span><span> How to 101</span><span style=color:#81a1c1>?
+</span><span style=color:#88c0d0>2.</span><span> get Contract
+</span><span style=color:#81a1c1>>> </span><span style=color:#b48ead>2
+</span><span style=color:#88c0d0>Contract</span><span> Addess: 0xFC5C0e4845ebb6fedcB57c17A09BFC77BE4e1478
+</span><span style=color:#88c0d0>RPC</span><span> URL        : https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8
+</span><span style=color:#88c0d0>To</span><span> start       : Simply call the help() </span><span style=color:#88c0d0>function,</span><span> everything is written there
+</span><span>
+</span><span style=color:#88c0d0>Note:</span><span> Due it</span><span style=color:#a3be8c>'s deployed on Sepolia network, please use your own Private key to do the transaction
+</span><span style=color:#a3be8c>      If you need funds, you can either DM the probset or get it on https://sepoliafaucet.com/
+</span></code></pre><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD </span><span style=color:#a3be8c>"help()"</span><span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>cut</span><span> -c3- </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>xxd</span><span> -r -p </span><span style=color:#81a1c1>| </span><span>(</span><span style=color:#88c0d0>cat </span><span style=color:#81a1c1>&& </span><span style=color:#88c0d0>printf </span><span style=color:#a3be8c>"\x0A"</span><span>)
+</span><span style=color:#88c0d0>Welcome</span><span> to TCP1P Private Club!
+</span><span>
+</span><span style=color:#88c0d0>Enjoy</span><span> the CTF Party of your life here!
+</span><span style=color:#88c0d0>But</span><span> first... Please give me your id, normal people have at least member role
+</span><span style=color:#88c0d0>Of</span><span> Course, there are also many VIPs over here. B-)
+</span><span>
+</span><span style=color:#88c0d0>Functions:
+</span><span>
+</span><span style=color:#88c0d0>Entrance</span><span>(role) </span><span style=color:#88c0d0>-</span><span style=color:#81a1c1>></span><span> verify your role here, are you a member or VIP Class
+</span><span>   </span><span style=color:#81a1c1>></span><span> role  </span><span style=color:#88c0d0>--</span><span style=color:#81a1c1>></span><span> input your role as string
+</span><span style=color:#88c0d0>stealVIPCode</span><span>() -> someone might've just steal a vip code and want to give it to you
+</span><span>getFlag()      -> Once you show your role, you can try your luck! ONLY VIP Can get the Flag!
+</span></code></pre><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD </span><span style=color:#a3be8c>"stealVIPCode()"</span><span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>cut</span><span> -c3- </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>xxd</span><span> -r -p </span><span style=color:#81a1c1>| </span><span>(</span><span style=color:#88c0d0>cat </span><span style=color:#81a1c1>&& </span><span style=color:#88c0d0>printf </span><span style=color:#a3be8c>"\x0A"</span><span>)
+</span><span style=color:#88c0d0>I</span><span> may or may not get you a ticket, but I don</span><span style=color:#a3be8c>'t understand much about how to decode this.
+</span><span style=color:#a3be8c>It'</span><span>s some sort of their abiCoder policy. 
+</span><span style=color:#88c0d0>VIP-Ticket:</span><span> 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002f5443503150317374436c61737353656174202d2069732074686520564950205469636b6574207468657920736169640000000000000000000000000000000000
+</span></code></pre><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> echo 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002f5443503150317374436c61737353656174202d2069732074686520564950205469636b6574207468657920736169640000000000000000000000000000000000 </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>cut</span><span> -c3- </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>xxd</span><span> -r -p </span><span style=color:#81a1c1>| </span><span>(</span><span style=color:#88c0d0>cat </span><span style=color:#81a1c1>&& </span><span style=color:#88c0d0>printf </span><span style=color:#a3be8c>"\x0A"</span><span>)
+</span><span> </span><span style=color:#88c0d0>/TCP1P1stClassSeat</span><span> - is the VIP Ticket they said
+</span></code></pre><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast send 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD </span><span style=color:#a3be8c>"Entrance(string)"</span><span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 --private-key </span><span style=color:#81a1c1><</span><span style=color:#b48ead>64</span><span>byteskey</span><span style=color:#81a1c1>> </span><span style=color:#eceff4>-</span><span>- </span><span style=color:#a3be8c>"TCP1P1stClassSeat"
+</span><span>
+</span><span style=color:#88c0d0>blockHash</span><span>               0xc3303ccb93235e2af82754e9eacff270869233faf59bec2a0c6116bd29fed9e8
+</span><span style=color:#88c0d0>blockNumber</span><span>             4501630
+</span><span style=color:#88c0d0>contractAddress         
+</span><span style=color:#88c0d0>cumulativeGasUsed</span><span>       2823120
+</span><span style=color:#88c0d0>effectiveGasPrice</span><span>       28176596118
+</span><span style=color:#88c0d0>gasUsed</span><span>                 58988
+</span><span style=color:#88c0d0>logs                    </span><span style=color:#81a1c1>[]
+</span><span style=color:#88c0d0>logsBloom</span><span>               0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+</span><span style=color:#88c0d0>root                    
+</span><span style=color:#88c0d0>status</span><span>                  1
+</span><span style=color:#88c0d0>transactionHash</span><span>         0x1b244773c5abd43f3efc91b23f07b538a7d6dd927db594619557678c038bbbb1
+</span><span style=color:#88c0d0>transactionIndex</span><span>        14
+</span><span style=color:#88c0d0>type</span><span>                    2
+</span></code></pre><pre class=language-bash data-lang=bash style=color:#d8dee9;background-color:#2e3440><code class=language-bash data-lang=bash><span style=color:#88c0d0>$</span><span> cast call 0x364Ca1729564bdB0cE88301FC72cbE3dCCcC08eD </span><span style=color:#a3be8c>"getFlag()"</span><span> -r https://eth-sepolia.g.alchemy.com/v2/SMfUKiFXRNaIsjRSccFuYCq8Q3QJgks8 --private-key </span><span style=color:#81a1c1><</span><span style=color:#b48ead>64</span><span>byteskey</span><span style=color:#81a1c1>>  | </span><span style=color:#88c0d0>cut</span><span> -c3- </span><span style=color:#81a1c1>| </span><span style=color:#88c0d0>xxd</span><span> -r -p </span><span style=color:#81a1c1>| </span><span>(</span><span style=color:#88c0d0>cat </span><span style=color:#81a1c1>&& </span><span style=color:#88c0d0>printf </span><span style=color:#a3be8c>"\x0A"</span><span>)
+</span><span> </span><span style=color:#88c0d0>8TCP1P{4_b1t_of_f0undry_s3nd_4nd_abiCoder_w0n7_hur7_y34h</span><span>}
+</span></code></pre></div></div></section>

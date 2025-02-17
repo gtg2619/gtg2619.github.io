@@ -1,0 +1,91 @@
+<!doctype html><html class=scroll-smooth lang=en><head><meta charset=utf-8><link href=/css/style.css rel=stylesheet><link href=/line-awesome/css/line-awesome.min.css rel=stylesheet><script defer src=/js/main.js></script><title>Bilinear Pairings | Random thoughts here</title><body class="bg-white dark:bg-slate-900 transition ease-in-out"><section><div class="sticky top-0 bg-slate-100 dark:bg-slate-800"><div class="container mx-auto flex place-content-between py-16 lg:py-8 font-sans text-6xl lg:text-2xl text-slate-900 dark:text-slate-300"><div class=flex><a class="m-0 p-0 text-slate-900 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200" href=/blog/> /blog </a><a class="m-0 p-0 text-slate-900 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200" href=/blog/zknote/> /zknote </a></div><div class="flex gap-4"><div class="hidden cursor-pointer" id=back-to-top><i class="las la-level-up-alt"></i></div><a href=/><i class="las la-home"></i></a><div class=cursor-pointer id=darkmode-toggle><div class="hidden dark:inline"><i class="las la-sun"></i></div><div class="inline dark:hidden"><i class="las la-moon"></i></div></div></div></div></div><script async id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$']]}
+      });
+    </script><div class="container mb-16"><div class="mt-4 font-serif text-slate-600 dark:text-slate-500 text-4xl lg:text-base">2024-03-10</div><h1 class="w-full mt-4 mb-8 font-serif text-8xl lg:text-4xl text-slate-900 dark:text-slate-300">Bilinear Pairings</h1><div class="w-100 border-t mb-8 border-slate-300 dark:border-slate-700"></div><div class=prose-boring><h3 id=bilinear-pairings>Bilinear Pairings</h3><p>Bilinear parings allow us to take three numbers, $a$, $b$, and $c$, where $ab = c$, encrypt them to become $E(a), E(b), E(c)$, where $E$ is an encryption function, then send the three encrypted values to a verifier who can verify $E(a)E(b) = E(c)$ but not know the original values. We can use bilinear pairings to prove that a 3rd number is the product of the first two without knowing the original numbers.<p>The feature of bilinear pairings that we care about is as follows ( $e$ is the bilinear pairing fuction/mapping):<p>$$ e: G × G → G_T\newline e\left(aG,bG\right) = e\left(abG,G\right) = e\left(G,abG\right) $$<p>The essential property of bilinear pairings is that if you plug in two points that are multiples of the generator point (aG and bG), the result is equal to plugging in the product of those two numbers times the generator point (abG) and the generator point itself (G).<p>In practice however, it turns out to be easier to create bilinear pairings when a different group is different for both of the arguments and the output result.<p>Specifically, we say<p>$$ e\left(a, b\right) \rightarrow c, a \in G, b \in G^{′}, c \in G^{′′} $$<p>which still statisfied $e\left(aG,bG^{′}\right) = e\left(abG,G^{′}\right) = e\left(G,abG^{′}\right)$<p>This is an asymmetric pairing, whereas the previous formula within the same domain is a symmetric pairing.<h3 id=field-extensions>Field Extensions</h3><p>Ethereum’s bilinear pairing of choice uses elliptic curves <em>with field extensions</em>, which have higher dimensional, and still have the properties of cyclic groups that you care about<ul><li>closed under addition, which is associative<li>has an identity element<li>each element has an inverse<li>the group has a generator</ul><p>The bilinearity property is hard to come by. – Its difficult for three randomly chosen elliptic curve groups to satisfied $e\left(aG,bG^{′}\right) = e\left(abG,G^{′}\right) = e\left(G,abG^{′}\right)$<h3 id=bilinear-pairings-in-python>Bilinear Pairings in python</h3><pre class=language-python data-lang=python style=color:#d8dee9;background-color:#2e3440><code class=language-python data-lang=python><span style=color:#81a1c1>from </span><span>py_ecc</span><span style=color:#81a1c1>.</span><span>bn128 </span><span style=color:#81a1c1>import </span><span>G1</span><span style=color:#eceff4>, </span><span>G2</span><span style=color:#eceff4>, </span><span>pairing</span><span style=color:#eceff4>, </span><span>add</span><span style=color:#eceff4>, </span><span>multiply</span><span style=color:#eceff4>, </span><span>eq
+</span><span>
+</span><span style=color:#88c0d0;font-style:italic>print</span><span>(G1)
+</span><span style=color:#616e88># (1, 2)
+</span><span style=color:#88c0d0;font-style:italic>print</span><span>(G2)
+</span><span style=color:#616e88># ((10857046999023057135944570762232829481370756359578518086990519993285655852781, 11559732032986387107991004021392285783925812861821192530917403151452391805634), (8495653923123431417604973247489272438418190587263600148770280649306958101930, 4082367875863433681332203403145435568316851327593401208105741076214120093531))
+</span><span>
+</span><span style=color:#616e88># operator overloading
+</span><span style=color:#88c0d0;font-style:italic>print</span><span>(G1 </span><span style=color:#81a1c1>+ </span><span>G1 </span><span style=color:#81a1c1>+ </span><span>G1 </span><span style=color:#81a1c1>== </span><span>G1</span><span style=color:#81a1c1>*</span><span style=color:#b48ead>3</span><span>)
+</span><span style=color:#616e88># True
+</span><span style=color:#616e88># The above is the same as this:
+</span><span style=color:#88c0d0>eq</span><span>(</span><span style=color:#88c0d0>add</span><span>(</span><span style=color:#88c0d0>add</span><span>(G1</span><span style=color:#eceff4>, </span><span>G1)</span><span style=color:#eceff4>, </span><span>G1)</span><span style=color:#eceff4>, </span><span style=color:#88c0d0>multiply</span><span>(G1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>3</span><span>))
+</span><span>
+</span><span style=color:#616e88># pairing
+</span><span>A </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>multiply</span><span>(G2</span><span style=color:#eceff4>, </span><span style=color:#b48ead>5</span><span>)
+</span><span>B </span><span style=color:#81a1c1>= </span><span style=color:#88c0d0>multiply</span><span>(G1</span><span style=color:#eceff4>, </span><span style=color:#b48ead>6</span><span>)
+</span><span style=color:#88c0d0;font-style:italic>print</span><span>(</span><span style=color:#88c0d0>pairing</span><span>(A</span><span style=color:#eceff4>, </span><span>B))
+</span><span style=color:#616e88># (2737733771970589720147436295258995541017562764748775046990018238171083065584, 7355949162177082646197064865377481127039528955264110892670278171102027012957, 1389120597320745437757553030085914762401499323567753964656133081964131780715, 4070774491543958907062047566637569178763974576144707726129772744684275725184, 10823414137019623021013733227099721415368303324105358213304652659949682568395, 12697986880222911287030392175914090722292212037466224705879408804162602333706, 17697943997237703208660786428217562403504798830995307420075922564993565300645, 2702065915136914071855531840006964465333491722231468583849464437921405019853, 6762652910450025398171695126080749677225757293012137750262928324249233167133, 9495821522287762858490254871883860235240788822777455638443279749602676973720, 17813117134675140440034537765301248350834713246854720915775731738875700896539, 21027635025043266481235488683404016989778194881701554135606154029160033599034)
+</span><span>
+</span><span style=color:#88c0d0>pairing</span><span>(A</span><span style=color:#eceff4>, </span><span>B) </span><span style=color:#81a1c1>== </span><span style=color:#88c0d0>pairing</span><span>(C</span><span style=color:#eceff4>, </span><span>G1)
+</span></code></pre><h3 id=bilinear-pairings-in-ethereum>Bilinear Pairings in Ethereum</h3><p>The <a href=https://github.com/ethereum/py_ecc>py_ecc library</a> is actually maintained by the <a href=https://ethereum.org/>Ethereum Foundation</a>, and it is what powers the precompile at address 0x8 in the <a href=https://github.com/ethereum/py-evm>PyEVM</a> implementation.<p>The specification of this precompile will seem a little weird at first. It takes in a list of G1 and G2 points laid out as follows:<p>$$ A_1B_1A_2B_2…A_nB_n : A_i \in G1, B_i \in G2 $$<p>These were originally created as<p>$$ A_1 = a_1G1\newline B_1 = b_1G2\newline A_2 = a_2G1\newline B_2 = b_2G2\newline …\newline A_n = a_nG1\newline B_n = b_nG2 $$<p>The precompile returns 1 if the following is true<p>$$ a_1b_1 + a_2b_2 + … + a_nb_n = 0 $$<p>and zero otherwise.<p>It’s used by <a href=https://www.rareskills.io/post/how-does-tornado-cash-work>tornado cash</a> ,with verification formula:<p>$$ e\left(A_1, B_2\right) = e\left(\alpha_1, \beta_2\right) + e\left(L_1, \gamma_2\right) + e\left(C_1, \delta_2\right) $$<h3 id=sum-of-preimages>Sum of preimages</h3><p>The key insight here is that if<p>$$ ab + cd = 0 $$<p>Then it must also be true that<p>$$ A_1B_2 + C_1D_2 = 0_{12} \space\space\space\space\space A_1,C_1 \in G1, B_2,D_2 \in G2 $$<h3 id=end-to-end-solidity-example>End to End Solidity Example</h3><pre class=language-solidity data-lang=solidity style=color:#d8dee9;background-color:#2e3440><code class=language-solidity data-lang=solidity><span style=color:#616e88>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^</span><span style=color:#b48ead>0.8.13</span><span>;
+</span><span>contract </span><span style=color:#88c0d0>Pairings </span><span>{
+</span><span>    </span><span style=color:#616e88>/** 
+</span><span style=color:#616e88>     *  returns true if == 0,
+</span><span style=color:#616e88>     *  returns false if != 0,
+</span><span style=color:#616e88>     *  reverts with "Wrong pairing" if invalid pairing
+</span><span style=color:#616e88>     */
+</span><span>     function </span><span style=color:#88c0d0>run</span><span>(</span><span style=color:#81a1c1>uint256</span><span>[</span><span style=color:#b48ead>12</span><span>] </span><span style=color:#81a1c1>memory </span><span>input) </span><span style=color:#81a1c1>public view </span><span>returns (</span><span style=color:#81a1c1>bool</span><span>) {
+</span><span>        assembly {
+</span><span>            let success := </span><span style=color:#88c0d0>staticcall</span><span>(</span><span style=color:#88c0d0>gas</span><span>(), </span><span style=color:#b48ead>0x08</span><span>, input, </span><span style=color:#b48ead>0x0180</span><span>, input, </span><span style=color:#b48ead>0x20</span><span>)
+</span><span>            if success {
+</span><span>                </span><span style=color:#88c0d0>return</span><span>(input, </span><span style=color:#b48ead>0x20</span><span>)
+</span><span>            }
+</span><span>        }
+</span><span>        revert("Wrong pairing");
+</span><span>    }
+</span><span>}
+</span></code></pre><pre class=language-solidity data-lang=solidity style=color:#d8dee9;background-color:#2e3440><code class=language-solidity data-lang=solidity><span style=color:#616e88>// SPDX-License-Identifier: MIT
+</span><span>pragma solidity ^</span><span style=color:#b48ead>0.8.13</span><span>;
+</span><span>import "forge-std/Test.sol";
+</span><span>import "../src/Pairings.sol";
+</span><span>
+</span><span>contract </span><span style=color:#88c0d0>PairingsTest </span><span>is </span><span style=color:#88c0d0>Test </span><span>{
+</span><span>    Pairings </span><span style=color:#81a1c1>public </span><span>pairings;
+</span><span>
+</span><span>    function </span><span style=color:#88c0d0>setUp</span><span>() </span><span style=color:#81a1c1>public </span><span>{
+</span><span>        pairings </span><span style=color:#81a1c1>= </span><span>new </span><span style=color:#88c0d0>Pairings</span><span>();
+</span><span>    }
+</span><span>
+</span><span>    function </span><span style=color:#88c0d0>testPairings</span><span>() </span><span style=color:#81a1c1>public view </span><span>{
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> aG1_x </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>3010198690406615200373504922352659861758983907867017329644089018310584441462</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> aG1_y </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>17861058253836152797273815394432013122766662423622084931972383889279925210507</span><span>;
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> bG2_x1 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>2725019753478801796453339367788033689375851816420509565303521482350756874229</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> bG2_x2 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>7273165102799931111715871471550377909735733521218303035754523677688038059653</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> bG2_y1 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>2512659008974376214222774206987427162027254181373325676825515531566330959255</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> bG2_y2 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>957874124722006818841961785324909313781880061366718538693995380805373202866</span><span>;
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> cG1_x </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>4503322228978077916651710446042370109107355802721800704639343137502100212473</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> cG1_y </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>6132642251294427119375180147349983541569387941788025780665104001559216576968</span><span>;
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> dG2_x1 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>18029695676650738226693292988307914797657423701064905010927197838374790804409</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> dG2_x2 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>14583779054894525174450323658765874724019480979794335525732096752006891875705</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> dG2_y1 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>2140229616977736810657479771656733941598412651537078903776637920509952744750</span><span>;
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span> dG2_y2 </span><span style=color:#81a1c1>= </span><span style=color:#b48ead>11474861747383700316476719153975578001603231366361248090558603872215261634898</span><span>;
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>uint256</span><span>[</span><span style=color:#b48ead>12</span><span>] </span><span style=color:#81a1c1>memory</span><span> points </span><span style=color:#81a1c1>= </span><span>[
+</span><span>            aG1_x,
+</span><span>            aG1_y,
+</span><span>            bG2_x2,
+</span><span>            bG2_x1,
+</span><span>            bG2_y2,
+</span><span>            bG2_y1,
+</span><span>            cG1_x,
+</span><span>            cG1_y,
+</span><span>            dG2_x2,
+</span><span>            dG2_x1,
+</span><span>            dG2_y2,
+</span><span>            dG2_y1
+</span><span>        ];
+</span><span>
+</span><span>        </span><span style=color:#81a1c1>bool</span><span> x </span><span style=color:#81a1c1>=</span><span> pairings.</span><span style=color:#88c0d0>run</span><span>(points);
+</span><span>        console2.</span><span style=color:#88c0d0>log</span><span>("result:", x);
+</span><span>    }
+</span><span>}
+</span></code></pre><p>Its important to note that the ecPairing precompile does not expect or require an array and that our choice of using one with inline-assembly is simply optional.</div></div></section>
