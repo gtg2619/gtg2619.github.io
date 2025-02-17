@@ -4,7 +4,7 @@ date: 2024-03-19T20:16:19+08:00
 description: Something about me.
 ---
 
-I'm Zihao Wang, an undergraduate students of the [Hangzhou Dianzi University](https://en.hdu.edu.cn)(2022 -). Sometimes playing CTFs with [0RAYS](https://0rays.club). 
+I'm Zihao Wang, an undergraduate students of the [Hangzhou Dianzi University](https://en.hdu.edu.cn)(2022 -). Sometimes playing CTFs with [0RAYS](https://0rays.club) or [Nu1L](https://www.nu1l.com/). And [here](/blog/i/sawards/)'s some selected awards with other teams.
 
 Here I mainly record some notes related to blockchain security and cryptography. Maybe I will write some personal thoughts in the future.:thinking:
 
